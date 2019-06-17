@@ -4,7 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+<<<<<<< HEAD
     "build": "ng build --watch=true",
+=======
+    "build": "ng build",
+    "build-dev": "ng build --watch=true",
+>>>>>>> 5165307c37ff83c7719922adf4b5403d6ed2c3fa
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
