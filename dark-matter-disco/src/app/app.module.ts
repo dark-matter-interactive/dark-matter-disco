@@ -4,13 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AudioComponent } from './audio/audio.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     AudioComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
