@@ -38,21 +38,35 @@ export class DancerComponent implements AfterViewInit {
   leftAnkle: posePoint = { position: { x: 0, y: 0 }, score: 1 };
   rightAnkle: posePoint = { position: { x: 0, y: 0 }, score: 1 };
 
+  // Inputs
   @Input() poseStream: any;
+  @Input() distortion: any;
+
+  // Canvas for animation
   @ViewChild('canvas', {static: false}) canvasRef: any;
 
   ngAfterViewInit() {
     const canvas = this.canvasRef.nativeElement;
     const ctx = canvas.getContext('2d');
+   
 
     // Subscribe to pose data stream
     this.poseStream.subscribe((poses) => {
       //assign pose data to respective points
       if (poses[0]) {
-        const pose = poses[0].keypoints;
+        let pose = poses[0].keypoints;
+
+        // add distortion
+        // if (this.distortion) {
+        //   pose = JSON.parse(JSON.stringify(pose));
+        //   for (let i = 0; i < pose.length; i++) {
+        //     pose[i].position.x += this.distortion.shiftX;
+        //     pose[i].position.y += this.distortion.shiftY;
+        //   }
+        // } 
+
 
         // TO DO add confidence test before resassign
-        
         [this.nose, 
           this.leftEye, this.rightEye, 
           this.leftEar, this.rightEar, 
@@ -63,6 +77,9 @@ export class DancerComponent implements AfterViewInit {
           this.leftKnee, this.rightKnee,
           this.leftAnkle, this.rightAnkle,
         ] = pose;
+
+        
+
       }
     });
 
@@ -70,11 +87,12 @@ export class DancerComponent implements AfterViewInit {
 
     // render
     const step = (time) => {
+      console.log("nose:", this.nose.position.x);
+
 
       ctx.save();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
      
-      
       // Head
       ctx.beginPath()
       let eyeWidth: number = this.rightEye.position.x - this.leftEye.position.x; 
