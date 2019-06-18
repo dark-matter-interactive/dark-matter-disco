@@ -28,3 +28,6 @@ const Friends = sequelize.define('Friends', {
   friendId: Sequelize.INTEGER,
   starsGiven: Sequelize.INTEGER
 });
+
+module.exports.User = User;
+module.exports.Friends = Friends;
