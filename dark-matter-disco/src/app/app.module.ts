@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AudioComponent } from './audio/audio.component';
 import { DanceFloorComponent } from './dance-floor/dance-floor.component';
+import { DancerComponent } from './dancer/dancer.component';
 
 
 
@@ -11,7 +12,8 @@ import { DanceFloorComponent } from './dance-floor/dance-floor.component';
   declarations: [
     AppComponent,
     AudioComponent,
-    DanceFloorComponent
+    DanceFloorComponent,
+    DancerComponent
   ],
   imports: [
     BrowserModule,
