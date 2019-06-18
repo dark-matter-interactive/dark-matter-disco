@@ -23,3 +23,8 @@ const User = sequelize.define('User', {
 });
 
 //define Friends model
+const Friends = sequelize.define('Friends', {
+  userId: Sequelize.INTEGER,
+  friendId: Sequelize.INTEGER,
+  starsGiven: Sequelize.INTEGER
+});
