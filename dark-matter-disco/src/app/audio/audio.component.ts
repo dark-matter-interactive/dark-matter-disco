@@ -28,8 +28,8 @@ export class AudioComponent implements OnInit {
       console.log(response.items[0].id.videoId);
       this.videoID = response.items[0].id.videoId;
     });
-    this.vid = "https://www.youtube.com/embed/" + this.videoID;
-    console.log(this.vid);
+    this.html = "https://www.youtube.com/embed/" + this.videoID;
+    console.log(this.html);
   }
 
   loadPlayer() {
