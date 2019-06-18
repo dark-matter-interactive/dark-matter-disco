@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AudioComponent } from './audio/audio.component';
+import { DanceFloorComponent } from './dance-floor/dance-floor.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AudioComponent
+    AudioComponent,
+    DanceFloorComponent
   ],
   imports: [
     BrowserModule,
