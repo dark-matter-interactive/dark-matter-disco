@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { ConfigService } from '../config.service';
 
@@ -12,19 +13,27 @@ export class AudioComponent implements OnInit {
 
   val: string = '';
   videoID: string = '';
-  URL: string = '';
+  vid: string = 'https://www.youtube.com/embed/';
+  html;
 
-  constructor(private http: HttpClient, private configService: ConfigService) { }
+  constructor(private http: HttpClient, private configService: ConfigService, private sanitizer: DomSanitizer) { }
   // https://www.googleapis.com/youtube/v3
   ngOnInit() {
-    // let obs = this.http.get(`https://www.googleapis.com/youtube/v3/search/?key=AIzaSyANj9wF3ST1WPdhrXeQi64o8ApBZa5Ecek&q=${val}&part=snippet&type=video`);
-    // obs.subscribe((response) => console.log(response));
+    // this.loadAudio();
+    // this.loadPlayer();
   }
 
   loadAudio() {
-    this.configService.searchAudio(this.val).subscribe(data => this.videoID = data.items[0].id.videoId);
-    this.URL = "https://www.youtube.com/embed/" + this.videoID;
-    console.log(this.URL);
+    this.configService.searchAudio(this.val).subscribe(response => {
+      console.log(response.items[0].id.videoId);
+      this.videoID = response.items[0].id.videoId;
+    });
+    this.vid = "https://www.youtube.com/embed/" + this.videoID;
+    console.log(this.vid);
+  }
+
+  loadPlayer() {
+    return this.html = this.sanitizer.bypassSecurityTrustResourceUrl(this.vid);
   }
 
 }
