@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { load } from '@tensorflow-models/posenet';
-import { from, Observable } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
+
 /**
  * This component is responsible for managing dancer states (i.e pose data)
  * coming either directly from PoseNet data or for other user via web sockets
@@ -16,7 +17,8 @@ export class DanceFloorComponent implements AfterViewInit {
 
   constructor() {}
 
-  userPose: any;
+  // this is the users pose data as an observable
+  userPoseStream: any = new Subject();
   
   @ViewChild('webcamVideo', {static: false}) webcamVideo: any;
   
@@ -35,35 +37,34 @@ export class DanceFloorComponent implements AfterViewInit {
 
     const poseNetOptions: any = {
       flipHorizontal: true,
-      decodingMethod: 'single-person',
+      decodingMethod: 'multi-person',
     };
     
-    let poseStream: any;
+    // delay in milliseconds between calls to estimate pose from webcam
+    const delay = 80;
 
+    // webcam
     if (navigator.mediaDevices.getUserMedia) {
       const webcamStream = from(navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }));
       webcamStream.subscribe((stream) => { 
-          webcamVideo.nativeElement.srcObject = stream;
-          from(load(poseNetModel)).subscribe((net) => {
-              poseStream = Observable.create((observer) => {
-                // Yield a single value and complete
-                setInterval(() => {
-                  from(net.estimatePoses(webcamVideo.nativeElement, poseNetOptions))
-                  .subscribe((poses) => {
-                      observer.next(poses);
-                    });
-                }, 100);
-              });  
-
-              poseStream.subscribe((poses)=>{ 
-                this.userPose = poses[0];
-              })
-             
-          });
+        webcamVideo.nativeElement.srcObject = stream;
+        // load posnet
+        from(load(poseNetModel)).subscribe((net) => {
+          //Repeat calls to estimate pose and emit from poseStream
+          setInterval(() => {
+            from(net.estimatePoses(webcamVideo.nativeElement, poseNetOptions))
+            .subscribe((poses) => {
+                this.userPoseStream.next(poses);
+              });
+          }, delay);
+        });
       });  
     }
 
-
+    /**
+     * Web Socket 
+     * for friend pose data
+     */
   
   
   }
