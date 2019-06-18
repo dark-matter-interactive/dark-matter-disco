@@ -15,3 +15,11 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
+
+//define User model
+const User = sequelize.define('User', {
+  username: Sequelize.STRING,
+  starsTotal: Sequelize.INTEGER
+});
+
+//define Friends model
