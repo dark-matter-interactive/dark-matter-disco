@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { youtube_api_key } = require('../../config');
+const youtube_api_key = process.env.YOUTUBE_API_KEY || require('../../config').youtube_api_key;
 
 
 const youTubeSearch = (query) => {
