@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { load } from '@tensorflow-models/posenet';
 import { from, Observable, Subject } from 'rxjs';
+import io  from 'socket.io-client';
 
 /**
  * This component is responsible for managing dancer states (i.e pose data)
@@ -13,7 +14,7 @@ import { from, Observable, Subject } from 'rxjs';
   templateUrl: './dance-floor.component.html',
   styleUrls: ['./dance-floor.component.css']
 })
-export class DanceFloorComponent implements AfterViewInit {
+export class DanceFloorComponent implements AfterViewInit, OnInit {
 
   constructor() {}
 
@@ -71,12 +72,21 @@ export class DanceFloorComponent implements AfterViewInit {
       });  
     }
 
-    /**
-     * Web Socket 
-     * for friend pose data
-     */
+    
+  }
   
-  
+  /**
+   * Web Socket 
+   * for friend pose data
+   */
+  ngOnInit() {
+    const socket = io('ws://localhost:3000');
+    this.userPoseStream.subscribe((poses) => {
+      socket.emit('pose', poses);
+    })
+    socket.on('pose', (pose) => {
+      console.log(pose);
+    })
   }
 
 }

@@ -144,7 +144,7 @@ export class DancerComponent implements AfterViewInit {
 
       window.requestAnimationFrame(step);  
     }
-    window.requestAnimationFrame(step);
+    // window.requestAnimationFrame(step);
 
 
   }
