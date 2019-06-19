@@ -1,6 +1,9 @@
 <div>
-  <input type="text">
+  <form action="" (ngSubmit)="loadAudio(val)">
+    <input type="text" [(ngModel)]="val" name="query">
+    <input type="submit" value="submit" name="submit">
+  </form>
   <br>
-  <iframe src="https://www.youtube.com/embed/I_izvAbhExY" frameborder="0" width="250" height="200" ></iframe>
+  <iframe [src]=videoSrc frameborder="0" width="250" height="200" ></iframe>
 </div>
 
