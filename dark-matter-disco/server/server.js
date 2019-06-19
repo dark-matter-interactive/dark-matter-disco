@@ -5,7 +5,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 const port = process.env.PORT || 8080;
-require('../database-postgres/index.js');
+// require('../database-postgres/index.js');
 
 app.use((req, res, next) => {
     console.log(req.method, req.url);
@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, '../dist/dark-matter-disco')))
 io.on('connection', (socket) => {
     console.log('new connection');
     socket.on('pose', (pose) => {
-        console.log(pose, 'message received');
+        console.log('pose received');
         socket.broadcast.emit('pose', pose);
     })
 })
@@ -28,10 +28,10 @@ io.on('connection', (socket) => {
 //     console.log('running')
 // })
 
-app.listen(port, () => {
+http.listen(port, () => {
     console.log(`listening on ${port}`)
 });
 
-http.listen(3000, () => {
-    console.log(`web socket listening on 3000`)
-});
+// http.listen(8080, () => {
+//     console.log(`web socket listening on 3000`)
+// });
