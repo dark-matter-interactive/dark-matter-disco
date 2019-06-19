@@ -92,6 +92,8 @@ export class DancerComponent implements AfterViewInit {
 
       ctx.save();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = "white";
      
       // Head
       ctx.beginPath()

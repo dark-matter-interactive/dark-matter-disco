@@ -1,10 +1,12 @@
-<app-dancer [poseStream]=userPoseStream [distortion]=backup1 ></app-dancer>
-<app-dancer [poseStream]=userPoseStream [distortion]=null ></app-dancer>
 
-<!-- This is the video player attached to the webcam that PoseNet uses -->
-<div id="video-container">
-  <video autoplay="true" id="webcam" #webcamVideo width="500" height="500">
-  </video>
-</div>
+  <app-dancer [poseStream]=userPoseStream [distortion]=backup1 ></app-dancer>
+  <app-dancer [poseStream]=userPoseStream [distortion]=null ></app-dancer>
+  
+  <!-- This is the video player attached to the webcam that PoseNet uses -->
+  <div id="video-container">
+    <video autoplay="true" id="webcam" #webcamVideo width="800" height="800">
+    </video>
+  </div>
+
 
 
