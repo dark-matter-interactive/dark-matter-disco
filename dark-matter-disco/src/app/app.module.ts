@@ -6,6 +6,9 @@ import { AudioComponent } from './audio/audio.component';
 import { DanceFloorComponent } from './dance-floor/dance-floor.component';
 import { DancerComponent } from './dancer/dancer.component';
 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -17,6 +20,8 @@ import { DancerComponent } from './dancer/dancer.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

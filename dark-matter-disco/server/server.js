@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const { youTubeSearch } = require('./helpers/youtube-helpers.js');
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
@@ -27,6 +28,15 @@ io.on('connection', (socket) => {
 //     res.sendStatus(200);
 //     console.log('running')
 // })
+
+app.get('/search/youtube', (req, res, next) => {
+    console.log(req);
+    youTubeSearch(req.query.query).then((response) => {
+        console.log(response);
+        res.send(response);
+    }).catch(err => console.error(err))
+})
+
 
 http.listen(port, () => {
     console.log(`listening on ${port}`)
