@@ -20,7 +20,7 @@ export class DancerComponent implements AfterViewInit {
 
   constructor() { }
 
-  nose: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+  nose: posePoint = { position: { x: -200, y: -200 }, score: 1 };
   leftEye: posePoint = { position: { x: 0, y: 0 }, score: 1 };
   rightEye: posePoint = { position: { x: 0, y: 0 }, score: 1 };
   leftEar: posePoint = { position: { x: 0, y: 0 }, score: 1 };
@@ -89,7 +89,6 @@ export class DancerComponent implements AfterViewInit {
 
     // render
     const step = (time) => {
-      console.log("nose:", this.nose.position.x);
 
 
       ctx.save();
