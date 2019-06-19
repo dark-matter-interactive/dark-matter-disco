@@ -20,22 +20,33 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
 
   // this is the users pose data as an observable
   userPoseStream: any = new Subject();
+  friendPoseStream: any = new Subject();
   
+   // backup dancer
+   backup1: any = {
+    shiftX: 400,
+    shiftY: -80,
+    height: 0.8,
+    color: "blue"
+  };
+
+  //webcame html element ref
   @ViewChild('webcamVideo', {static: false}) webcamVideo: any;
   
   ngAfterViewInit() {
-    const webcamVideo = this.webcamVideo;
 
-   /** 
-    * Set up webcam stream and PoseNet
-    * */
+    /** 
+     * PoseNet
+     * poseNetModel: inputResolution - Can be one of 161, 193, 257, 289, 321, 353, 385, 417, 449, 481, 
+     * higher resolution has better accuracy at the cost of speed
+     * */
     const poseNetModel: any = {
       architecture: 'MobileNetV1',
       outputStride: 16,
-      inputResolution: 321,
+      inputResolution: 289,
       multiplier: 0.75
     };
-
+    
     const poseNetOptions: any = {
       flipHorizontal: true,
       decodingMethod: 'multi-person',
@@ -43,8 +54,9 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     
     // delay in milliseconds between calls to estimate pose from webcam
     const delay = 80;
-
+    
     // webcam
+    const webcamVideo = this.webcamVideo;
     if (navigator.mediaDevices.getUserMedia) {
       const webcamStream = from(navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }));
       webcamStream.subscribe((stream) => { 
@@ -75,7 +87,8 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
       socket.emit('pose', poses);
     })
     socket.on('pose', (pose) => {
-      console.log(pose);
+      this.friendPoseStream.next(pose);
+      // console.log(pose);
     })
   }
 
