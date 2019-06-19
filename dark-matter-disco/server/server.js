@@ -37,7 +37,7 @@ app.get('/search/youtube', (req, res, next) => {
     }).catch(err => console.error(err))
 })
 
-app.listen(8080);
+
 http.listen(port, () => {
     console.log(`listening on ${port}`)
 });
