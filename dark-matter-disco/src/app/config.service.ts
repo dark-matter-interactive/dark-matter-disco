@@ -10,7 +10,9 @@ export class ConfigService {
 
   searchAudio(val: string) {
     console.log(val, 'Service');
-    return this.http.get(`https://www.googleapis.com/youtube/v3/search/?key=AIzaSyBhomfptlaxkQWAnmaUXHIn-D5TUXy_oOU&q=${val}&part=snippet&type=video`)
+    return this.http.get('/search/youtube', {
+      params: { query: val }
+    })
   }
 
 }
