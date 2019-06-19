@@ -5,6 +5,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 const port = process.env.PORT || 8080;
+require('../database-postgres/index.js');
 
 app.use((req, res, next) => {
     console.log(req.method, req.url);
