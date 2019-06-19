@@ -82,7 +82,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
    * for friend pose data
    */
   ngOnInit() {
-    const socket = io('ws://localhost:3000');
+    const socket = io();
     this.userPoseStream.subscribe((poses) => {
       socket.emit('pose', poses);
     })
