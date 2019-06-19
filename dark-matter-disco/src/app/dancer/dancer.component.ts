@@ -48,6 +48,7 @@ export class DancerComponent implements AfterViewInit {
   ngAfterViewInit() {
     const canvas = this.canvasRef.nativeElement;
     const ctx = canvas.getContext('2d');
+    let dancerColor = "white";
    
 
     // Subscribe to pose data stream
@@ -57,13 +58,14 @@ export class DancerComponent implements AfterViewInit {
         let pose = poses[0].keypoints;
 
         // add distortion
-        // if (this.distortion) {
-        //   pose = JSON.parse(JSON.stringify(pose));
-        //   for (let i = 0; i < pose.length; i++) {
-        //     pose[i].position.x += this.distortion.shiftX;
-        //     pose[i].position.y += this.distortion.shiftY;
-        //   }
-        // } 
+        if (this.distortion) {
+          // pose = JSON.parse(JSON.stringify(pose));
+          for (let i = 0; i < pose.length; i++) {
+            pose[i].position.x += this.distortion.shiftX;
+            pose[i].position.y += this.distortion.shiftY;
+          }
+          dancerColor = this.distortion.color;
+        } 
 
 
         // TO DO add confidence test before resassign
@@ -93,7 +95,8 @@ export class DancerComponent implements AfterViewInit {
       ctx.save();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      ctx.strokeStyle = "white";
+      ctx.strokeStyle = dancerColor;
+      ctx.fillStyle = dancerColor;
      
       // Head
       ctx.beginPath()
@@ -144,7 +147,7 @@ export class DancerComponent implements AfterViewInit {
 
       window.requestAnimationFrame(step);  
     }
-    // window.requestAnimationFrame(step);
+    window.requestAnimationFrame(step);
 
 
   }

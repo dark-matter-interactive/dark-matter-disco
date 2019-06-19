@@ -20,12 +20,14 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
 
   // this is the users pose data as an observable
   userPoseStream: any = new Subject();
+  friendPoseStream: any = new Subject();
   
    // backup dancer
    backup1: any = {
     shiftX: 400,
     shiftY: -80,
-    height: 0.8
+    height: 0.8,
+    color: "blue"
   };
 
   //webcame html element ref
@@ -85,7 +87,8 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
       socket.emit('pose', poses);
     })
     socket.on('pose', (pose) => {
-      console.log(pose);
+      this.friendPoseStream.next(pose);
+      // console.log(pose);
     })
   }
 
