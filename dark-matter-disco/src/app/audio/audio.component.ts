@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { ConfigService } from '../config.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-audio',
@@ -14,26 +14,25 @@ export class AudioComponent implements OnInit {
   val: string = '';
   videoID: string = '';
   vid: string = 'https://www.youtube.com/embed/';
-  html;
-
-  constructor(private http: HttpClient, private configService: ConfigService, private sanitizer: DomSanitizer) { }
-  // https://www.googleapis.com/youtube/v3
+  videoSrc: any
+  private audioSubscription: Subscription;
+  constructor(private configService: ConfigService, private sanitizer: DomSanitizer) { }
+  
   ngOnInit() {
-    // this.loadAudio();
-    // this.loadPlayer();
+    this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.vid + this.videoID);
   }
 
+  // function to search youtube then set videoSrc to embed video and render on screen
   loadAudio() {
-    this.configService.searchAudio(this.val).subscribe(response => {
-      console.log(response.items[0].id.videoId);
+    this.audioSubscription = this.configService.searchAudio(this.val).subscribe((response: any) => {
+      console.log(response, response.items[0].id.videoId);
       this.videoID = response.items[0].id.videoId;
+      this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.vid + this.videoID);
+    }, () => {}, () => {
+      console.log('subscription complete');
     });
-    this.html = "https://www.youtube.com/embed/" + this.videoID;
-    console.log(this.html);
+    console.log(this.videoSrc);
   }
 
-  loadPlayer() {
-    return this.html = this.sanitizer.bypassSecurityTrustResourceUrl(this.vid);
-  }
-
+  
 }
