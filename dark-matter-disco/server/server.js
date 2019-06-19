@@ -16,13 +16,29 @@ app.use((req, res, next) => {
 //serve static assets
 app.use(express.static(path.join(__dirname, '../dist/dark-matter-disco')))
 
+//hash for usernames to socket ids
+const socketIds = {};
+
+
 io.on('connection', (socket) => {
     console.log('new connection');
-    socket.on('pose', (pose) => {
+    socket.on('user', (username) => {
+        socketIds[username] = socket.id;
+        console.log(socketIds);
+    })
+    socket.on('pose', (pose, friendUsername) => {
         console.log('pose received');
-        socket.broadcast.emit('pose', pose);
+        if(friendUsername) {
+            socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
+        }
+    })
+    socket.on('test', (id, msg) => {
+        console.log(socket.id, id)
+        socket.broadcast.to(id).emit('test', msg);
     })
 })
+
+
 
 // app.get('/', (req, res) => {
 //     res.sendStatus(200);

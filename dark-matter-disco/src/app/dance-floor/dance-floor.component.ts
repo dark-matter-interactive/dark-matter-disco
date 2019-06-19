@@ -21,7 +21,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   // this is the users pose data as an observable
   userPoseStream: any = new Subject();
   friendPoseStream: any = new Subject();
-  
+  friendUsername: string = null;
    // backup dancer
    backup1: any = {
     shiftX: 400,
@@ -83,8 +83,17 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
    */
   ngOnInit() {
     const socket = io();
+    console.log(socket);
+    const usernames = ['Rayman', 'Jesse', 'Smiley', 'Erica'];
+    const username = usernames[Math.floor(Math.random() * usernames.length)];
+    //make socket event listener for usernames
+    socket.emit('user', username);
+    socket.on('test', (id) => {
+      console.log(id);
+    })
     this.userPoseStream.subscribe((poses) => {
-      socket.emit('pose', poses);
+      socket.emit('pose', poses, this.friendUsername);
+      socket.emit('test', socket.id, 'message for test');
     })
     socket.on('pose', (pose) => {
       this.friendPoseStream.next(pose);
