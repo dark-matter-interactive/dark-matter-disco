@@ -15,8 +15,6 @@ const storeOrFindUser = (username) => {
   })
 };
 
-storeOrFindUser('James');
-storeOrFindUser('Jesse');
 
 
 //get user by id
@@ -36,7 +34,6 @@ const storeFriendRequest = (userId, friendId) => {
   });
 }
 
-storeFriendRequest(1, 2);
 
 
 const acceptFriendRequest = (userId, friendId) => {
@@ -44,7 +41,6 @@ const acceptFriendRequest = (userId, friendId) => {
   Friends.update({status: 1}, { where: { userId, friendId }  })
 }
 
-acceptFriendRequest(1, 2);
 
 
 module.exports.storeFriendRequest = storeFriendRequest;

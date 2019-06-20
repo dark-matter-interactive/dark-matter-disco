@@ -5,7 +5,7 @@ const { youTubeSearch } = require('./helpers/youtube-helpers.js');
 const { storeOrFindUser, storeFriendRequest } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-require('../database-postgres/helpers.js');
+// require('../database-postgres/helpers.js');
 
 
 const port = process.env.PORT || 8080;
@@ -51,8 +51,12 @@ io.on('connection', (socket) => {
 
 
 //setup post request for user login
+app.post('/login', (req, res) => {
     //call helper to save user in db
+    storeOrFindUser('Kalkidan');
     //send 201 status code
+    res.send(201);
+})
 
 // app.get('/', (req, res) => {
 //     res.sendStatus(200);
