@@ -58,6 +58,13 @@ app.post('/login', (req, res) => {
     res.send(201);
 })
 
+//setup post request for friend invitations
+app.post('/invite', (req, res) => {
+    //call helper to save pending requests
+    storeFriendRequest(1, 3);
+    //send 201 status code
+    res.send(201);
+})
 // app.get('/', (req, res) => {
 //     res.sendStatus(200);
 //     console.log('running')
