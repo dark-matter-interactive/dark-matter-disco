@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-const { storeUser } = require('../database-postgres/helpers.js');
+const { storeOrFindUser } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
             starsTotal: 0,
             status: 0
         }
-        storeUser(user);
+        storeOrFindUser(user);
         console.log(socketIds);
     })
     socket.on('pose', (pose, friendUsername) => {

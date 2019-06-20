@@ -1,7 +1,7 @@
 //require models
 const { User, Friends } = require('./index.js');
 
-const storeUser = (user) => {
+const storeOrFindUser = (user) => {
   User.findOrCreate({ 
     where: { username: user.username }, 
     defaults: {
@@ -10,9 +10,12 @@ const storeUser = (user) => {
       status: user.status
     }     
   }).then((success) => {
-    console.log(success, 'stored');
+    console.log(success[0].id, 'stored');
+    return success[0].id
   })
 };
+
+//get user by id
 
 
 const storeFriendRequest = (friend) => {
@@ -40,4 +43,4 @@ const acceptFriendRequest = () => {
 
 module.exports.storeFriendRequest = storeFriendRequest;
 module.exports.acceptFriendRequest = acceptFriendRequest;
-module.exports.storeUser = storeUser;
+module.exports.storeOrFindUser = storeOrFindUser;
