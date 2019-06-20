@@ -2,9 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-const { storeOrFindUser } = require('../database-postgres/helpers.js');
+const { storeOrFindUser, storeFriendRequest } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+require('../database-postgres/helpers.js');
 
 
 const port = process.env.PORT || 8080;
@@ -28,15 +29,17 @@ io.on('connection', (socket) => {
         socketIds[username] = socket.id;
         
         //store user in database
-        storeOrFindUser(username);
+        // storeOrFindUser(username);
         console.log(socketIds);
     })
     socket.on('pose', (pose, friendUsername) => {
         if(friendUsername) {
             const friend = {
-                userId: storeOrFindUser(friendUsername)
+                userId: storeOrFindUser(friendUsername),
+                friendId: socketIds[friendUsername],
             }
             console.log(friend, 'friend');
+            // storeFriendRequest(friend);
             socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
         }
     })
@@ -45,6 +48,7 @@ io.on('connection', (socket) => {
         io.emit('changeSong', videoID)
     })
 })
+
 
 
 

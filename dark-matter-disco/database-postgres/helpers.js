@@ -2,7 +2,7 @@
 const { User, Friends } = require('./index.js');
 
 const storeOrFindUser = (username) => {
-  User.findOrCreate({ 
+  return User.findOrCreate({ 
     where: { username }, 
     defaults: {
       username,
@@ -15,22 +15,29 @@ const storeOrFindUser = (username) => {
   })
 };
 
+storeOrFindUser('James');
+storeOrFindUser('Jesse');
+
+
 //get user by id
 
 
-const storeFriendRequest = (friend) => {
+const storeFriendRequest = (userId, friendId) => {
   //store all friend requests in database
   Friends.findOrCreate({ 
+    where: { userId, friendId },
     defaults: {
       userId,
       friendId,
-      starsGiven,
-      status
+      status: 0
     }
   }).then((success) => {
     console.log('success');
   });
 }
+
+storeFriendRequest(1, 2);
+
 
 const acceptFriendRequest = () => {
   //update status on accepted friend request
