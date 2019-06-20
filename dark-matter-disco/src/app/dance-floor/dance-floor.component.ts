@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { load } from '@tensorflow-models/posenet';
 import { from, Observable, Subject } from 'rxjs';
-import io  from 'socket.io-client';
+import io from 'socket.io-client';
+import { LiveSocketService } from "../live-socket.service";
 
 /**
  * This component is responsible for managing dancer states (i.e pose data)
@@ -16,7 +17,7 @@ import io  from 'socket.io-client';
 })
 export class DanceFloorComponent implements AfterViewInit, OnInit {
 
-  constructor() {}
+  constructor(private liveSocketService: LiveSocketService) {}
 
   // this is the users pose data as an observable
   userPoseStream: any = new Subject();
@@ -82,20 +83,25 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
    * for friend pose data
    */
   ngOnInit() {
-    const socket = io();
-    console.log(socket);
-    const usernames = ['Rayman', 'Jesse', 'Smiley', 'Erica'];
+
+    // this.liveSocketService.test();
+    const socketService = this.liveSocketService;
+
+    // const socket = io();
+    console.log(socketService);
+    const usernames = ['Rayman', 'Jesse', 'Smiley', 'Erica', 'Kyle', 'Khari', 'Tyler', 'Kalkidan', 'Trev Dog'];
     const username = usernames[Math.floor(Math.random() * usernames.length)];
+    this.friendUsername = usernames[Math.floor(Math.random() * usernames.length)];
     //make socket event listener for usernames
-    socket.emit('user', username);
-    socket.on('test', (id) => {
+    socketService.emit('user', username);
+    socketService.on('test', (id: any) => {
       console.log(id);
     })
     this.userPoseStream.subscribe((poses) => {
-      socket.emit('pose', poses, this.friendUsername);
-      socket.emit('test', socket.id, 'message for test');
+      socketService.emit('pose', poses, this.friendUsername);
+      socketService.emit('test', socketService.getId(), 'message for test');
     })
-    socket.on('pose', (pose) => {
+    socketService.on('pose', (pose) => {
       this.friendPoseStream.next(pose);
       // console.log(pose);
     })
