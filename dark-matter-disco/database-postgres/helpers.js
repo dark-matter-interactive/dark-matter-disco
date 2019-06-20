@@ -1,7 +1,7 @@
 //require models
 const { User, Friends } = require('./index.js');
 
-const acceptFriendRequest = (friend) => {
+const storeFriendRequest = (friend) => {
   Friends.findOrCreate({ 
     defaults: {
       userId,
@@ -12,4 +12,7 @@ const acceptFriendRequest = (friend) => {
   });
 }
 
-module.exports.acceptFriendRequest = acceptFriendRequest;
+
+
+
+module.exports.acceptFriendRequest = storeFriendRequest;
