@@ -12,6 +12,12 @@ export class LiveSocketService {
 
   socket: any = io();
 
+  /**
+   * Simply calls socket.emit with a custom event and any number of arguments 
+   * as data to pass
+   * @param event (string) event name
+   * @param data any number of arguments of data to send
+   */
   emit(event: string, ...data: any ) {
     this.socket.emit(event, ...data);
   }

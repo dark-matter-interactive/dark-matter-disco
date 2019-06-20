@@ -10,6 +10,7 @@ body {
   color: rgb(197, 236, 197);
 }
 
-#title {
-  position:absolute;
+#header {
+  display: flex;
+  justify-content: space-between;
 }

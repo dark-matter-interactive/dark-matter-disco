@@ -27,14 +27,9 @@ io.on('connection', (socket) => {
         console.log(socketIds);
     })
     socket.on('pose', (pose, friendUsername) => {
-        // console.log('pose received');
         if(friendUsername) {
             socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
         }
-    })
-    socket.on('test', (id, msg) => {
-        console.log(socket.id, id)
-        socket.broadcast.to(id).emit('test', msg);
     })
     socket.on('changeSong', (videoID) => {
         console.log(videoID, 'Server');
