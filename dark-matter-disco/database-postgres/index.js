@@ -25,8 +25,8 @@ const User = sequelize.define('User', {
 
 //define Friends model
 const Friends = sequelize.define('Friends', {
-  userId: Sequelize.INTEGER,
-  friendId: Sequelize.INTEGER,
+  userId: Sequelize.STRING,
+  friendId: Sequelize.STRING,
   starsGiven: Sequelize.INTEGER,
   status: Sequelize.INTEGER
 });
