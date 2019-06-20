@@ -50,7 +50,9 @@ io.on('connection', (socket) => {
 })
 
 
-
+//setup post request for user login
+    //call helper to save user in db
+    //send 201 status code
 
 // app.get('/', (req, res) => {
 //     res.sendStatus(200);
