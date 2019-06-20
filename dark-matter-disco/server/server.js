@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+const { storeUser } = require('../database-postgres/helpers.js');
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 
 const port = process.env.PORT || 8080;
 // require('../database-postgres/index.js');
@@ -24,6 +26,12 @@ io.on('connection', (socket) => {
     console.log('new connection');
     socket.on('user', (username) => {
         socketIds[username] = socket.id;
+        const user = {
+            username,
+            starsTotal: 0,
+            status: 0
+        }
+        storeUser(user);
         console.log(socketIds);
     })
     socket.on('pose', (pose, friendUsername) => {

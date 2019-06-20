@@ -16,8 +16,11 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
+sequelize.sync({
+  force: true, // Drops info in database for testing
+})
 //define User model
-const User = sequelize.define('User', {
+const User = sequelize.define('Users', {
   username: Sequelize.STRING,
   starsTotal: Sequelize.INTEGER,
   status: Sequelize.INTEGER
