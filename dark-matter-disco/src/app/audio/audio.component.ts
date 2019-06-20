@@ -16,7 +16,7 @@ export class AudioComponent implements OnInit {
   val: string = '';
   videoID: string = '';
   vid: string = 'https://www.youtube.com/embed/';
-  autoplay: string = '?rel=0;&autoplay=1';
+  autoplay: string = '?rel=0;&autoplay=1&controls=0';
   videoSrc: any
   private audioSubscription: Subscription;
   constructor(private configService: ConfigService, private sanitizer: DomSanitizer, private liveSocketService: LiveSocketService) { }
