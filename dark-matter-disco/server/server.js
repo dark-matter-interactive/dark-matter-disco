@@ -26,16 +26,17 @@ io.on('connection', (socket) => {
     console.log('new connection');
     socket.on('user', (username) => {
         socketIds[username] = socket.id;
-        const user = {
-            username,
-            starsTotal: 0,
-            status: 0
-        }
-        storeOrFindUser(user);
+        
+        //store user in database
+        storeOrFindUser(username);
         console.log(socketIds);
     })
     socket.on('pose', (pose, friendUsername) => {
         if(friendUsername) {
+            const friend = {
+                userId: storeOrFindUser(friendUsername)
+            }
+            console.log(friend, 'friend');
             socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
         }
     })

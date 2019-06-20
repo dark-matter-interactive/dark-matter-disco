@@ -1,13 +1,13 @@
 //require models
 const { User, Friends } = require('./index.js');
 
-const storeOrFindUser = (user) => {
+const storeOrFindUser = (username) => {
   User.findOrCreate({ 
-    where: { username: user.username }, 
+    where: { username }, 
     defaults: {
-      username: user.username,
-      starsTotal: user.starsTotal,
-      status: user.status
+      username,
+      starsTotal: 0,
+      status: 0,
     }     
   }).then((success) => {
     console.log(success[0].id, 'stored');
@@ -27,12 +27,14 @@ const storeFriendRequest = (friend) => {
       starsGiven,
       status
     }
+  }).then((success) => {
+    console.log('success');
   });
 }
 
 const acceptFriendRequest = () => {
   //update status on accepted friend request
-  Friends.find({ where: { status: 0 } })
+  Friends.find({ where: { userId } })
     .on('success', (statusToUpdate) => {
       statusToUpdate.update({
         status: 1,
