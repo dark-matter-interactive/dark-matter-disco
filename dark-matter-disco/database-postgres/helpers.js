@@ -39,15 +39,12 @@ const storeFriendRequest = (userId, friendId) => {
 storeFriendRequest(1, 2);
 
 
-const acceptFriendRequest = () => {
+const acceptFriendRequest = (userId, friendId) => {
   //update status on accepted friend request
-  Friends.find({ where: { userId } })
-    .on('success', (statusToUpdate) => {
-      statusToUpdate.update({
-        status: 1,
-      });
-    });
+  Friends.update({status: 1}, { where: { userId, friendId }  })
 }
+
+acceptFriendRequest(1, 2);
 
 
 module.exports.storeFriendRequest = storeFriendRequest;
