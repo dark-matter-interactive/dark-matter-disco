@@ -19,14 +19,16 @@ sequelize
 //define User model
 const User = sequelize.define('User', {
   username: Sequelize.STRING,
-  starsTotal: Sequelize.INTEGER
+  starsTotal: Sequelize.INTEGER,
+  status: Sequelize.INTEGER
 });
 
 //define Friends model
 const Friends = sequelize.define('Friends', {
   userId: Sequelize.INTEGER,
   friendId: Sequelize.INTEGER,
-  starsGiven: Sequelize.INTEGER
+  starsGiven: Sequelize.INTEGER,
+  status: Sequelize.INTEGER
 });
 
 module.exports.User = User;
