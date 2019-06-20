@@ -16,6 +16,7 @@ interface posePoint {
   templateUrl: './dancer.component.html',
   styleUrls: ['./dancer.component.css']
 })
+
 export class DancerComponent implements AfterViewInit {
 
   constructor() { }
@@ -52,6 +53,7 @@ export class DancerComponent implements AfterViewInit {
    
 
     // Subscribe to pose data stream
+    const tolerance = 0.01;
     this.poseStream.subscribe((poses) => {
       //assign pose data to respective points
       if (poses[0]) {
@@ -67,8 +69,8 @@ export class DancerComponent implements AfterViewInit {
           dancerColor = this.distortion.color;
         } 
 
-
         // TO DO add confidence test before resassign
+
         [this.nose, 
           this.leftEye, this.rightEye, 
           this.leftEar, this.rightEar, 
@@ -79,17 +81,32 @@ export class DancerComponent implements AfterViewInit {
           this.leftKnee, this.rightKnee,
           this.leftAnkle, this.rightAnkle,
         ] = pose;
+        // if (pose[0].score > tolerance) this.nose = pose[0];
+        // if (pose[1].score > tolerance) this.leftEye = pose[1];
+        // if (pose[2].score > tolerance) this.rightEye = pose[2];
+        // if (pose[3].score > tolerance) this.leftEar = pose[3];
+        // if (pose[4].score > tolerance) this.rightEar = pose[4];
+        // if (pose[5].score > tolerance) this.leftShoulder = pose[5];
+        // if (pose[6].score > tolerance) this.rightShoulder = pose[6];
+        // if (pose[7].score > tolerance) this.leftElbow = pose[7];
+        // if (pose[8].score > tolerance) this.rightElbow = pose[8];
+        // if (pose[9].score > tolerance) this.leftWrist = pose[9];
+        // if (pose[10].score > tolerance) this.rightWrist = pose[10];
+        // if (pose[11].score > tolerance) this.leftHip = pose[11];
+        // if (pose[12].score > tolerance) this.rightHip = pose[12];
+        // if (pose[13].score > tolerance) this.leftKnee = pose[13];
+        // if (pose[14].score > tolerance) this.rightKnee = pose[14];
+        // if (pose[15].score > tolerance) this.leftAnkle = pose[15];
+        // if (pose[16].score > tolerance) this.rightAnkle = pose[16];
 
-        
 
+        // console.log(this.rightWrist.score)
       }
     });
 
-    // console.log(poses[0].score)
 
-    // render
+    // render character
     const step = (time) => {
-
 
       ctx.save();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -118,7 +135,6 @@ export class DancerComponent implements AfterViewInit {
       ctx.lineWidth = 12;
       ctx.stroke();
 
-
       //legs
       ctx.beginPath();
       ctx.moveTo(this.leftAnkle.position.x, this.leftAnkle.position.y);
@@ -139,8 +155,6 @@ export class DancerComponent implements AfterViewInit {
       ctx.closePath();
       ctx.lineWidth = 7;
       ctx.stroke();
-
-
 
       ctx.restore(); 
 

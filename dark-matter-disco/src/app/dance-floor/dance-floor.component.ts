@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { load } from '@tensorflow-models/posenet';
 import { from, Observable, Subject } from 'rxjs';
 import io from 'socket.io-client';
@@ -19,10 +19,14 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
 
   constructor(private liveSocketService: LiveSocketService) {}
 
+  // username and friend username
+  @Input() username: string;
+  @Input() friendUsername: string;
+  
   // this is the users pose data as an observable
   userPoseStream: any = new Subject();
   friendPoseStream: any = new Subject();
-  friendUsername: string = null;
+
    // backup dancer
    backup1: any = {
     shiftX: 400,
@@ -82,28 +86,18 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
    * Web Socket 
    * for friend pose data
    */
-  ngOnInit() {
+  ngOnInit() { 
 
-    // this.liveSocketService.test();
     const socketService = this.liveSocketService;
 
-    // const socket = io();
-    console.log(socketService);
-    const usernames = ['Rayman', 'Jesse', 'Smiley', 'Erica', 'Kyle', 'Khari', 'Tyler', 'Kalkidan', 'Trev Dog'];
-    const username = usernames[Math.floor(Math.random() * usernames.length)];
-    this.friendUsername = usernames[Math.floor(Math.random() * usernames.length)];
-    //make socket event listener for usernames
-    socketService.emit('user', username);
-    socketService.on('test', (id: any) => {
-      console.log(id);
-    })
+    // send user pose data to friends
     this.userPoseStream.subscribe((poses) => {
       socketService.emit('pose', poses, this.friendUsername);
-      socketService.emit('test', socketService.getId(), 'message for test');
     })
+
+    // listen for pose data from friends
     socketService.on('pose', (pose) => {
       this.friendPoseStream.next(pose);
-      // console.log(pose);
     })
   }
 
