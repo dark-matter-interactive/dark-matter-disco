@@ -27,10 +27,13 @@ io.on('connection', (socket) => {
         console.log(socketIds);
     })
     socket.on('pose', (pose, friendUsername) => {
-        // console.log('pose received');
         if(friendUsername) {
             socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
         }
+    })
+    socket.on('changeSong', (videoID) => {
+        console.log(videoID, 'Server');
+        io.emit('changeSong', videoID)
     })
 })
 
