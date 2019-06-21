@@ -6,6 +6,8 @@ const { storeOrFindUser, storeFriendRequest, getPendingRequests, getUserByUserna
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const users = require('./routes/users.js');
+const friends = require('./routes/friends.js');
+
 // require('../database-postgres/helpers.js');
 
 
@@ -19,6 +21,8 @@ app.use((req, res, next) => {
 
 //use user routes
 app.use('/user', users);
+app.use('/invite', friends);
+
 
 //serve static assets
 app.use(express.static(path.join(__dirname, '../dist/dark-matter-disco')))
@@ -79,38 +83,12 @@ io.on('connection', (socket) => {
 //setup post request for user login
 app.post('/login', (req, res) => {  
     //call helper to save user in db
-    storeOrFindUser('Smiley');
+    storeOrFindUser('Kendall');
     //send 201 status code
     res.send(201);
 })
 
-//setup post request for friend invitations
-app.post('/invite', (req, res) => {
-    //call helper to save pending requests
-    storeFriendRequest(1, 2);
-    storeFriendRequest(2, 1);
 
-    //send 201 status code
-    res.send(201);
-})
-//setup post for accepted friends
-app.put('/accepted', (req, res) => {
-    // storeFriendRequest(2, 1).then(() => {
-        acceptFriendRequest(1, 2);
-        acceptFriendRequest(2, 1);
-    // });
-    // acceptFriendRequest(1, 3);
-    res.send(202);
-})
-
-
-app.get('/invite', (req, res) => {
-    //call helper to find user by username
-    getPendingRequests(1).then((results) => {
-        //send user as response
-        res.send(results);
-    });
-})
 
 // app.get('/', (req, res) => {
 //     res.sendStatus(200);
