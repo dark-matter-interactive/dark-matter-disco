@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
 //setup post request for user login
 app.post('/login', (req, res) => {
     //call helper to save user in db
-    storeOrFindUser('Kalkidan');
+    storeOrFindUser('Khari');
     //send 201 status code
     res.send(201);
 })
@@ -80,15 +80,19 @@ app.post('/login', (req, res) => {
 //setup post request for friend invitations
 app.post('/invite', (req, res) => {
     //call helper to save pending requests
-    storeFriendRequest(1, 3);
+    storeFriendRequest(1, 2);
+    storeFriendRequest(2, 1);
+
     //send 201 status code
     res.send(201);
 })
 //setup post for accepted friends
 app.post('/accepted', (req, res) => {
-    storeFriendRequest(3, 1);
-    acceptFriendRequest(1, 3);
-    acceptFriendRequest(3, 1);
+    // storeFriendRequest(2, 1).then(() => {
+        acceptFriendRequest(1, 2);
+        acceptFriendRequest(2, 1);
+    // });
+    // acceptFriendRequest(1, 3);
     res.send(201);
 })
 

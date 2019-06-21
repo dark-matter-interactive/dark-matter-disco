@@ -31,7 +31,7 @@ const getUserById = (id) => {
 
 const storeFriendRequest = (userId, friendId) => {
   //store all friend requests in database
-  Friends.findOrCreate({ 
+  return Friends.findOrCreate({ 
     where: { userId, friendId },
     defaults: {
       userId,
@@ -40,6 +40,7 @@ const storeFriendRequest = (userId, friendId) => {
     }
   }).then((success) => {
     console.log('success');
+    return success
   });
 }
 
