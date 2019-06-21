@@ -19,7 +19,7 @@ export class AudioComponent implements OnInit {
   public reframed: Boolean = false;
 
   val: string = '';
-  videoID: string = '';
+  videoID: string = 'I_izvAbhExY';
   vid: string = 'https://www.youtube.com/embed/';
   autoplay: string = '?rel=0;&autoplay=1&controls=0&enablejsapi=1';
   videoSrc: any
@@ -28,7 +28,7 @@ export class AudioComponent implements OnInit {
   
   init() {
     let tag = document.createElement('script');
-    tag.src = 'httpa://www.youtube.com/iframe_api';
+    tag.src = 'https://www.youtube.com/iframe_api';
     let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
@@ -41,8 +41,14 @@ export class AudioComponent implements OnInit {
     window['onYouTubeIframeAPIReady'] = (e) => {
       this.YT = window['YT'];
       this.reframed = false;
-      this.player = new window['YT'].PLayer('ytplayer', {
+      this.player = new window['YT'].Player('ytplayer', {
+        height: '200',
+        width: '280',
         videoId: this.video,
+        playerVars: {
+          autoplay: '1',
+          enablejsapi: '1'
+        },
         events: {
           'onStateChange': this.onPlayerStateChange.bind(this),
           'onError': this.onPlayerError.bind(this),
@@ -92,9 +98,10 @@ export class AudioComponent implements OnInit {
         };
         break;
       case window['YT'].PlayerState.PAUSED:
-        if (this.player.getDuration() - this.player.getCurrenttime() !== 0) {
+        if (this.player.getDuration() - this.player.getCurrentTime() !== 0) {
           console.log('paused' + ' @ ' + this.cleanTime());
         };
+        // this.player.playVideo();
         break;
       case window['YT'].PlayerState.ENDED:
         console.log('ended');
@@ -117,5 +124,8 @@ export class AudioComponent implements OnInit {
         break;
     }
   }
+
+  // Create button to play and pause video
+  // Create functions to bind to buttons
   
 }
