@@ -24,8 +24,10 @@ router
 //setup post for accepted friends
 .put('/', (req, res) => {
   // storeFriendRequest(2, 1).then(() => {
-      acceptFriendRequest(1, 2);
-      acceptFriendRequest(2, 1);
+    const userId =  req.body.userId;
+    const friendId = req.body.friendId;
+      acceptFriendRequest(userId, friendId);
+      acceptFriendRequest(friendId, userId);
   // });
   // acceptFriendRequest(1, 3);
   res.send(202);
