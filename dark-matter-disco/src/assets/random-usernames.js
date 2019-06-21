@@ -18,4 +18,6 @@ export default [
   'Nefarious Nightingale',
   'Outrageous Owl',
   'Wondering Whale',
+  'Zealous Zebra',
+  'Aprehensive Anaconda',
 ];
