@@ -5,6 +5,7 @@ const { youTubeSearch } = require('./helpers/youtube-helpers.js');
 const { storeOrFindUser, storeFriendRequest, getPendingRequests, getUserByUsername, getUserById, acceptFriendRequest } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const users = require('./routes/users.js');
 // require('../database-postgres/helpers.js');
 
 
@@ -15,6 +16,9 @@ app.use((req, res, next) => {
     console.log(req.method, req.url);
     next();
 })
+
+//use user routes
+app.use('/user', users);
 
 //serve static assets
 app.use(express.static(path.join(__dirname, '../dist/dark-matter-disco')))
@@ -96,23 +100,6 @@ app.put('/accepted', (req, res) => {
     res.send(202);
 })
 
-// //setup get request for getting user
-// app.get('/user', (req, res) => {
-//     //call helper to find user by username
-//     getUserByUsername('Kalkidan').then((result) => {
-//         //send user as response
-//         res.send(result);
-//     });
-// })
-
-//setup get request for getting user
-app.get('/user', (req, res) => {
-    //call helper to find user by username
-    getUserById(2).then((result) => {
-        //send user as response
-        res.send(result);
-    });
-})
 
 app.get('/invite', (req, res) => {
     //call helper to find user by username
