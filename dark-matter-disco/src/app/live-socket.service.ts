@@ -23,8 +23,8 @@ export class LiveSocketService {
   }
 
   on(event: string, callback) {
-    this.socket.on(event, (data) => {
-      callback(data);
+    this.socket.on(event, (...data) => {
+      callback(...data);
     })
   }
 
