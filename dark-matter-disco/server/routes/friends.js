@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { storeFriendRequest, getPendingRequests, acceptFriendRequest, } = require('../../database-postgres/helpers.js');
+const { storeFriendRequest, getPendingRequests, acceptFriendRequest } = require('../../database-postgres/helpers.js');
 
 //setup post request for friend invitations
 router

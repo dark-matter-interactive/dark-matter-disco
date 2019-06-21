@@ -7,7 +7,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const users = require('./routes/users.js');
 const friends = require('./routes/friends.js');
-
+const bodyParser = require('body-parser');
 // require('../database-postgres/helpers.js');
 
 
@@ -18,6 +18,8 @@ app.use((req, res, next) => {
     console.log(req.method, req.url);
     next();
 })
+
+app.use(bodyParser.json());
 
 //use user routes
 app.use('/user', users);
@@ -83,7 +85,8 @@ io.on('connection', (socket) => {
 //setup post request for user login
 app.post('/login', (req, res) => {  
     //call helper to save user in db
-    storeOrFindUser('Kendall');
+    console.log(req.body)
+    storeOrFindUser(req.body.username);
     //send 201 status code
     res.send(201);
 })
