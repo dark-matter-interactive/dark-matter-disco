@@ -24,6 +24,10 @@ const getUserByUsername = (username) => {
     .then(data => data);
 }
 
+const getUserById = (id) => {
+  return User.findAll({ where: { id } })
+    .then(data => data);
+}
 
 const storeFriendRequest = (userId, friendId) => {
   //store all friend requests in database
@@ -52,3 +56,4 @@ module.exports.storeFriendRequest = storeFriendRequest;
 module.exports.acceptFriendRequest = acceptFriendRequest;
 module.exports.storeOrFindUser = storeOrFindUser;
 module.exports.getUserByUsername = getUserByUsername;
+module.exports.getUserById = getUserById;
