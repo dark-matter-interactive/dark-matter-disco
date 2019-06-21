@@ -11,7 +11,11 @@
     </div>
     <h3>{{ username }}</h3>
   </div>
-  <app-dance-floor [username]=username [friendUsername]=friendUsername></app-dance-floor>
+  <app-dance-floor 
+    [username]=username 
+    [friendUsername]=friendUsername
+    [customize]=customize>
+  </app-dance-floor>
   <div id="rightbar">
     <app-audio></app-audio>
     <app-friends [changeInvitee]=changeInvitee [username]=username></app-friends>

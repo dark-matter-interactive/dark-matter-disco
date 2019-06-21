@@ -15,6 +15,7 @@ export class AppComponent implements OnInit{
   friendUsername: string = null;
   hostUsername: string = null;
   inviteeUsername: string = null;
+  customize: any = { color: 'green' };
 
   constructor (private liveSocketService: LiveSocketService) {}
 
