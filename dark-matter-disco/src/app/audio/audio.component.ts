@@ -46,7 +46,6 @@ export class AudioComponent implements OnInit {
         width: '280',
         videoId: this.video,
         playerVars: {
-          autoplay: '1',
           enablejsapi: '1'
         },
         events: {
@@ -127,5 +126,12 @@ export class AudioComponent implements OnInit {
 
   // Create button to play and pause video
   // Create functions to bind to buttons
+  playAudio() {
+    this.player.playVideo();
+  }
+
+  pauseAudio() {
+    this.player.pauseVideo();
+  }
   
 }
