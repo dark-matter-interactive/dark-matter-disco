@@ -1,5 +1,7 @@
-<h2>friends online</h2>
-  <ul>
-    <li (click)="sendInvite(username)" *ngFor="let username of onlineUsers">{{ username }}</li>
-  </ul>
+<h2>online</h2>
+  <!-- <ul> -->
+    <div *ngFor="let username of onlineUsers">
+      <button (click)=sendInvite(username)> invite </button> {{ username }}
+    </div>
+  <!-- </ul> -->
 

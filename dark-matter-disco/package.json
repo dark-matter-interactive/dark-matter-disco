@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npm install & ng build",
+    "build": "git pull origin master & npm install & ng build & pm2 restart 2 'main server'",
     "build-dev": "ng build --watch=true",
     "test": "ng test",
     "lint": "ng lint",
@@ -25,6 +25,7 @@
     "axios": "^0.19.0",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
+    "mathjs": "^6.0.2",
     "path": "^0.12.7",
     "pg": "^7.11.0",
     "rxjs": "^6.4.0",
