@@ -21,15 +21,16 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   // username and friend username
   @Input() username: string;
   @Input() friendUsername: string;
+  @Input() customize: any;
   
   // this is the users pose data as an observable
   userPoseStream: any = new Subject();
   friendPoseStream: any = new Subject();
 
    // backup dancer
-   backup1: any = {
-    shiftX: 400,
-    shiftY: -80,
+   blueDancer: any = {
+    // shiftX: 400,
+    // shiftY: -80,
     height: 0.8,
     color: "blue"
   };
@@ -47,7 +48,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     const poseNetModel: any = {
       architecture: 'MobileNetV1',
       outputStride: 16,
-      inputResolution: 289,
+      inputResolution: 353,
       multiplier: 0.75
     };
     
@@ -69,10 +70,11 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
         from(load(poseNetModel)).subscribe((net) => {
           //Repeat calls to estimate pose and emit from poseStream
           setInterval(() => {
+       
             from(net.estimatePoses(webcamVideo.nativeElement, poseNetOptions))
             .subscribe((poses) => {
                 this.userPoseStream.next(poses);
-              });
+            });
           }, delay);
         });
       });  

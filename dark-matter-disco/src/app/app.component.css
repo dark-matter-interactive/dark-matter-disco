@@ -1,4 +1,9 @@
+div {
+  transition: all 2s ease;
+}
+
 
 #rightbar {
   float: right;
 }
+

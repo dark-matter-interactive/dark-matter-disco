@@ -41,7 +41,7 @@ export class DancerComponent implements AfterViewInit {
 
   // Inputs
   @Input() poseStream: any;
-  @Input() distortion: any;
+  @Input() customize: any;
 
   // Canvas for animation
   @ViewChild('canvas', {static: false}) canvasRef: any;
@@ -60,13 +60,13 @@ export class DancerComponent implements AfterViewInit {
         let pose = poses[0].keypoints;
 
         // add distortion
-        if (this.distortion) {
+        if (this.customize) {
           // pose = JSON.parse(JSON.stringify(pose));
-          for (let i = 0; i < pose.length; i++) {
-            pose[i].position.x += this.distortion.shiftX;
-            pose[i].position.y += this.distortion.shiftY;
-          }
-          dancerColor = this.distortion.color;
+          // for (let i = 0; i < pose.length; i++) {
+          //   pose[i].position.x += this.distortion.shiftX;
+          //   pose[i].position.y += this.distortion.shiftY;
+          // }
+          dancerColor = this.customize.color;
         } 
 
         // TO DO add confidence test before resassign
@@ -120,7 +120,9 @@ export class DancerComponent implements AfterViewInit {
       eyeWidth = eyeWidth < 15 ? 15 : eyeWidth;
      
       // ctx.drawImage(panda, pose1[0].position.x - (eyeWidth*5), pose1[0].position.y - (eyeWidth*4), eyeWidth * 10, eyeWidth * 8)
-      ctx.ellipse(this.nose.position.x, this.nose.position.y, eyeWidth * 2, eyeWidth * 2, Math.PI / 4, 0, 2 * Math.PI);
+      const headTilt = Math.atan2(this.rightEye.position.y - this.leftEye.position.y, this.rightEye.position.x - this.leftEye.position.x) //* 180 / Math.PI
+      console.log(headTilt)
+      ctx.ellipse(this.nose.position.x, this.nose.position.y, eyeWidth * 2, eyeWidth * 2.5, headTilt, 0, 2 *Math.PI);
       ctx.fill();
       ctx.stroke();
   
