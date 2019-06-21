@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { load } from '@tensorflow-models/posenet';
 import { from, Observable, Subject } from 'rxjs';
-import io from 'socket.io-client';
 import { LiveSocketService } from "../live-socket.service";
 
 /**
@@ -92,7 +91,10 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
 
     // send user pose data to friends
     this.userPoseStream.subscribe((poses) => {
-      socketService.emit('pose', poses, this.friendUsername);
+      if (this.friendUsername) {
+        socketService.emit('pose', this.friendUsername, poses);
+        console.log('sending pose to', this.friendUsername)
+      }
     })
 
     // listen for pose data from friends

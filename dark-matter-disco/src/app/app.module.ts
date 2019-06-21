@@ -8,6 +8,7 @@ import { DancerComponent } from './dancer/dancer.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FriendsComponent } from './friends/friends.component';
 
 
 
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     AudioComponent,
     DanceFloorComponent,
-    DancerComponent
+    DancerComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
