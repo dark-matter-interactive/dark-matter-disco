@@ -20,7 +20,7 @@ const storeOrFindUser = (username) => {
 //get user by name
 
 const getUserByUsername = (username) => {
-  return User.findAll({ where: username })
+  return User.findAll({ where: { username } })
     .then(data => data);
 }
 
@@ -51,3 +51,4 @@ const acceptFriendRequest = (userId, friendId) => {
 module.exports.storeFriendRequest = storeFriendRequest;
 module.exports.acceptFriendRequest = acceptFriendRequest;
 module.exports.storeOrFindUser = storeOrFindUser;
+module.exports.getUserByUsername = getUserByUsername;

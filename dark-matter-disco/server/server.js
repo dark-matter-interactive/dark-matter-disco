@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-const { storeOrFindUser, storeFriendRequest } = require('../database-postgres/helpers.js');
+const { storeOrFindUser, storeFriendRequest, getUserByUsername } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 // require('../database-postgres/helpers.js');
@@ -84,6 +84,16 @@ app.post('/invite', (req, res) => {
     //send 201 status code
     res.send(201);
 })
+
+//setup get request for getting user
+app.get('/user', (req, res) => {
+    //call helper to find user by username
+    getUserByUsername('Kalkidan').then((result) => {
+        //send user as response
+        res.send(result);
+    });
+})
+
 // app.get('/', (req, res) => {
 //     res.sendStatus(200);
 //     console.log('running')
