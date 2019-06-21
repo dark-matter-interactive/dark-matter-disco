@@ -27,7 +27,10 @@ io.on('connection', (socket) => {
     socket.emit('user', 'who you is?')
     socket.on('user', (username) => {
         socketIds[username] = socket.id;
+        // send everyone who's online on new connection
+        io.emit('who online', Object.keys(socketIds))
     })
+    
 
     // handle who online request
     socket.on('who online', () => {

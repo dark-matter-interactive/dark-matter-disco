@@ -18,11 +18,12 @@ export class FriendsComponent implements OnInit {
   ngOnInit() {
     this.liveSocketService.emit('who online', 'please')
     this.liveSocketService.on('who online', (onlineUsers) => {
-      this.onlineUsers = onlineUsers;
+      this.onlineUsers = onlineUsers.filter((name: string) => name !== this.username);
     });
   }
 
   sendInvite(toUsername) {
+    console.log('SENDING INVITE TO', toUsername)
     this.liveSocketService.emit('invite', this.username, toUsername);
     this.changeInvitee(toUsername);
   }
