@@ -25,8 +25,11 @@ const getUserByUsername = (username) => {
 }
 
 const getUserById = (id) => {
-  return User.findAll({ where: { id } })
-    .then(data => data);
+  return User.findAll({ where: { id } }).then(data => data);
+}
+
+const getPendingRequests = (userId) => {
+  return Friends.findAll({ where: { userId, status: 0 }}).then(pendingRequests => pendingRequests);
 }
 
 const storeFriendRequest = (userId, friendId) => {
@@ -58,3 +61,4 @@ module.exports.acceptFriendRequest = acceptFriendRequest;
 module.exports.storeOrFindUser = storeOrFindUser;
 module.exports.getUserByUsername = getUserByUsername;
 module.exports.getUserById = getUserById;
+module.exports.getPendingRequests = getPendingRequests;

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-const { storeOrFindUser, storeFriendRequest, getUserByUsername, getUserById, acceptFriendRequest } = require('../database-postgres/helpers.js');
+const { storeOrFindUser, storeFriendRequest, getPendingRequests, getUserByUsername, getUserById, acceptFriendRequest } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 // require('../database-postgres/helpers.js');
@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
 //setup post request for user login
 app.post('/login', (req, res) => {  
     //call helper to save user in db
-    storeOrFindUser('Khari');
+    storeOrFindUser('Smiley');
     //send 201 status code
     res.send(201);
 })
@@ -87,13 +87,13 @@ app.post('/invite', (req, res) => {
     res.send(201);
 })
 //setup post for accepted friends
-app.post('/accepted', (req, res) => {
+app.put('/accepted', (req, res) => {
     // storeFriendRequest(2, 1).then(() => {
         acceptFriendRequest(1, 2);
         acceptFriendRequest(2, 1);
     // });
     // acceptFriendRequest(1, 3);
-    res.send(201);
+    res.send(202);
 })
 
 // //setup get request for getting user
@@ -111,6 +111,14 @@ app.get('/user', (req, res) => {
     getUserById(2).then((result) => {
         //send user as response
         res.send(result);
+    });
+})
+
+app.get('/invite', (req, res) => {
+    //call helper to find user by username
+    getPendingRequests(1).then((results) => {
+        //send user as response
+        res.send(results);
     });
 })
 
