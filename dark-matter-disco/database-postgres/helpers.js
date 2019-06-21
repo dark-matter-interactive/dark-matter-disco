@@ -20,7 +20,7 @@ const storeOrFindUser = (username) => {
 //get user by name
 
 const getUserByUsername = (username) => {
-  return User.findAll({ where: { username } })
+  return User.findOne({ where: { username } })
     .then(data => data);
 }
 

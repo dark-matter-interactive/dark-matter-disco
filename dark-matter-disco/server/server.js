@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 //use user routes
 app.use('/user', users);
-app.use('/invite', friends);
+app.use('/friend', friends);
 
 
 //serve static assets
