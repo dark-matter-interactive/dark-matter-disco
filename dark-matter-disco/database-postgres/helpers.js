@@ -17,7 +17,12 @@ const storeOrFindUser = (username) => {
 
 
 
-//get user by id
+//get user by name
+
+const getUserByUsername = (username) => {
+  return User.findAll({ where: username })
+    .then(data => data);
+}
 
 
 const storeFriendRequest = (userId, friendId) => {
