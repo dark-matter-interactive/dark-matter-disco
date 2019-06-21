@@ -10,6 +10,11 @@ body {
   color: rgb(197, 236, 197);
 }
 
+div {
+  transition: ease-in-out 2s;
+}
+
+
 #header {
   display: flex;
   justify-content: space-between;
