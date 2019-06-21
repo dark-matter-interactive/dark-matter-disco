@@ -13,8 +13,10 @@ router
   })
   .post('/', (req, res) => {
     //call helper to save pending requests
-    storeFriendRequest(1, 2);
-    storeFriendRequest(2, 1);
+    const userId =  req.body.userId;
+    const friendId = req.body.friendId;
+    storeFriendRequest(userId, friendId);
+    storeFriendRequest(friendId, userId);
 
     //send 201 status code
     res.send(201);
