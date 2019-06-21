@@ -2,16 +2,19 @@
 <div id="app"> 
   <div id="header"> 
     <h1 id="title">{{ title }}</h1>
-    <div *ngIf=inviteUsername>
-      {{ inviteUsername }} wants to dance! 
+    <div *ngIf=hostUsername>
+      {{ hostUsername }} wants to dance! 
       <button (click)=acceptInvite()>lets do this</button>
+    </div>
+    <div *ngIf=inviteeUsername>
+      waiting for {{ inviteeUsername }}...
     </div>
     <h3>{{ username }}</h3>
   </div>
   <app-dance-floor [username]=username [friendUsername]=friendUsername></app-dance-floor>
   <div id="rightbar">
     <app-audio></app-audio>
-    <app-friends [changeFriend]=changeFriend [username]=username></app-friends>
+    <app-friends [changeInvitee]=changeInvitee [username]=username></app-friends>
   </div>
 
 </div>

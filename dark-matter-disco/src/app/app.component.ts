@@ -13,7 +13,8 @@ export class AppComponent implements OnInit{
 
   username: string = null;
   friendUsername: string = null;
-  inviteUsername: string = null;
+  hostUsername: string = null;
+  inviteeUsername: string = null;
 
   constructor (private liveSocketService: LiveSocketService) {}
 
@@ -31,26 +32,28 @@ export class AppComponent implements OnInit{
 
     // listen for invites
     this.liveSocketService.on('invite', (friendUsername: string) => {
-      this.inviteUsername = friendUsername;
+      this.hostUsername = friendUsername;
       console.log('invite from', friendUsername)
     });
 
     this.liveSocketService.on('invite accepted', (friendUsername: string) => {
       console.log('invite accepted from', friendUsername);
       this.friendUsername = friendUsername;
+      this.inviteeUsername = null;
     })
 
   }
 
   acceptInvite() {
-    console.log('you accepted invite from', this.inviteUsername)
-    this.liveSocketService.emit('accept invite', this.username, this.inviteUsername)
-    this.friendUsername = this.inviteUsername;
+    console.log('you accepted invite from', this.hostUsername)
+    this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
+    this.friendUsername = this.hostUsername;
+    this.hostUsername = null;
   }
 
-  changeFriend = (username) => {
-    this.friendUsername = username;
-    console.log(this.friendUsername);
+  changeInvitee = (username) => {
+    this.inviteeUsername = username;
+    // console.log(this.friendUsername);
   }
 
 }
