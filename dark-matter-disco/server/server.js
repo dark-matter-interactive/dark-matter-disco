@@ -60,6 +60,18 @@ io.on('connection', (socket) => {
         io.emit('changeSong', videoID)
     })
 
+    // handle song play
+    socket.on('playSong', () => {
+        // console.log('play song button emitted')
+        io.emit('playSong')
+    })
+
+    //handle song pause
+    socket.on('pauseSong', () => {
+        // console.log('pause song button emitted')
+        io.emit('pauseSong')
+    })
+
     // handle disconnect 
     socket.on('disconnect', () => {
         for(let username in socketIds) {
