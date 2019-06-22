@@ -23,7 +23,6 @@ sequelize
 const User = sequelize.define('Users', {
   username: Sequelize.STRING,
   starsTotal: Sequelize.INTEGER,
-  status: Sequelize.INTEGER
 });
 
 //define Friends model
