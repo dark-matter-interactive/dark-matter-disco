@@ -121,7 +121,7 @@ export class DancerComponent implements AfterViewInit {
      
       // ctx.drawImage(panda, pose1[0].position.x - (eyeWidth*5), pose1[0].position.y - (eyeWidth*4), eyeWidth * 10, eyeWidth * 8)
       const headTilt = Math.atan2(this.rightEye.position.y - this.leftEye.position.y, this.rightEye.position.x - this.leftEye.position.x) //* 180 / Math.PI
-      console.log(headTilt)
+      // console.log(headTilt)
       ctx.ellipse(this.nose.position.x, this.nose.position.y, eyeWidth * 2, eyeWidth * 2.5, headTilt, 0, 2 *Math.PI);
       ctx.fill();
       ctx.stroke();
