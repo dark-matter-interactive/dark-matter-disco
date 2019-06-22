@@ -4,9 +4,8 @@
     <input type="submit" value="submit" name="submit">
   </form>
   <br>
-    <iframe [src]=videoSrc frameborder="0" width="250" height="200" #audioPlayer allow="autoplay; encrypted-media" ></iframe>
-    <br>
-    <div id="ytplayer"></div>
+    <!-- <iframe [src]=videoSrc frameborder="0" width="250" height="200" #audioPlayer allow="autoplay; encrypted-media" ></iframe> -->
+    <div id="ytplayer" (ngSubmit)="loadAudio(val)"></div>
     <br>
     <button (click)="playAudio()">Play</button>
     <button (click)="pauseAudio()" >Pause</button>
