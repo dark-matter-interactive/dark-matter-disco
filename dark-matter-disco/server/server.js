@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-const { storeOrFindUser, storeFriendRequest, getPendingRequests, getUserByUsername, getUserById, acceptFriendRequest } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const users = require('./routes/users.js');
