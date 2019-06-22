@@ -95,12 +95,12 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     this.userPoseStream.subscribe((poses) => {
       if (this.friendUsername) {
         socketService.emit('pose', this.friendUsername, poses);
-        console.log('sending pose to', this.friendUsername)
       }
     })
-
+    
     // listen for pose data from friends
     socketService.on('pose', (pose) => {
+      console.log('receiving pose')
       this.friendPoseStream.next(pose);
     })
   }
