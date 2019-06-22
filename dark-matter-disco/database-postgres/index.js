@@ -23,7 +23,8 @@ sequelize
 const User = sequelize.define('Users', {
   username: {
     type: Sequelize.STRING,
-    primaryKey: true  
+    primaryKey: true,
+    unique: true,
   },
   starsTotal: Sequelize.INTEGER,
 });
