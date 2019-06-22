@@ -45,9 +45,9 @@ const storeFriendRequest = (username, friendName) => {
 
 
 
-const acceptFriendRequest = (userId, friendId) => {
+const acceptFriendRequest = (username, friendName) => {
   //update status on accepted friend request
-  Friends.update({status: 1}, { where: { userId, friendId }  })
+  Friends.update({status: 1}, { where: { username, friendName }  })
 }
 
 
