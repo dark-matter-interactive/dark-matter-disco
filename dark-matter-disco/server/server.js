@@ -82,14 +82,7 @@ io.on('connection', (socket) => {
 })
 
 
-//setup post request for user login
-app.post('/login', (req, res) => {  
-    //call helper to save user in db
-    console.log(req.body)
-    storeOrFindUser(req.body.username);
-    //send 201 status code
-    res.send(201);
-})
+
 
 
 

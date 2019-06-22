@@ -4,13 +4,20 @@ const { storeOrFindUser, getUserByUsername, getUserById, } = require('../../data
 
 
 router.get('/', (req, res) => {
+  const username = req.body.params.username;
   //call helper to find user by username
-  
-
-  getUserById(2).then((result) => {
+  getUserByUsername(username).then((result) => {
       //send user as response
       res.send(result);
   });
+})
+
+//setup post request for user login
+router.post('/login', (req, res) => {  
+  //call helper to save user in db
+  storeOrFindUser(req.body.username);
+  //send 201 status code
+  res.send(201);
 })
 
 // //setup get request for getting user
