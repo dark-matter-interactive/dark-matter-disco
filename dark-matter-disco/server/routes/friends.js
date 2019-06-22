@@ -7,7 +7,6 @@ router
   .get('/request', (req, res) => {
     //get user by username
     const username = req.body.params.username;
-    // const userId = req.body.params.userId;
     //call helper to find user by username
     getUserByUsername(username)
       .then((user) => {
@@ -18,30 +17,30 @@ router
         });
     })
   })
+  
   //setup post request for friend invitations
-
   .post('/request', (req, res) => {
-    //call helper to save pending requests
     const userId =  req.body.userId;
     const friendId = req.body.friendId;
     
+    //call helper to save pending requests
     storeFriendRequest(userId, friendId);
     storeFriendRequest(friendId, userId);
 
     //send 201 status code
     res.send(201);
   })
-//setup post for accepted friends
-.put('/', (req, res) => {
-  // storeFriendRequest(2, 1).then(() => {
-  const userId =  req.body.userId;
-  const friendId = req.body.friendId;
-  acceptFriendRequest(userId, friendId);
-  acceptFriendRequest(friendId, userId);
-  // });
-  // acceptFriendRequest(1, 3);
-  res.send(202);
-})
+  //setup post for accepted friends
+  .put('/request', (req, res) => {
+    // storeFriendRequest(2, 1).then(() => {
+    const userId =  req.body.userId;
+    const friendId = req.body.friendId;
+    acceptFriendRequest(userId, friendId);
+    acceptFriendRequest(friendId, userId);
+    // });
+    // acceptFriendRequest(1, 3);
+    res.send(202);
+  })
 
 
 

@@ -17,17 +17,18 @@ const storeOrFindUser = (username) => {
 
 
 
-//get user by name
-
+//get user by name. takes username
 const getUserByUsername = (username) => {
-  return User.findOne({ where: { username } })
-    .then(data => data);
+  //return sequelize model query that returns found user
+  return User.findOne({ where: { username } }).then(user => user);
 }
-
+//get user by id. takes id
 const getUserById = (id) => {
-  return User.findAll({ where: { id } }).then(data => data);
+  //return sequelize model query that returns found user
+  return User.findAll({ where: { id } }).then(user => user);
 }
 
+//get pending friend requests
 const getPendingRequests = (userId) => {
   return Friends.findAll({ where: { userId, status: 0 }}).then(pendingRequests => pendingRequests);
 }
