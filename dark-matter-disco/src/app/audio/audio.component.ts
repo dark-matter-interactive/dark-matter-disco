@@ -19,13 +19,11 @@ export class AudioComponent implements OnInit {
   public reframed: Boolean = false;
 
   val: string = '';
-  videoID: string = 'I_izvAbhExY';
-  vid: string = 'https://www.youtube.com/embed/';
-  autoplay: string = '?rel=0;&autoplay=1&controls=0&enablejsapi=1';
-  videoSrc: any
+  videoID: string = '';
   private audioSubscription: Subscription;
   constructor(private configService: ConfigService, private sanitizer: DomSanitizer, private liveSocketService: LiveSocketService) { }
   
+  // create a script tag, iframe api inserted before script
   init() {
     let tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
@@ -38,6 +36,7 @@ export class AudioComponent implements OnInit {
     this.init();
     this.video = this.videoID
 
+    // create the iframe player
     window['onYouTubeIframeAPIReady'] = (e) => {
       this.YT = window['YT'];
       this.reframed = false;
@@ -46,7 +45,8 @@ export class AudioComponent implements OnInit {
         width: '280',
         videoId: this.video,
         playerVars: {
-          enablejsapi: '1'
+          enablejsapi: '1',
+          controls: '0'
         },
         events: {
           'onStateChange': this.onPlayerStateChange.bind(this),
@@ -61,13 +61,19 @@ export class AudioComponent implements OnInit {
       });
     };
     
-    this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.vid + this.videoID + this.autoplay);
-
     // Socket io sending event to change song to other users
     this.liveSocketService.on('changeSong', (videoID) => {
       console.log(videoID);
       this.videoID = videoID;
-      this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.vid + this.videoID + this.autoplay);
+      this.player.cueVideoById(videoID);
+    })
+    // Socket io sending event for pausing audio
+    this.liveSocketService.on('pauseSong', () => {
+      this.pauseAudio();
+    })
+    // Socket io sending event for playing audio
+    this.liveSocketService.on('playSong', () => {
+      this.playAudio();
     })
   }
 
@@ -76,14 +82,16 @@ export class AudioComponent implements OnInit {
     this.audioSubscription = this.configService.searchAudio(this.val).subscribe((response: any) => {
       console.log(response, response.items[0].id.videoId);
       this.videoID = response.items[0].id.videoId;
-      this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.vid + this.videoID + this.autoplay);
+      // Resets the video id for iframe api player
+      this.video = this.videoID;
+      this.player.cueVideoById(this.video);
+
       // Using websockets to sync audio for users
       this.liveSocketService.emit('changeSong', this.videoID);
     }, () => {}, () => {
       console.log('subscription complete');
     });
-    console.log(this.videoSrc);
-    
+    // console.log(this.videoSrc);    
   }
 
   onPlayerStateChange(event) {
@@ -95,12 +103,15 @@ export class AudioComponent implements OnInit {
         } else {
           console.log('playing ' + this.cleanTime())
         };
+        this.liveSocketService.emit('playSong');
+
         break;
       case window['YT'].PlayerState.PAUSED:
         if (this.player.getDuration() - this.player.getCurrentTime() !== 0) {
           console.log('paused' + ' @ ' + this.cleanTime());
         };
-        // this.player.playVideo();
+        this.liveSocketService.emit('pauseSong');
+
         break;
       case window['YT'].PlayerState.ENDED:
         console.log('ended');
