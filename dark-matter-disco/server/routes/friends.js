@@ -4,9 +4,9 @@ const { storeFriendRequest, getPendingRequests, getUserByUsername, acceptFriendR
 
 //setup get request for friend invitations
 router
-  .get('/request', (req, res) => {
+  .get('/request/:username', (req, res) => {  
     //get user by username
-    const username = req.body.params.username;
+    const username = req.params.username;
     //call helper to find user by username
     getUserByUsername(username)
       .then((user) => {
@@ -17,7 +17,7 @@ router
         });
     })
   })
-  
+
   //setup post request for friend invitations
   .post('/request', (req, res) => {
     const userId =  req.body.userId;

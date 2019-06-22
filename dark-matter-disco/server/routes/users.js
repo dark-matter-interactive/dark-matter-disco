@@ -3,12 +3,12 @@ const router = express.Router();
 const { storeOrFindUser, getUserByUsername, getUserById, } = require('../../database-postgres/helpers.js');
 
 
-router.get('/', (req, res) => {
-  const username = req.body.params.username;
+router.get('/:username', (req, res) => {
+  const username = req.params.username;
   //call helper to find user by username
-  getUserByUsername(username).then((result) => {
+  getUserByUsername(username).then((user) => {
       //send user as response
-      res.send(result);
+      res.send(user);
   });
 })
 
