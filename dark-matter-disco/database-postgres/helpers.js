@@ -31,7 +31,8 @@ const getUserById = (id) => {
 //get pending friend requests
 const getPendingRequests = (userId) => {
   //find pending requests where friendId matches userId
-  return Friends.findAll({ where: { friendId: userId, status: 0 }}).then(pendingRequests => pendingRequests);
+  return Friends.findAll({ where: { friendId: userId, status: 0 }})
+    .then((pendingRequests) => pendingRequests);
 }
 
 const storeFriendRequest = (userId, friendId) => {

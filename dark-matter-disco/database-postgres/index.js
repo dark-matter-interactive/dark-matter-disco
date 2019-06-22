@@ -21,7 +21,10 @@ sequelize
 // })
 //define User model
 const User = sequelize.define('Users', {
-  username: Sequelize.STRING,
+  username: {
+    type: Sequelize.STRING,
+    primaryKey: true  
+  },
   starsTotal: Sequelize.INTEGER,
 });
 
