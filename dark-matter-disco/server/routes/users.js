@@ -5,6 +5,8 @@ const { storeOrFindUser, getUserByUsername, getUserById, } = require('../../data
 
 router.get('/', (req, res) => {
   //call helper to find user by username
+  
+
   getUserById(2).then((result) => {
       //send user as response
       res.send(result);
