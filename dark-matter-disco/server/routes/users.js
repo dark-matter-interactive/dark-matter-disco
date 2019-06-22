@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { storeOrFindUser, getUserByUsername, getUserById, } = require('../../database-postgres/helpers.js');
+const { storeOrFindUser, getUserByUsername, } = require('../../database-postgres/helpers.js');
 
 
 router.get('/:username', (req, res) => {

@@ -11,7 +11,7 @@ router
     getUserByUsername(username)
       .then((user) => {
         //call helper to find a user's pending friend requests
-        getPendingRequests(user.id).then((results) => {
+        getPendingRequests(user.username).then((results) => {
           //send list of pending requests to client
           res.send(results);
         });
@@ -20,12 +20,12 @@ router
 
   //setup post request for friend invitations
   .post('/request', (req, res) => {
-    const userId =  req.body.userId;
-    const friendId = req.body.friendId;
+    const username =  req.body.username;
+    const friendName = req.body.friendName;
     
     //call helper to save pending requests
-    storeFriendRequest(userId, friendId);
-    storeFriendRequest(friendId, userId);
+    storeFriendRequest(username, friendName);
+    storeFriendRequest(friendName, username);
 
     //send 201 status code
     res.send(201);
@@ -33,10 +33,10 @@ router
   //setup post for accepted friends
   .put('/request', (req, res) => {
     // storeFriendRequest(2, 1).then(() => {
-    const userId =  req.body.userId;
-    const friendId = req.body.friendId;
-    acceptFriendRequest(userId, friendId);
-    acceptFriendRequest(friendId, userId);
+    const username =  req.body.username;
+    const friendName = req.body.friendName;
+    acceptFriendRequest(username, friendName);
+    acceptFriendRequest(friendName, username);
     // });
     // acceptFriendRequest(1, 3);
     res.send(202);

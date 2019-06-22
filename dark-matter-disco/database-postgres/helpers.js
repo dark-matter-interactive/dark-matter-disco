@@ -9,10 +9,7 @@ const storeOrFindUser = (username) => {
       starsTotal: 0,
       status: 0,
     }     
-  }).then((success) => {
-    console.log(success[0].id, 'stored');
-    return success[0].id
-  })
+  });
 };
 
 
@@ -22,26 +19,22 @@ const getUserByUsername = (username) => {
   //return sequelize model query that returns found user
   return User.findOne({ where: { username } }).then(user => user);
 }
-//get user by id. takes id
-const getUserById = (id) => {
-  //return sequelize model query that returns found user
-  return User.findAll({ where: { id } }).then(user => user);
-}
+
 
 //get pending friend requests
-const getPendingRequests = (userId) => {
+const getPendingRequests = (username) => {
   //find pending requests where friendId matches userId
-  return Friends.findAll({ where: { friendId: userId, status: 0 }})
+  return Friends.findAll({ where: { friendName: username, status: 0 }})
     .then((pendingRequests) => pendingRequests);
 }
 
-const storeFriendRequest = (userId, friendId) => {
+const storeFriendRequest = (username, friendName) => {
   //store all friend requests in database
   return Friends.findOrCreate({ 
-    where: { userId, friendId },
+    where: { username, friendName },
     defaults: {
-      userId,
-      friendId,
+      username,
+      friendName,
       status: 0
     }
   }).then((success) => {
@@ -63,5 +56,4 @@ module.exports.storeFriendRequest = storeFriendRequest;
 module.exports.acceptFriendRequest = acceptFriendRequest;
 module.exports.storeOrFindUser = storeOrFindUser;
 module.exports.getUserByUsername = getUserByUsername;
-module.exports.getUserById = getUserById;
 module.exports.getPendingRequests = getPendingRequests;
