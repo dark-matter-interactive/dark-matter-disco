@@ -18,7 +18,7 @@ sequelize
 
 // sequelize.sync({
 //   force: true, // Drops info in database for testing
-// })
+// });
 //define User model
 const User = sequelize.define('Users', {
   username: {
@@ -31,8 +31,8 @@ const User = sequelize.define('Users', {
 
 //define Friends model
 const Friends = sequelize.define('Friends', {
-  userId: Sequelize.INTEGER,
-  friendId: Sequelize.INTEGER,
+  username: Sequelize.STRING,
+  friendName: Sequelize.STRING,
   status: Sequelize.INTEGER
 });
 
