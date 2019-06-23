@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-friends',
@@ -14,6 +15,7 @@ export class FriendsComponent implements OnInit {
 
   @Input() changeInvitee: any;
   @Input() username: string;
+  @Input() danceBuddies: any;
 
   ngOnInit() {
     this.liveSocketService.emit('who online', 'please')
@@ -26,6 +28,7 @@ export class FriendsComponent implements OnInit {
     console.log('SENDING INVITE TO', toUsername)
     this.liveSocketService.emit('invite', this.username, toUsername);
     this.changeInvitee(toUsername);
+    // this.danceBuddies[toUsername] = new Subject();
   }
 
 }

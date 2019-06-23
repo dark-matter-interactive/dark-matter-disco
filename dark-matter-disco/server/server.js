@@ -68,8 +68,8 @@ io.on('connection', (socket) => {
     });
 
     // handle pose data
-    socket.on('pose', (friendUsername, pose) => {
-        socket.broadcast.to(parties[friendUsername].partyName).emit('pose', pose);
+    socket.on('pose', (username, pose) => {
+        socket.broadcast.to(parties[username].partyName).emit('pose', username, pose);
         // socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
     })
 
@@ -94,7 +94,10 @@ io.on('connection', (socket) => {
     // handle disconnect 
     socket.on('disconnect', () => {
         for(let username in socketIds) {
-            if (socketIds[username] === socket.id) delete socketIds[username];
+            if (socketIds[username] === socket.id){
+                delete socketIds[username];
+                parties[username] = null;
+            } 
         }
     });
 })
