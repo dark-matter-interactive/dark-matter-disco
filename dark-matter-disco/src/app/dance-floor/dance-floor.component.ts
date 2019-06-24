@@ -22,10 +22,13 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   @Input() username: string;
   @Input() friendUsername: string;
   @Input() customize: any;
+  @Input() danceBuddies: any;
+
   
   // this is the users pose data as an observable
   userPoseStream: any = new Subject();
   friendPoseStream: any = new Subject();
+  // danceBuddies: any = {};
 
    // backup dancer
    blueDancer: any = {
@@ -39,7 +42,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   @ViewChild('webcamVideo', {static: false}) webcamVideo: any;
   
   ngAfterViewInit() {
-
+    console.log(this.danceBuddies)
     /** 
      * PoseNet
      * poseNetModel: inputResolution - Can be one of 161, 193, 257, 289, 321, 353, 385, 417, 449, 481, 
@@ -74,6 +77,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
             from(net.estimatePoses(webcamVideo.nativeElement, poseNetOptions))
             .subscribe((poses) => {
                 this.userPoseStream.next(poses);
+
             });
           }, delay);
         });
@@ -95,15 +99,19 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     this.userPoseStream.subscribe((poses) => {
       // socketService.emit('pose', poses, this.friendUsername);
       if (this.friendUsername) {
-        socketService.emit('pose', this.friendUsername, poses);
-        console.log('sending pose to', this.friendUsername)
+        socketService.emit('pose', this.username, poses);
       }
     })
-
-    // listen for pose data from friends
     
-    socketService.on('pose', (pose) => {
-      this.friendPoseStream.next(pose);
+    // listen for pose data from friends
+    socketService.on('pose', (username, poses) => {
+      console.log('receiving pose from', username, poses, this.danceBuddies)
+      // this.friendPoseStream.next(pose);
+      if (!this.danceBuddies[username]) {
+        this.danceBuddies[username] = new Subject();
+      }
+      this.danceBuddies[username].next(poses) //= pose;
+      // console.log(this.danceBuddies[username])
     })
   }
 

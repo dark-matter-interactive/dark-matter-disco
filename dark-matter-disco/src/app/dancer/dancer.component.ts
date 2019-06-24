@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import 'svg.js';
+import { distance } from 'mathjs';
+import { DrawService } from '../draw.service';
+import { poseChain } from '@tensorflow-models/posenet';
 
 interface Position {
   x: number,
@@ -17,149 +21,131 @@ interface posePoint {
   styleUrls: ['./dancer.component.css']
 })
 
-export class DancerComponent implements AfterViewInit {
+export class DancerComponent implements AfterViewInit, OnInit {
 
-  constructor() { }
-
-  nose: posePoint = { position: { x: -200, y: -200 }, score: 1 };
-  leftEye: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  rightEye: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  leftEar: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  rightEar: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  leftShoulder: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  rightShoulder: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  leftElbow: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  rightElbow: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  leftWrist: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  rightWrist: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  leftHip: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  rightHip: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  leftKnee: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  rightKnee: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  leftAnkle: posePoint = { position: { x: 0, y: 0 }, score: 1 };
-  rightAnkle: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+  constructor(private drawService: DrawService) { }
 
   // Inputs
   @Input() poseStream: any;
   @Input() customize: any;
+  @Input() draw: any
+  @Input() pose: any;
 
   // Canvas for animation
   @ViewChild('canvas', {static: false}) canvasRef: any;
-
-  ngAfterViewInit() {
-    const canvas = this.canvasRef.nativeElement;
-    const ctx = canvas.getContext('2d');
-    let dancerColor = "white";
-   
-
-    // Subscribe to pose data stream
-    const tolerance = 0.01;
-    this.poseStream.subscribe((poses) => {
-      //assign pose data to respective points
-      if (poses[0]) {
-        let pose = poses[0].keypoints;
-
-        // add distortion
-        if (this.customize) {
-          // pose = JSON.parse(JSON.stringify(pose));
-          // for (let i = 0; i < pose.length; i++) {
-          //   pose[i].position.x += this.distortion.shiftX;
-          //   pose[i].position.y += this.distortion.shiftY;
-          // }
-          dancerColor = this.customize.color;
-        } 
-
-        // TO DO add confidence test before resassign
-
-        [this.nose, 
-          this.leftEye, this.rightEye, 
-          this.leftEar, this.rightEar, 
-          this.leftShoulder, this.rightShoulder, 
-          this.leftElbow, this.rightElbow, 
-          this.leftWrist, this.rightWrist,
-          this.leftHip, this.rightHip,
-          this.leftKnee, this.rightKnee,
-          this.leftAnkle, this.rightAnkle,
-        ] = pose;
-        // if (pose[0].score > tolerance) this.nose = pose[0];
-        // if (pose[1].score > tolerance) this.leftEye = pose[1];
-        // if (pose[2].score > tolerance) this.rightEye = pose[2];
-        // if (pose[3].score > tolerance) this.leftEar = pose[3];
-        // if (pose[4].score > tolerance) this.rightEar = pose[4];
-        // if (pose[5].score > tolerance) this.leftShoulder = pose[5];
-        // if (pose[6].score > tolerance) this.rightShoulder = pose[6];
-        // if (pose[7].score > tolerance) this.leftElbow = pose[7];
-        // if (pose[8].score > tolerance) this.rightElbow = pose[8];
-        // if (pose[9].score > tolerance) this.leftWrist = pose[9];
-        // if (pose[10].score > tolerance) this.rightWrist = pose[10];
-        // if (pose[11].score > tolerance) this.leftHip = pose[11];
-        // if (pose[12].score > tolerance) this.rightHip = pose[12];
-        // if (pose[13].score > tolerance) this.leftKnee = pose[13];
-        // if (pose[14].score > tolerance) this.rightKnee = pose[14];
-        // if (pose[15].score > tolerance) this.leftAnkle = pose[15];
-        // if (pose[16].score > tolerance) this.rightAnkle = pose[16];
-
-
-        // console.log(this.rightWrist.score)
-      }
-    });
-
-
-    // render character
-    const step = (time) => {
-
-      ctx.save();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      ctx.strokeStyle = dancerColor;
-      ctx.fillStyle = dancerColor;
-     
-      // Head
-      ctx.beginPath()
-      let eyeWidth: number = this.rightEye.position.x - this.leftEye.position.x; 
-      eyeWidth = eyeWidth < 15 ? 15 : eyeWidth;
-     
-      // ctx.drawImage(panda, pose1[0].position.x - (eyeWidth*5), pose1[0].position.y - (eyeWidth*4), eyeWidth * 10, eyeWidth * 8)
-      const headTilt = Math.atan2(this.rightEye.position.y - this.leftEye.position.y, this.rightEye.position.x - this.leftEye.position.x) //* 180 / Math.PI
-      // console.log(headTilt)
-      ctx.ellipse(this.nose.position.x, this.nose.position.y, eyeWidth * 2, eyeWidth * 2.5, headTilt, 0, 2 *Math.PI);
-      ctx.fill();
-      ctx.stroke();
   
-      //arms
-      ctx.beginPath();
-      ctx.moveTo(this.leftWrist.position.x, this.leftWrist.position.y);
-      ctx.lineTo(this.leftElbow.position.x, this.leftElbow.position.y);
-      ctx.lineTo(this.leftShoulder.position.x, this.leftShoulder.position.y);
-      ctx.lineTo(this.rightShoulder.position.x, this.rightShoulder.position.y);
-      ctx.lineTo(this.rightElbow.position.x, this.rightElbow.position.y);
-      ctx.lineTo(this.rightWrist.position.x, this.rightWrist.position.y);
-      ctx.lineWidth = 12;
-      ctx.stroke();
+  ngOnInit() {
+  }
+  
+  
+  ngAfterViewInit() {
+    let dancerColor = `#${Math.floor(Math.random()*16777215).toString(16)}`
 
-      //legs
-      ctx.beginPath();
-      ctx.moveTo(this.leftAnkle.position.x, this.leftAnkle.position.y);
-      ctx.lineTo(this.leftKnee.position.x, this.leftKnee.position.y);
-      ctx.lineTo(this.leftHip.position.x, this.leftHip.position.y);
-      ctx.lineTo(this.rightHip.position.x, this.rightHip.position.y);
-      ctx.lineTo(this.rightKnee.position.x, this.rightKnee.position.y);
-      ctx.lineTo(this.rightAnkle.position.x, this.rightAnkle.position.y);
-      ctx.lineWidth = 20;
-      ctx.stroke();
+    let nose: posePoint = { position: { x: -200, y: -200 }, score: 1 };
+    let leftEye: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let rightEye: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let leftEar: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let rightEar: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let leftShoulder: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let rightShoulder: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let leftElbow: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let rightElbow: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let leftWrist: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let rightWrist: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let leftHip: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let rightHip: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let leftKnee: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let rightKnee: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let leftAnkle: posePoint = { position: { x: 0, y: 0 }, score: 1 };
+    let rightAnkle: posePoint = { position: { x: 0, y: 0 }, score: 1 };
 
-      //torso
-      ctx.beginPath();
-      ctx.moveTo(this.leftShoulder.position.x, this.leftShoulder.position.y);
-      ctx.lineTo(this.rightShoulder.position.x, this.rightShoulder.position.y);
-      ctx.lineTo(this.rightHip.position.x, this.rightHip.position.y);
-      ctx.lineTo(this.leftHip.position.x, this.leftHip.position.y);
-      ctx.closePath();
-      ctx.lineWidth = 7;
-      ctx.stroke();
+    let prevPose: any;
+    
+    // SVG drawing tool
+    const draw = this.drawService.init();
+   
+    //Subscribe to pose data stream
+    if (this.poseStream) {
+      this.poseStream.subscribe((poses) => {
+        //assign pose data to respective points
+        if (poses[0]) {
+          let pose = poses[0].keypoints;
+  
+          // add distortion
+          if (this.customize) {
+            dancerColor = this.customize.color;
+          } 
+  
 
-      ctx.restore(); 
 
+
+          [nose, 
+            leftEye, rightEye, 
+            leftEar, rightEar, 
+            leftShoulder, rightShoulder, 
+            leftElbow, rightElbow, 
+            leftWrist, rightWrist,
+            leftHip, rightHip,
+            leftKnee, rightKnee,
+            leftAnkle, rightAnkle,
+          ] = pose;
+
+        
+          
+
+
+         prevPose = pose;
+        }
+      });
+    }
+
+    // render skin
+    const leftLeg  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: dancerColor, width: 60, linecap: 'round' }).fill('none')
+    const rightLeg = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: dancerColor, width: 60, linecap: 'round' }).fill('none')
+    const torso = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 10, linecap: 'round' }).fill(dancerColor);
+    const leftArm  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: dancerColor, width: 60, linecap: 'round' }).fill('none')
+    const rightArm = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: dancerColor, width: 60, linecap: 'round' }).fill('none')
+    const head = draw.image('../../assets/pandahead.png', 300, 300);
+
+    let eyeWidth: number;
+    let chestCX: number;
+    let shoulderWidth: number;
+    let hipCX: number;
+    let hipWidth: number;
+    let torsoCY: number;
+    let torsoHeight: number;
+    let leftLegLength:  number;
+    let rightLegLength: number;
+
+    // animate
+    const step = (time) => {
+      eyeWidth = rightEye.position.x - leftEye.position.x; 
+      eyeWidth = eyeWidth < 15 ? 15 : eyeWidth;
+      torsoHeight = rightHip.position.y - rightShoulder.position.y;
+      shoulderWidth = rightShoulder.position.x - leftShoulder.position.x;
+      hipWidth = rightHip.position.x - leftHip.position.x;
+      leftLegLength = distance([leftHip.position.x, leftHip.position.y],[leftAnkle.position.x, leftAnkle.position.y]);
+      rightLegLength = distance([rightHip.position.x, rightHip.position.y],[rightAnkle.position.x, rightAnkle.position.y]);
+
+      chestCX = rightShoulder.position.x - shoulderWidth / 2;
+      torsoCY = rightHip.position.y - torsoHeight / 2 ;
+      hipCX = rightHip.position.x - hipWidth / 2;
+
+      leftLeg.plot(`M ${leftHip.position.x}, ${leftHip.position.y} C ${leftKnee.position.x}, ${leftKnee.position.y} ${leftKnee.position.x}, ${leftKnee.position.y} ${leftAnkle.position.x}, ${leftAnkle.position.y}`)
+      .size(null, leftLegLength / 2);
+      rightLeg.plot(`M ${rightHip.position.x}, ${rightHip.position.y} C ${rightKnee.position.x}, ${rightKnee.position.y} ${rightKnee.position.x}, ${rightKnee.position.y} ${rightAnkle.position.x}, ${rightAnkle.position.y}`)
+      .size(null, rightLegLength / 2);
+      torso.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} 
+        C ${leftShoulder.position.x - hipWidth}, ${torsoCY} ${leftHip.position.x - hipWidth}, ${torsoCY + torsoHeight * 0.35 } ${leftHip.position.x}, ${leftHip.position.y}
+        C ${hipCX}, ${leftHip.position.y + 10} ${hipCX}, ${rightHip.position.y + 10}, ${rightHip.position.x}, ${rightHip.position.y}
+        C ${rightHip.position.x + hipWidth}, ${torsoCY + torsoHeight * 0.35 } ${rightShoulder.position.x + hipWidth}, ${torsoCY} ${rightShoulder.position.x}, ${rightShoulder.position.y}
+        C ${chestCX}, ${rightShoulder.position.y - 20} ${chestCX}, ${leftShoulder.position.y - 20} ${leftShoulder.position.x}, ${leftShoulder.position.y}
+      `);
+      head.cx(nose.position.x).cy(nose.position.y).size(eyeWidth * 10, eyeWidth * 10);
+      leftArm.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} C ${leftElbow.position.x}, ${leftElbow.position.y} ${leftElbow.position.x}, ${leftElbow.position.y} ${leftWrist.position.x}, ${leftWrist.position.y}`)
+      rightArm.plot(`M ${rightShoulder.position.x}, ${rightShoulder.position.y} C ${rightElbow.position.x}, ${rightElbow.position.y} ${rightElbow.position.x}, ${rightElbow.position.y} ${rightWrist.position.x}, ${rightWrist.position.y}`)
+     // const headTilt = Math.atan2(rightEye.position.y - leftEye.position.y, rightEye.position.x - leftEye.position.x) //* 180 / Math.PI
+    
       window.requestAnimationFrame(step);  
     }
     window.requestAnimationFrame(step);

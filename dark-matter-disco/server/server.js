@@ -32,8 +32,16 @@ app.use(express.static(path.join(__dirname, '../dist/dark-matter-disco')))
 const socketIds = {};
 
 
+/**
+ * parties
+ * username to roomname hash to manage socket traffic
+ * for users who have joined respective part
+ * partyName property is set by the first person to send the invite
+ *  */ 
+const parties = {};
+
 io.on('connection', (socket) => {
-    console.log('new connection');
+    console.log('new websock connection');
 
     // connect usernames and socket ids
     socket.emit('user', 'who you is?')
@@ -52,18 +60,29 @@ io.on('connection', (socket) => {
 
     // handle invite
     socket.on('invite', (fromUsername, toUsername) => {
+        // send invite 
         socket.broadcast.to(socketIds[toUsername]).emit('invite', fromUsername);
+        // create a new party if there isn't one
+        if (!parties[fromUsername]) {
+            parties[fromUsername] = { partyName: fromUsername, private: true };
+            socket.join(fromUsername)
+        }
         console.log('invite from:', fromUsername,'to', toUsername)
     });
 
      // handle accept invite
      socket.on('accept invite', (fromUsername, toUsername) => {
+         // send accept notification
         socket.broadcast.to(socketIds[toUsername]).emit('invite accepted', fromUsername);
+        // add new dancer to party!
+        parties[fromUsername] = parties[toUsername];
+        socket.join(parties[toUsername].partyName); 
     });
 
     // handle pose data
-    socket.on('pose', (friendUsername, pose) => {
-        socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
+    socket.on('pose', (username, pose) => {
+        socket.broadcast.to(parties[username].partyName).emit('pose', username, pose);
+        // socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
     })
 
     // handle song change
@@ -87,7 +106,10 @@ io.on('connection', (socket) => {
     // handle disconnect 
     socket.on('disconnect', () => {
         for(let username in socketIds) {
-            if (socketIds[username] === socket.id) delete socketIds[username];
+            if (socketIds[username] === socket.id){
+                delete socketIds[username];
+                parties[username] = null;
+            } 
         }
     });
 })
