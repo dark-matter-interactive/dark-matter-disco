@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "git pull origin master & npm install & ng build & pm2 restart 2 'main server'",
+    "build": "git pull origin master && npm install && ng build && pm2 restart 2 'main server'",
     "build-dev": "ng build --watch=true",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,6 +23,7 @@
     "@tensorflow-models/posenet": "^2.0.0",
     "@tensorflow/tfjs": "^1.2.1",
     "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "mathjs": "^6.0.2",

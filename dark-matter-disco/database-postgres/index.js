@@ -16,17 +16,24 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
+// sequelize.sync({
+//   force: true, // Drops info in database for testing
+// });
 //define User model
-const User = sequelize.define('User', {
-  username: Sequelize.STRING,
-  starsTotal: Sequelize.INTEGER
+const User = sequelize.define('Users', {
+  username: {
+    type: Sequelize.STRING,
+    primaryKey: true,
+    unique: true,
+  },
+  starsTotal: Sequelize.INTEGER,
 });
 
 //define Friends model
 const Friends = sequelize.define('Friends', {
-  userId: Sequelize.INTEGER,
-  friendId: Sequelize.INTEGER,
-  starsGiven: Sequelize.INTEGER
+  username: Sequelize.STRING,
+  friendName: Sequelize.STRING,
+  status: Sequelize.INTEGER
 });
 
 module.exports.User = User;

@@ -2,8 +2,13 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+const users = require('./routes/users.js');
+const friends = require('./routes/friends.js');
+const bodyParser = require('body-parser');
+// require('../database-postgres/helpers.js');
+
 
 const port = process.env.PORT || 8080;
 // require('../database-postgres/index.js');
@@ -12,6 +17,13 @@ app.use((req, res, next) => {
     console.log(req.method, req.url);
     next();
 })
+
+app.use(bodyParser.json());
+
+//use user routes
+app.use('/user', users);
+app.use('/friend', friends);
+
 
 //serve static assets
 app.use(express.static(path.join(__dirname, '../dist/dark-matter-disco')))
@@ -82,6 +94,13 @@ io.on('connection', (socket) => {
 
 
 
+
+
+
+// app.get('/', (req, res) => {
+//     res.sendStatus(200);
+//     console.log('running')
+// })
 
 
 
