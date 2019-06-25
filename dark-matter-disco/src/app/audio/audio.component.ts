@@ -90,13 +90,6 @@ export class AudioComponent implements OnInit {
       console.log(response);
       this.videos = response.items;
       console.log(this.videos);
-
-      // Resets the video id for iframe api player
-      // this.video = this.videoID;
-      // this.player.cueVideoById(this.video);
-
-      // Using websockets to sync audio for users
-      // this.liveSocketService.emit('changeSong', this.videoID);
     }, () => {}, () => {
       console.log('subscription complete');
     });
@@ -159,12 +152,14 @@ export class AudioComponent implements OnInit {
     this.player.pauseVideo();
   }
 
+  // selects song and calls loadSong function with videoID
   selectSong = (videoID) => {
     this.videoID = videoID;
     // this.liveSocketService.emit('changeSong', this.videoID);
     this.loadSong(videoID);
   }
 
+  // loads song into player, sends to all clients
   loadSong(videoID) {
     this.player.cueVideoById(videoID);
   }
