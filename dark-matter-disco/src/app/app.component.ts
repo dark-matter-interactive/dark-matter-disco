@@ -56,7 +56,7 @@ export class AppComponent implements OnInit{
 
     //get list of all users
     axios.get(`/user/login`).then((users) => {
-      this.allUsers = [users];
+      this.allUsers = users.data;
       console.log(this.allUsers);
     });
 
