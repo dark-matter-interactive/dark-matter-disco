@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import 'svg.js';
+// import 'svg.js';
 
 declare global {
   interface Window { SVG: any; }
