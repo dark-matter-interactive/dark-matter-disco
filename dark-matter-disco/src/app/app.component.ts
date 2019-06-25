@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import randomNames from '../assets/random-usernames';
 import { LiveSocketService } from "./live-socket.service";
+import axios from 'axios';
 
 
 @Component({
@@ -43,13 +44,18 @@ export class AppComponent implements OnInit{
       this.inviteeUsername = null;
     })
 
+    //store logged in user to database
+    axios.post('/user/login', {
+      username: this.username
+    })
+
   }
 
   acceptInvite() {
     console.log('you accepted invite from', this.hostUsername)
     this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
     this.friendUsername = this.hostUsername;
-    this.hostUsername = null;
+    this.hostUsername = null
   }
 
   changeInvitee = (username) => {
