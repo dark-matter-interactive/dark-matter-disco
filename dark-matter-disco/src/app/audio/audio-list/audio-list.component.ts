@@ -12,7 +12,9 @@ export class AudioListComponent implements OnInit {
 
   constructor() { }
 
+  // import videos from youtube search
   @Input() videos: any;
+  // import function to be called on selected video
   @Input() selectSong;
   // @Output() selectSong = new EventEmitter<string>()
   ngOnInit() {
