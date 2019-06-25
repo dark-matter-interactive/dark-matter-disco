@@ -1,12 +1,5 @@
-<p>
-  audio-list works!
-</p>
-  <!-- <app-audio-list-item *ngFor="let video of videos">
-
-  </app-audio-list-item> -->
-
-      <div *ngFor="let video of videos" (click)="selectSong(video.id.videoId)">
-          <img src="{{video.snippet.thumbnails.default.url}}" alt="">
-          <h4>{{ video.snippet.title }}</h4>
-        </div>
+<div *ngFor="let video of videos" (click)="selectSong(video.id.videoId)">
+    <img src="{{video.snippet.thumbnails.default.url}}" alt="">
+    <h4>{{ video.snippet.title }}</h4>
+</div>
 
