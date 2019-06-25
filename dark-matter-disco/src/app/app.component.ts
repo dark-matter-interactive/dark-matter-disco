@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import randomNames from '../assets/random-usernames';
 import { LiveSocketService } from "./live-socket.service";
+import axios from 'axios';
 import { Subject } from 'rxjs';
 
 
@@ -44,6 +45,11 @@ export class AppComponent implements OnInit{
       console.log('invite accepted from', friendUsername);
       this.friendUsername = 'bananas'//friendUsername;
       this.inviteeUsername = null;
+    })
+
+    //store logged in user to database
+    axios.post('/user/login', {
+      username: this.username
     })
 
   }
