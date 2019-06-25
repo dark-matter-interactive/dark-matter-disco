@@ -9,6 +9,7 @@ import { DancerComponent } from './dancer/dancer.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FriendsComponent } from './friends/friends.component';
+import { AudioListComponent } from './audio/audio-list/audio-list.component';
 
 
 
@@ -18,7 +19,8 @@ import { FriendsComponent } from './friends/friends.component';
     AudioComponent,
     DanceFloorComponent,
     DancerComponent,
-    FriendsComponent
+    FriendsComponent,
+    AudioListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 <div>
   <form action="" (ngSubmit)="loadAudio(val)">
-    <input type="text" [(ngModel)]="val" name="query">
+    <input type="text" [(ngModel)]="val" name="query" placeholder="Type Song Name Here">
     <input type="submit" value="submit" name="submit">
   </form>
   <br>
@@ -9,5 +9,6 @@
     <br>
     <button (click)="playAudio()">Play</button>
     <button (click)="pauseAudio()" >Pause</button>
+    <audio-list [videos]=videos [selectSong]="selectSong"></audio-list>
 </div>
 
