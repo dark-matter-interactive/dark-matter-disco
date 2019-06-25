@@ -6,6 +6,8 @@ const sequelize = new Sequelize('postgres', 'operationspark', '', {
   dialect: 'postgres'
 });
 
+
+
 // Option 2: Passing a connection URI
 sequelize
   .authenticate()
@@ -27,6 +29,7 @@ const User = sequelize.define('Users', {
     unique: true,
   },
   starsTotal: Sequelize.INTEGER,
+  
 });
 
 //define Friends model
