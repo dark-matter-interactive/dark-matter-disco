@@ -18,6 +18,7 @@ export class AudioComponent implements OnInit {
   public player: any;
   public reframed: Boolean = false;
 
+  videos: any = [];
   val: string = '';
   videoID: string = '';
   private audioSubscription: Subscription;
@@ -64,8 +65,10 @@ export class AudioComponent implements OnInit {
     // Socket io sending event to change song to other users
     this.liveSocketService.on('changeSong', (videoID) => {
       console.log(videoID);
-      this.videoID = videoID;
-      this.player.cueVideoById(videoID);
+      if (this.videoID !== videoID){
+        this.videoID = videoID
+        this.player.cueVideoById(videoID);
+      }
     })
     // Socket io sending event for pausing audio
     this.liveSocketService.on('pauseSong', () => {
@@ -82,12 +85,18 @@ export class AudioComponent implements OnInit {
     this.audioSubscription = this.configService.searchAudio(this.val).subscribe((response: any) => {
       console.log(response, response.items[0].id.videoId);
       this.videoID = response.items[0].id.videoId;
+
+      // Gets list of videos adds to videos
+      console.log(response);
+      this.videos = response.items;
+      console.log(this.videos);
+
       // Resets the video id for iframe api player
-      this.video = this.videoID;
-      this.player.cueVideoById(this.video);
+      // this.video = this.videoID;
+      // this.player.cueVideoById(this.video);
 
       // Using websockets to sync audio for users
-      this.liveSocketService.emit('changeSong', this.videoID);
+      // this.liveSocketService.emit('changeSong', this.videoID);
     }, () => {}, () => {
       console.log('subscription complete');
     });
@@ -111,10 +120,15 @@ export class AudioComponent implements OnInit {
           console.log('paused' + ' @ ' + this.cleanTime());
         };
         this.liveSocketService.emit('pauseSong');
-
         break;
       case window['YT'].PlayerState.ENDED:
         console.log('ended');
+        break;
+      case window['YT'].PlayerState.CUED:
+        console.log('new video cued', this);
+        this.liveSocketService.emit('changeSong', this.videoID);
+
+        // this.selectSong(this.videoID);
         break;
     };
   };
@@ -143,6 +157,16 @@ export class AudioComponent implements OnInit {
 
   pauseAudio() {
     this.player.pauseVideo();
+  }
+
+  selectSong = (videoID) => {
+    this.videoID = videoID;
+    // this.liveSocketService.emit('changeSong', this.videoID);
+    this.loadSong(videoID);
+  }
+
+  loadSong(videoID) {
+    this.player.cueVideoById(videoID);
   }
   
 }
