@@ -14,11 +14,17 @@
   <app-dance-floor 
     [username]=username 
     [friendUsername]=friendUsername
-    [customize]=customize>
-  </app-dance-floor>
+    [customize]=customize
+    [danceBuddies]=danceBuddies
+   
+  ></app-dance-floor>
   <div id="rightbar">
     <app-audio></app-audio>
-    <app-friends [changeInvitee]=changeInvitee [username]=username></app-friends>
+    <app-friends 
+    [changeInvitee]=changeInvitee 
+    [username]=username 
+    [danceBuddies]=danceBuddies
+  ></app-friends>
   </div>
 
 </div>

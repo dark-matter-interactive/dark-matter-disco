@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import randomNames from '../assets/random-usernames';
 import { LiveSocketService } from "./live-socket.service";
 import axios from 'axios';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -16,7 +17,9 @@ export class AppComponent implements OnInit{
   friendUsername: string = null;
   hostUsername: string = null;
   inviteeUsername: string = null;
-  customize: any = { color: 'green' };
+  danceBuddies: any = {};
+
+  customize: any = { color: '#f06' };
 
   constructor (private liveSocketService: LiveSocketService) {}
 
@@ -55,7 +58,8 @@ export class AppComponent implements OnInit{
     console.log('you accepted invite from', this.hostUsername)
     this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
     this.friendUsername = this.hostUsername;
-    this.hostUsername = null
+    // this.danceBuddies[this.hostUsername] = new Subject();
+    this.hostUsername = null;
   }
 
   changeInvitee = (username) => {

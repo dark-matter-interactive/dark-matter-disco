@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
 //import axios to trigger server requests
 import axios from 'axios';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-friends',
@@ -16,6 +17,7 @@ export class FriendsComponent implements OnInit {
 
   @Input() changeInvitee: any;
   @Input() username: string;
+  @Input() danceBuddies: any;
 
   ngOnInit() {
     this.liveSocketService.emit('who online', 'please')
@@ -31,13 +33,6 @@ export class FriendsComponent implements OnInit {
     
   }
 
-  sendFriendRequest(toUsername) {
-    this.changeInvitee(toUsername);
-    console.log(toUsername, this.username)
-    axios.post('/friend/request', {
-      username: this.username,
-      friendName: toUsername,
-    })
-  }
+  
 
 }
