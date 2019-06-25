@@ -10,6 +10,7 @@ const youTubeSearch = (query) => {
             part: 'snippet',
             type: 'video',
             videoEmbeddable: true,
+            maxResults: 5,
         }
     }).then((res) => {
         console.log(res)

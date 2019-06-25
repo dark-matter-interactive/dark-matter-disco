@@ -1,0 +1,5 @@
+<div *ngFor="let video of videos" (click)="selectSong(video.id.videoId)">
+    <img src="{{video.snippet.thumbnails.default.url}}" alt="">
+    <h4>{{ video.snippet.title }}</h4>
+</div>
+

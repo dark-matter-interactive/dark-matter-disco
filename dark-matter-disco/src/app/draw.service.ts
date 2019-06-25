@@ -8,11 +8,15 @@ declare global {
   interface Window { SVG: any; }
 }
 
+declare global {
+  interface Window { SVG: any; }
+ }
 @Injectable({
   providedIn: 'root'
 })
+//svg.js adds SVG to the global namespace
 export class DrawService {
-
+  
   constructor() { }
 
   draw: any;
