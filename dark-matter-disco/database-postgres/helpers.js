@@ -28,6 +28,11 @@ const getPendingRequests = (username) => {
     .then(pendingRequests => pendingRequests.map(request => request.friendName));
 }
 
+//get all users
+const getAllUsers = () =>{
+  return User.findAll({}).then(users => users);
+}
+
 const storeFriendRequest = (username, friendName) => {
   //store all friend requests in database
   return Friends.findOrCreate({ 
@@ -65,3 +70,4 @@ module.exports.storeOrFindUser = storeOrFindUser;
 module.exports.getUserByUsername = getUserByUsername;
 module.exports.getPendingRequests = getPendingRequests;
 module.exports.updateStatus = updateStatus;
+module.exports.getAllUsers = getAllUsers;
