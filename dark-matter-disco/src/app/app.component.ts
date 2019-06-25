@@ -60,6 +60,8 @@ export class AppComponent implements OnInit{
       console.log(this.allUsers);
     });
 
+    
+
   }
 
   acceptInvite() {
@@ -73,6 +75,14 @@ export class AppComponent implements OnInit{
   changeInvitee = (username) => {
     this.inviteeUsername = username;
     // console.log(this.friendUsername);
+  }
+
+  sendFriendRequest(username, friendName) {
+    //add requests to database
+    axios.post('/friend/request', {
+      username,
+      friendName
+    })
   }
 
 }

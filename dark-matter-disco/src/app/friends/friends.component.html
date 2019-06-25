@@ -3,9 +3,8 @@
     <div *ngFor="let username of onlineUsers">
       <button (click)=sendInvite(username)> invite </button> {{ username }}
     </div>
-
+<h2>Users</h2>
     <div *ngFor="let user of allUsers">
-      <button> accept </button> {{ user.username }}
-      
+      <button (click)=sendFriendRequest(username,user.username)> Friend </button> {{ user.username }}
     </div>
   <!-- </ul> -->

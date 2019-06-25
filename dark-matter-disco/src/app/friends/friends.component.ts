@@ -19,6 +19,7 @@ export class FriendsComponent implements OnInit {
   @Input() username: string;
   @Input() danceBuddies: any;
   @Input() allUsers: any;
+  @Input() sendFriendRequest: any;
 
 
   ngOnInit() {
