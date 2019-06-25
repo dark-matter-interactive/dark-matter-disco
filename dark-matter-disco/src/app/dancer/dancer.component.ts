@@ -108,20 +108,16 @@ export class DancerComponent implements AfterViewInit, OnInit {
       torsoCY = rightHip.position.y - torsoHeight / 2 ;
       hipCX = rightHip.position.x - hipWidth / 2;
 
-      console.log('left leg', )
       leftLeg.plot(`M ${leftHip.position.x}, ${leftHip.position.y} C ${leftKnee.position.x}, ${leftKnee.position.y} ${leftKnee.position.x}, ${leftKnee.position.y} ${leftAnkle.position.x}, ${leftAnkle.position.y}`)
       .size(null, leftLegLength / 2).stroke({ width: (torsoHeight + shoulderWidth) / 4 });
-      console.log('right leg')
       rightLeg.plot(`M ${rightHip.position.x}, ${rightHip.position.y} C ${rightKnee.position.x}, ${rightKnee.position.y} ${rightKnee.position.x}, ${rightKnee.position.y} ${rightAnkle.position.x}, ${rightAnkle.position.y}`)
       .size(null, rightLegLength / 2).stroke({ width: (torsoHeight + shoulderWidth) / 4 });;
-      console.log('torso')
       torso.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} 
       C ${leftShoulder.position.x - hipWidth}, ${torsoCY} ${leftHip.position.x - hipWidth}, ${torsoCY + torsoHeight * 0.35 } ${leftHip.position.x}, ${leftHip.position.y}
       C ${hipCX}, ${leftHip.position.y + 10} ${hipCX}, ${rightHip.position.y + 10}, ${rightHip.position.x}, ${rightHip.position.y}
       C ${rightHip.position.x + hipWidth}, ${torsoCY + torsoHeight * 0.35 } ${rightShoulder.position.x + hipWidth}, ${torsoCY} ${rightShoulder.position.x}, ${rightShoulder.position.y}
       C ${chestCX}, ${rightShoulder.position.y - 20} ${chestCX}, ${leftShoulder.position.y - 20} ${leftShoulder.position.x}, ${leftShoulder.position.y}
       `);
-      console.log('head')
       head.cx(nose.position.x).cy(nose.position.y).size(eyeWidth * 10, eyeWidth * 10).rotate(headTilt);
       leftArm.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} C ${leftElbow.position.x}, ${leftElbow.position.y} ${leftElbow.position.x}, ${leftElbow.position.y} ${leftWrist.position.x}, ${leftWrist.position.y}`)
       .stroke({ width: (torsoHeight + shoulderWidth) / 6 });

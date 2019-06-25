@@ -18,6 +18,8 @@ export class FriendsComponent implements OnInit {
   @Input() changeInvitee: any;
   @Input() username: string;
   @Input() danceBuddies: any;
+  @Input() allUsers: any;
+
 
   ngOnInit() {
     this.liveSocketService.emit('who online', 'please')

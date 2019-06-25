@@ -19,6 +19,8 @@ export class AppComponent implements OnInit{
   inviteeUsername: string = null;
   danceBuddies: any = {};
 
+  allUsers: any = [];
+
   customize: any = { color: '#f06' };
 
   constructor (private liveSocketService: LiveSocketService) {}
@@ -51,6 +53,12 @@ export class AppComponent implements OnInit{
     axios.post('/user/login', {
       username: this.username
     })
+
+    //get list of all users
+    axios.get(`/user/login`).then((users) => {
+      this.allUsers = users.data;
+      console.log(this.allUsers);
+    });
 
   }
 
