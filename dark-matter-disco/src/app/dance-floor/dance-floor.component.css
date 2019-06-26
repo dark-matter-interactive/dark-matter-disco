@@ -4,12 +4,13 @@
 }
 
 #webcam {
-  opacity: 0.1;
+  opacity: 0.4;
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
   position: absolute;
   z-index: -1;
   margin-top: -112px;
+  filter: blur(10px);
 }
 
 #dancer {

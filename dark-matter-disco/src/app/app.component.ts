@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 export class AppComponent implements OnInit{
   title = 'Dark Matter Disco';
 
-  username: string = null;
+  username: string = null; 
   friendUsername: string = null;
   hostUsername: string = null;
   inviteeUsername: string = null;
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit{
 
     this.liveSocketService.on('invite accepted', (friendUsername: string) => {
       console.log('invite accepted from', friendUsername);
-      this.friendUsername = friendUsername;
+      this.friendUsername = 'bananas'//friendUsername;
       this.inviteeUsername = null;
     })
 
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit{
   acceptInvite() {
     console.log('you accepted invite from', this.hostUsername)
     this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
-    this.friendUsername = this.hostUsername;
+    this.friendUsername = 'bananas'// this.hostUsername;
     // this.danceBuddies[this.hostUsername] = new Subject();
     this.hostUsername = null;
   }
