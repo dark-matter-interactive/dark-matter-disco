@@ -11,7 +11,7 @@
       <button (click)=showFriendRequests()> Show Requests </button>
       <div *ngIf="showRequests">
         <div *ngFor="let name of allRequests">
-          <button> Accept </button> {{ name }}
+          <button (click)=acceptFriendRequest(username,name)> Accept </button> {{ name }}
         </div>
       </div>
   <!-- </ul> -->

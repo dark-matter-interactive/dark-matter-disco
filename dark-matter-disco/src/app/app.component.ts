@@ -93,7 +93,13 @@ export class AppComponent implements OnInit{
       this.allRequests = requests.data
       console.log(this.allRequests);
     })
-
+  }
+  acceptFriendRequest(username, friendName) {
+    //trigger put request
+    axios.put('/friend/request', {
+      username,
+      friendName
+    });
   }
 
 }
