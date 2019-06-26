@@ -115,4 +115,8 @@ export class AppComponent implements OnInit{
     })
   }
 
+  findFriends(username) {
+    console.log(username, 'hit');
+  }
+
 }

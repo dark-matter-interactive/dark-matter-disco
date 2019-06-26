@@ -3,6 +3,14 @@
     <div *ngFor="let username of onlineUsers">
       <button (click)=sendInvite(username)> invite </button> {{ username }}
     </div>
+<h2>Find Friends</h2>
+<div>
+    <form>
+        <input [(ngModel)]="name" name="Nancy" #ctrl="ngModel" required>
+        <p>Value: {{ name }}</p>
+        <button (click)=findFriends(name) type="submit">Submit</button>
+    </form>
+</div>
 <h2>Users</h2>
     <div *ngFor="let user of allUsers">
       <button (click)=sendFriendRequest(username,user.username)> Friend </button> {{ user.username }}
