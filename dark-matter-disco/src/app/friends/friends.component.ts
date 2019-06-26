@@ -32,6 +32,7 @@ export class FriendsComponent implements OnInit {
     });
   }
 
+  
   sendInvite(toUsername) {
     console.log('SENDING INVITE TO', toUsername)
     this.liveSocketService.emit('invite', this.username, toUsername);

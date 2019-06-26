@@ -61,7 +61,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     };
     
     // delay in milliseconds between calls to estimate pose from webcam
-    const delay = 80;
+    const delay = 20;
     
     // webcam
     const webcamVideo = this.webcamVideo;
