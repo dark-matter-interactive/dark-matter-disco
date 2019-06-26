@@ -118,7 +118,7 @@ export class DancerComponent implements AfterViewInit, OnInit {
       C ${rightHip.position.x + hipWidth}, ${torsoCY + torsoHeight * 0.35 } ${rightShoulder.position.x + hipWidth}, ${torsoCY} ${rightShoulder.position.x}, ${rightShoulder.position.y}
       C ${chestCX}, ${rightShoulder.position.y - 20} ${chestCX}, ${leftShoulder.position.y - 20} ${leftShoulder.position.x}, ${leftShoulder.position.y}
       `);
-      head.cx(nose.position.x).cy(nose.position.y).size(eyeWidth * 10, eyeWidth * 10).rotate(headTilt);
+      head.cx(nose.position.x).cy(nose.position.y).size(eyeWidth * 10, eyeWidth * 10)//.rotate(headTilt);
       leftArm.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} C ${leftElbow.position.x}, ${leftElbow.position.y} ${leftElbow.position.x}, ${leftElbow.position.y} ${leftWrist.position.x}, ${leftWrist.position.y}`)
       .stroke({ width: (torsoHeight + shoulderWidth) / 6 });
       leftArmBorder.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} C ${leftElbow.position.x}, ${leftElbow.position.y} ${leftElbow.position.x}, ${leftElbow.position.y} ${leftWrist.position.x}, ${leftWrist.position.y}`)

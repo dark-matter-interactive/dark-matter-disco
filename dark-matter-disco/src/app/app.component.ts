@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 export class AppComponent implements OnInit{
   title = 'Dark Matter Disco';
 
-  username: string = null;
+  username: string = null; 
   friendUsername: string = null;
   hostUsername: string = null;
   inviteeUsername: string = null;
