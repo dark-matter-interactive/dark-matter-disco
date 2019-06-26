@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FriendsComponent } from './friends/friends.component';
 import { AudioListComponent } from './audio/audio-list/audio-list.component';
+import { StarsComponent } from './stars/stars.component';
 
 
 
@@ -21,6 +22,7 @@ import { AudioListComponent } from './audio/audio-list/audio-list.component';
     DancerComponent,
     FriendsComponent,
     AudioListComponent,
+    StarsComponent,
   ],
   imports: [
     BrowserModule,
