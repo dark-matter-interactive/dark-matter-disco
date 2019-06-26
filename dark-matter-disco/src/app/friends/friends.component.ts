@@ -24,6 +24,9 @@ export class FriendsComponent implements OnInit {
   @Input() showFriendRequests: any;
   @Input() showRequests: boolean;
   @Input() acceptFriendRequest: any;
+  @Input() friends: any;
+  @Input() showFriends: boolean;
+  @Input() showNewFriends: any;
 
 
   ngOnInit() {

@@ -11,7 +11,15 @@
       <button (click)=showFriendRequests()> Show Requests </button>
       <div *ngIf="showRequests">
         <div *ngFor="let name of allRequests">
-          <button (click)=acceptFriendRequest(username,name)> Accept </button> {{ name }}
+            <button (click)=acceptFriendRequest(username,name)> Accept </button> {{ name }}
         </div>
       </div>
+<h2>Friends</h2>
+  <button (click)=showNewFriends()> Show Friends </button> 
+  <div *ngIf="showFriends">
+    <div *ngFor="let friend of friends">
+      <button> Unfriend </button> {{ friend.username }}
+    </div>
+  </div> 
+
   <!-- </ul> -->

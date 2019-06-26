@@ -62,6 +62,11 @@ const acceptFriendRequest = (username, friendName) => {
 
 }
 
+//helper for finding friends in database
+const getFriends = (username) => {
+  return Friends.findAll({where : { friendName: username, status: 1}}).then(friends => friends.map(friend => friend));
+}
+
 
 
 module.exports.storeFriendRequest = storeFriendRequest;
@@ -71,3 +76,4 @@ module.exports.getUserByUsername = getUserByUsername;
 module.exports.getPendingRequests = getPendingRequests;
 module.exports.updateStatus = updateStatus;
 module.exports.getAllUsers = getAllUsers;
+module.exports.getFriends = getFriends;

@@ -22,6 +22,8 @@ export class AppComponent implements OnInit{
   allRequests: any = [];
   customize: any = { color: '#f06' };
   showRequests: boolean = false;
+  friends: any = [];
+  showFriends: boolean = false;
 
   constructor (private liveSocketService: LiveSocketService) {}
 
@@ -59,6 +61,9 @@ export class AppComponent implements OnInit{
     axios.get(`/user/login`).then((users) => {
       this.allUsers = users.data;
     });
+
+    
+
 
 
     
@@ -100,6 +105,14 @@ export class AppComponent implements OnInit{
       username,
       friendName
     });
+  }
+
+  showNewFriends() {
+    this.showFriends = true;
+    axios.get(`/friend/${this.username}`).then((requests) => {
+      this.friends = requests.data
+      console.log(this.allRequests);
+    })
   }
 
 }

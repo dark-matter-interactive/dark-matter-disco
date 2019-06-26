@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { storeFriendRequest, updateStatus, getPendingRequests, getUserByUsername, acceptFriendRequest } = require('../../database-postgres/helpers.js');
+const { storeFriendRequest, updateStatus, getPendingRequests, getFriends, acceptFriendRequest } = require('../../database-postgres/helpers.js');
 
 //setup get request for friend invitations
 router
@@ -42,6 +42,14 @@ router
     res.send(202);
   })
 
+  //route for finding friends
+  router.get('/:username', (req, res) => {
+    const username = req.params.username;
+    //call helper to find friends
+    getFriends(username).then((results) => {
+      res.send(results);
+    });
+  })
 
 
 module.exports = router;
