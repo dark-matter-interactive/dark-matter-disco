@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { storeFriendRequest, updateStatus, getPendingRequests, getUserByUsername, acceptFriendRequest } = require('../../database-postgres/helpers.js');
+const { storeFriendRequest, updateStatus, getPendingRequests, getFriends, acceptFriendRequest } = require('../../database-postgres/helpers.js');
 
 //setup get request for friend invitations
 router
@@ -8,14 +8,14 @@ router
     //get user by username
     const username = req.params.username;
     //call helper to find user by username
-    getUserByUsername(username)
-      .then((user) => {
+    // getUserByUsername(username)
+      // .then((user) => {
         //call helper to find a user's pending friend requests
-        getPendingRequests(user.username).then((results) => {
+        getPendingRequests(username).then((results) => {
           //send list of pending friend requests to client
-          res.send(results);
+            res.send(results);
         });
-    })
+    // })
   })
 
   //setup post request for friend invitations
@@ -42,6 +42,14 @@ router
     res.send(202);
   })
 
+  //route for finding friends
+  router.get('/:username', (req, res) => {
+    const username = req.params.username;
+    //call helper to find friends
+    getFriends(username).then((results) => {
+      res.send(results);
+    });
+  })
 
 
 module.exports = router;
