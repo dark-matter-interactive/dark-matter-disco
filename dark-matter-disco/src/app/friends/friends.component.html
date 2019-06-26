@@ -12,8 +12,13 @@
     </form>
 </div>
 <h2>Users</h2>
-    <div *ngFor="let user of allUsers">
-      <button (click)=sendFriendRequest(username,user.username)> Friend </button> {{ user.username }}
+    <div *ngIf="allUsers?.length > 0">
+      <div *ngFor="let user of allUsers">
+        <button (click)=sendFriendRequest(username,user.username)> Friend </button> {{ user.username }}
+      </div>
+    </div>
+    <div *ngIf="allUsers?.length === 0">
+      <div>Invalid Username</div>
     </div>
 <h2>Pending Requests</h2>
       <button (click)=showFriendRequests()> Show Requests </button>
