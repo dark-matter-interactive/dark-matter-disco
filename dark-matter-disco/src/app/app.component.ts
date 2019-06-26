@@ -116,7 +116,11 @@ export class AppComponent implements OnInit{
   }
 
   findFriends(username) {
-    console.log(username, 'hit');
+    axios.get(`/user/${username}`).then((user) => {
+      // console.log(user);
+      this.allUsers = user.data;
+      console.log(this.allUsers);
+    });
   }
 
 }

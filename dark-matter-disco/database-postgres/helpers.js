@@ -17,7 +17,7 @@ const storeOrFindUser = (username) => {
 //get user by name. takes username
 const getUserByUsername = (username) => {
   //return sequelize model query that returns found user
-  return User.findOne({ where: { username } }).then(user => user);
+  return User.findAll({ where: { username } }).then(user => user);
 }
 
 
