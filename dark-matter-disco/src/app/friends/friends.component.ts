@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
 //import axios to trigger server requests
 import axios from 'axios';
@@ -20,6 +20,9 @@ export class FriendsComponent implements OnInit {
   @Input() danceBuddies: any;
   @Input() allUsers: any;
   @Input() sendFriendRequest: any;
+  @Input() allRequests: any;
+  @Input() showFriendRequests: any;
+  @Input() showRequests: boolean;
 
 
   ngOnInit() {

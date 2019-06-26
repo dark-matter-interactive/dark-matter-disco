@@ -7,4 +7,11 @@
     <div *ngFor="let user of allUsers">
       <button (click)=sendFriendRequest(username,user.username)> Friend </button> {{ user.username }}
     </div>
+<h2>Pending Requests</h2>
+      <button (click)=showFriendRequests()> Show Requests </button>
+      <div *ngIf="showRequests">
+        <div *ngFor="let name of allRequests">
+          <button> Accept </button> {{ name }}
+        </div>
+      </div>
   <!-- </ul> -->

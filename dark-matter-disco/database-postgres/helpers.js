@@ -24,8 +24,8 @@ const getUserByUsername = (username) => {
 //get pending friend requests
 const getPendingRequests = (username) => {
   //find pending requests where friendId matches userId
-  return Friends.findAll({ where: { username, status: 0 }})
-    .then(pendingRequests => pendingRequests.map(request => request.friendName));
+  return Friends.findAll({ where: { friendName: username, status: 0 }})
+    .then(pendingRequests => pendingRequests.map(request => request.username));
 }
 
 //get all users

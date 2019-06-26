@@ -8,14 +8,14 @@ router
     //get user by username
     const username = req.params.username;
     //call helper to find user by username
-    getUserByUsername(username)
-      .then((user) => {
+    // getUserByUsername(username)
+      // .then((user) => {
         //call helper to find a user's pending friend requests
-        getPendingRequests(user.username).then((results) => {
+        getPendingRequests(username).then((results) => {
           //send list of pending friend requests to client
-          res.send(results);
+            res.send(results);
         });
-    })
+    // })
   })
 
   //setup post request for friend invitations

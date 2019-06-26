@@ -18,12 +18,13 @@ export class AppComponent implements OnInit{
   hostUsername: string = null;
   inviteeUsername: string = null;
   danceBuddies: any = {};
-
   allUsers: any = [];
-
+  allRequests: any = [];
   customize: any = { color: '#f06' };
+  showRequests: boolean = false;
 
   constructor (private liveSocketService: LiveSocketService) {}
+
 
   ngOnInit(){
 
@@ -57,8 +58,8 @@ export class AppComponent implements OnInit{
     //get list of all users
     axios.get(`/user/login`).then((users) => {
       this.allUsers = users.data;
-      console.log(this.allUsers);
     });
+
 
     
 
@@ -83,6 +84,16 @@ export class AppComponent implements OnInit{
       username,
       friendName
     })
+  }
+
+  showFriendRequests() {
+    //get pending requests
+    this.showRequests = true;
+    axios.get(`/friend/request/${this.username}`).then((requests) => {
+      this.allRequests = requests.data
+      console.log(this.allRequests);
+    })
+
   }
 
 }
