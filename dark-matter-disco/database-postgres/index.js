@@ -8,6 +8,7 @@ const sequelize = new Sequelize('postgres', 'operationspark', '', {
 
 
 
+
 // Option 2: Passing a connection URI
 sequelize
   .authenticate()
