@@ -12,6 +12,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { AudioListComponent } from './audio/audio-list/audio-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { StarsComponent } from './stars/stars.component';
 
 
 @NgModule({
@@ -22,11 +23,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DancerComponent,
     FriendsComponent,
     AudioListComponent,
-<<<<<<< HEAD
-    StarsComponent,
-=======
     ToolbarComponent,
->>>>>>> b74460c664eb6ca1b6403cd0ce73312c9eff66c4
+    StarsComponent
   ],
   imports: [
     BrowserModule,

@@ -74,6 +74,7 @@ export class AppComponent implements OnInit{
     console.log('you accepted invite from', this.hostUsername)
     this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
     this.friendUsername = 'bananas'// this.hostUsername;
+    this.danceBuddies[this.hostUsername] = 'watcher'
     // this.danceBuddies[this.hostUsername] = new Subject();
     this.hostUsername = null;
   }

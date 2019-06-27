@@ -133,6 +133,14 @@ app.get('/search/youtube', (req, res, next) => {
     }).catch(err => console.error(err))
 })
 
+app.put('/user/stars', (req, res, next) => {
+    console.log(req);
+    updateStars().then((response) => {
+        console.log(response);
+        res.send(response);
+    }).catch(err => console.error(err));
+})
+
 
 http.listen(port, () => {
     console.log(`listening on ${port}`)

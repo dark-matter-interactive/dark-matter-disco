@@ -1,0 +1,6 @@
+<p>
+  stars works!
+</p>
+<div *ngFor="let username of danceBuddies | keyvalue" name="username.key">
+  <button type="button" (click)="addStar(name)" >Add Star</button> {{ username.key }}
+</div>
