@@ -57,10 +57,10 @@ export class AppComponent implements OnInit{
       username: this.username
     })
 
-    //get list of all users
-    axios.get(`/user/login`).then((users) => {
-      this.allUsers = users.data;
-    });
+    // //get list of all users
+    // axios.get(`/user/login`).then((users) => {
+    //   this.allUsers = users.data;
+    // });
 
     
 
@@ -118,7 +118,11 @@ export class AppComponent implements OnInit{
   findFriends(username) {
     axios.get(`/user/${username}`).then((user) => {
       // console.log(user);
-      this.allUsers = user.data;
+      if(Array.isArray(user)) {
+        this.allUsers = user
+      } else {
+        this.allUsers = user.data;
+      }
       console.log(this.allUsers);
     });
   }
