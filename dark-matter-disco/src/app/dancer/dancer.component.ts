@@ -63,7 +63,7 @@ export class DancerComponent implements AfterViewInit, OnInit {
     let prevPose: any;
     
     // SVG drawing tool
-    const draw = this.drawService.init();
+    const draw = this.drawService.init(700);
 
 
     // render skin

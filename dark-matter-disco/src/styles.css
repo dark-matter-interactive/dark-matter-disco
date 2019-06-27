@@ -1,5 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  font-family: 'Stellar';
+  src: url('./assets/fonts/Stellar-Bold.otf') format("opentype");
+  src: url('./assets/fonts/Stellar-light.otf') format("opentype");
+  src: url('./assets/fonts/Stellar-Regular.otf') format("opentype");
+  src: url('./assets/fonts/Stellar-Medium.otf') format("opentype");
+}
 
 body {
   background-image: url('./assets/planet-cartoon-space-background.jpeg '); 
@@ -7,16 +14,9 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  color: rgb(197, 236, 197);
+  background-repeat: no-repeat;
+
+  font-family: 'Stellar';
 }
 
-div {
-  transition: ease-in-out 2s;
-}
-
-
-#header {
-  display: flex;
-  justify-content: space-between;
-}
 

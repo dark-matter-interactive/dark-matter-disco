@@ -1,0 +1,36 @@
+<div class="d-flex flex-row-reverse h-100 text-nowrap">
+
+  <!-- SLIDE OUT TOOLBAR -->  
+  <div *ngIf="isOpen" class="text-dark bg-white h-100 d-flex flex-column p-3 w-20" >
+     <h3 class="text-success">Dark Matter Disco</h3>
+    <div *ngIf="whichToolbar === 'friends'">
+      <h1>Friends</h1>
+      <!-- PUT FRIENDS COMPONENTE HERE -->
+    </div>
+    <div *ngIf="whichToolbar === 'chat'">
+      <h1>Chat</h1>
+      <!-- PUT FRIENDS COMPONENTE HERE -->
+    </div>
+    <div *ngIf="whichToolbar === 'music'">
+      <h1>Music</h1>
+      <app-audio></app-audio>
+    </div>
+    <div *ngIf="whichToolbar === 'settings'">
+        <h1>Settings</h1>
+        <!-- PUT FRIENDS COMPONENTE HERE -->
+    </div>
+  </div>
+
+  <!-- ICON BAR -->
+  <div class="bg-success h-100 d-flex flex-column p-2 shadow-lg">
+    <p>
+      logo
+    </p>
+    <button (click)="iconClick('friends')" class="btn btn-success">Friends</button>
+    <button (click)="iconClick('chat')" class="btn btn-success">Chat</button>
+    <button (click)="iconClick('music')" class="btn btn-success">Music</button>
+    <button (click)="iconClick('settings')" class="btn btn-success">Settings</button>
+  
+  </div>
+</div>
+

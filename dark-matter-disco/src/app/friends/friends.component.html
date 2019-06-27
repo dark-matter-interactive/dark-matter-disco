@@ -1,24 +1,24 @@
 <h2>online</h2>
   <!-- <ul> -->
     <div *ngFor="let username of onlineUsers">
-      <button (click)=sendInvite(username)> invite </button> {{ username }}
+      <button (click)=sendInvite(username) class="btn btn-success"> invite </button> {{ username }}
     </div>
 <h2>Users</h2>
     <div *ngFor="let user of allUsers">
-      <button (click)=sendFriendRequest(username,user.username)> Friend </button> {{ user.username }}
+      <button (click)=sendFriendRequest(username,user.username) class="btn btn-success"> Friend </button> {{ user.username }}
     </div>
 <h2>Pending Requests</h2>
-      <button (click)=showFriendRequests()> Show Requests </button>
+      <button (click)=showFriendRequests() > Show Requests </button>
       <div *ngIf="showRequests">
         <div *ngFor="let name of allRequests">
-            <button (click)=acceptFriendRequest(username,name)> Accept </button> {{ name }}
+            <button (click)=acceptFriendRequest(username,name) class="btn btn-success"> Accept </button> {{ name }}
         </div>
       </div>
 <h2>Friends</h2>
   <button (click)=showNewFriends()> Show Friends </button> 
   <div *ngIf="showFriends">
     <div *ngFor="let friend of friends">
-      <button> Unfriend </button> {{ friend.username }}
+      <button class="btn btn-success"> Unfriend </button> {{ friend.username }}
     </div>
   </div> 
 
