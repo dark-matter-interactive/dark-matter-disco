@@ -4,7 +4,7 @@
     </div> -->
     <h2>Friends</h2>
     <div *ngFor="let friend of friends">
-      {{ friend }} <button *ngIf="onlineUsers.includes(friend)" class="btn btn-success"> Invite </button> 
+      {{ friend.username }} <button (click)=sendInvite(friend.username) *ngIf="onlineUsers.includes(friend.username)" class="btn btn-success"> Invite </button> 
     </div>
     
     <h2>Pending Requests</h2>

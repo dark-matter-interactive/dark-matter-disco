@@ -83,12 +83,12 @@ export class FriendsComponent implements OnInit {
       "friendName": friendName,
     }
     this.friendsService.addRequests(body).subscribe();
-    this.friendsService.getRequests(this.username)
-      .subscribe((requests) =>{
-        this.showRequests = true;
-        this.allRequests = requests
-        console.log(this.allRequests, 'requests');
-      });
+    // this.friendsService.getRequests(this.username)
+    //   .subscribe((requests) =>{
+    //     this.showRequests = true;
+    //     this.allRequests = requests
+    //     console.log(this.allRequests, 'requests');
+    //   });
   }
 
   showFriendRequests() {
