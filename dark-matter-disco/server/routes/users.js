@@ -3,14 +3,7 @@ const router = express.Router();
 const { storeOrFindUser, getUserByUsername, getAllUsers } = require('../../database-postgres/helpers.js');
 
 
-// router.get('/:username', (req, res) => {
-//   const username = req.params.username;
-//   //call helper to find user by username
-//   getUserByUsername(username).then((user) => {
-//       //send user as response
-//       res.send(user);
-//   });
-// })
+
 
 
 router.get('/login', (req, res) => {
@@ -19,6 +12,15 @@ router.get('/login', (req, res) => {
   getAllUsers().then((users) => {
       //send user as response
       res.send(users);
+  });
+})
+
+router.get('/:username', (req, res) => {
+  const username = req.params.username;
+  //call helper to find user by username
+  getUserByUsername(username).then((user) => {
+      //send user as response
+      res.send(user);
   });
 })
 
