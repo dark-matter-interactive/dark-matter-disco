@@ -28,11 +28,8 @@
         </div>
       <!-- </div> -->
 <h2>Friends</h2>
-  <button (click)=showNewFriends()> Show Friends </button> 
-  <div *ngIf="showFriends">
     <div *ngFor="let friend of friends">
-      <button class="btn btn-success"> Unfriend </button> {{ friend.username }}
+      <button class="btn btn-success"> Unfriend </button> {{ friend }}
     </div>
-  </div> 
 
   <!-- </ul> -->

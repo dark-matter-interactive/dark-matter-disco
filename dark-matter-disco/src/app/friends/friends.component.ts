@@ -50,8 +50,12 @@ export class FriendsComponent implements OnInit {
       .subscribe((requests) => {
         this.showRequests = true;
         this.allRequests = requests
-        console.log(this.allRequests, 'requests');
+        // console.log(this.allRequests, 'requests');
       });
+    this.friendsService.getFriends(this.username).subscribe((friendsList) => {
+      this.friends = friendsList;
+      console.log(this.friends, 'friends');
+    })
     
   }
   ngAfterViewInit() {
@@ -59,7 +63,7 @@ export class FriendsComponent implements OnInit {
     .subscribe((requests) =>{
       this.showRequests = true;
       this.allRequests = requests
-      console.log(this.allRequests, 'requests');
+      // console.log(this.allRequests, 'requests');
     });
   }
 

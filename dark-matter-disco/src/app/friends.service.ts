@@ -25,4 +25,8 @@ export class FriendsService {
   acceptFriends(body: any) {
     return this.http.put('/friend/request', body);
   }
+
+  getFriends(username: string) {
+    return this.http.get(`/friend/request/${username}`);
+  }
 }
