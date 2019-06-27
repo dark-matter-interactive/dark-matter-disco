@@ -18,12 +18,12 @@ export class AppComponent implements OnInit{
   hostUsername: string = null;
   inviteeUsername: string = null;
   danceBuddies: any = {};
-  allUsers: any = [];
-  allRequests: any = [];
-  customize: any = { color: '#f06' };
-  showRequests: boolean = false;
-  friends: any = [];
-  showFriends: boolean = false;
+  // allUsers: any = [];
+  // allRequests: any = [];
+  // customize: any = { color: '#f06' };
+  // showRequests: boolean = false;
+  // friends: any = [];
+  // showFriends: boolean = false;
 
   constructor (private liveSocketService: LiveSocketService) {}
 
@@ -57,10 +57,10 @@ export class AppComponent implements OnInit{
       username: this.username
     })
 
-    //get list of all users
-    axios.get(`/user/login`).then((users) => {
-      this.allUsers = users.data;
-    });
+    // //get list of all users
+    // axios.get(`/user/login`).then((users) => {
+    //   this.allUsers = users.data;
+    // });
 
     
 
@@ -83,44 +83,48 @@ export class AppComponent implements OnInit{
     // console.log(this.friendUsername);
   }
 
-  sendFriendRequest(username, friendName) {
-    //add requests to database
-    axios.post('/friend/request', {
-      username,
-      friendName
-    })
-  }
+  // sendFriendRequest(username, friendName) {
+  //   //add requests to database
+  //   axios.post('/friend/request', {
+  //     username,
+  //     friendName
+  //   })
+  // }
 
-  showFriendRequests() {
-    //get pending requests
-    this.showRequests = true;
-    axios.get(`/friend/request/${this.username}`).then((requests) => {
-      this.allRequests = requests.data
-      console.log(this.allRequests);
-    })
-  }
-  acceptFriendRequest(username, friendName) {
-    //trigger put request
-    axios.put('/friend/request', {
-      username,
-      friendName
-    });
-  }
+  // showFriendRequests() {
+  //   //get pending requests
+  //   this.showRequests = true;
+  //   axios.get(`/friend/request/${this.username}`).then((requests) => {
+  //     this.allRequests = requests.data
+  //     console.log(this.allRequests);
+  //   })
+  // }
+  // acceptFriendRequest(username, friendName) {
+  //   //trigger put request
+  //   axios.put('/friend/request', {
+  //     username,
+  //     friendName
+  //   });
+  // }
 
-  showNewFriends() {
-    this.showFriends = true;
-    axios.get(`/friend/${this.username}`).then((requests) => {
-      this.friends = requests.data
-      console.log(this.allRequests);
-    })
-  }
+  // showNewFriends() {
+  //   this.showFriends = true;
+  //   axios.get(`/friend/${this.username}`).then((requests) => {
+  //     this.friends = requests.data
+  //     console.log(this.allRequests);
+  //   })
+  // }
 
-  findFriends(username) {
-    axios.get(`/user/${username}`).then((user) => {
-      // console.log(user);
-      this.allUsers = user.data;
-      console.log(this.allUsers);
-    });
-  }
+  // findFriends(username) {
+  //   axios.get(`/user/${username}`).then((user) => {
+  //     // console.log(user);
+  //     if(Array.isArray(user)) {
+  //       this.allUsers = user
+  //     } else {
+  //       this.allUsers = user.data;
+  //     }
+  //     console.log(this.allUsers);
+  //   });
+  // }
 
 }

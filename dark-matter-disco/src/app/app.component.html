@@ -12,11 +12,12 @@
   </div>
   
   <div class="d-flex">
-    <app-toolbar></app-toolbar>
-
-    <app-friends 
-      [changeInvitee]=changeInvitee 
+    <app-toolbar 
       [username]=username 
+      [changeInvitee]=changeInvitee 
+    ></app-toolbar>
+
+    <!-- <app-friends 
       [danceBuddies]=danceBuddies
       [allUsers]=allUsers
       [sendFriendRequest]=sendFriendRequest
@@ -28,7 +29,7 @@
       [showFriends]=showFriends
       [showNewFriends]=showNewFriends
       [findFriends]=findFriends
-    ></app-friends>
+    ></app-friends> -->
 
     <app-dance-floor 
       [username]=username 

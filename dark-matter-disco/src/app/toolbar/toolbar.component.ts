@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,8 +9,11 @@ export class ToolbarComponent implements OnInit {
 
   constructor() { }
 
-  isOpen: boolean = false;
-  whichToolbar: string = '';
+  @Input() changeInvitee: any;
+  @Input() username: string;
+
+  isOpen: boolean = true;
+  whichToolbar: string = 'friends';
 
   iconClick(whichToolbar: string) {
     if (!this.isOpen) {

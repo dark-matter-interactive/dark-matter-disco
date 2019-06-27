@@ -17,17 +17,24 @@ export class FriendsComponent implements OnInit {
 
   @Input() changeInvitee: any;
   @Input() username: string;
-  @Input() danceBuddies: any;
-  @Input() allUsers: any;
-  @Input() sendFriendRequest: any;
-  @Input() allRequests: any;
-  @Input() showFriendRequests: any;
-  @Input() showRequests: boolean;
-  @Input() acceptFriendRequest: any;
-  @Input() friends: any;
-  @Input() showFriends: boolean;
-  @Input() showNewFriends: any;
-  @Input() findFriends: any;
+  // @Input() danceBuddies: any;
+  // @Input() allUsers: any;
+  // @Input() sendFriendRequest: any;
+  // @Input() allRequests: any;
+  // @Input() showFriendRequests: any;
+  // @Input() showRequests: boolean;
+  // @Input() acceptFriendRequest: any;
+  // @Input() friends: any;
+  // @Input() showFriends: boolean;
+  // @Input() showNewFriends: any;
+  // @Input() findFriends: any;
+
+  allUsers: any = [];
+  allRequests: any = [];
+  customize: any = { color: '#f06' };
+  showRequests: boolean = false;
+  friends: any = [];
+  showFriends: boolean = false;
 
 
   ngOnInit() {
@@ -43,6 +50,49 @@ export class FriendsComponent implements OnInit {
     this.liveSocketService.emit('invite', this.username, toUsername);
     this.changeInvitee(toUsername);
     
+  }
+  sendFriendRequest(username, friendName) {
+    //add requests to database
+    axios.post('/friend/request', {
+      username,
+      friendName
+    })
+  }
+
+  showFriendRequests() {
+    //get pending requests
+    this.showRequests = true;
+    axios.get(`/friend/request/${this.username}`).then((requests) => {
+      this.allRequests = requests.data
+      console.log(this.allRequests);
+    })
+  }
+  acceptFriendRequest(username, friendName) {
+    //trigger put request
+    axios.put('/friend/request', {
+      username,
+      friendName
+    });
+  }
+
+  showNewFriends() {
+    this.showFriends = true;
+    axios.get(`/friend/${this.username}`).then((requests) => {
+      this.friends = requests.data
+      console.log(this.allRequests);
+    })
+  }
+
+  findFriends(username) {
+    axios.get(`/user/${username}`).then((user) => {
+      // console.log(user);
+      if(Array.isArray(user)) {
+        this.allUsers = user
+      } else {
+        this.allUsers = user.data;
+      }
+      console.log(this.allUsers);
+    });
   }
 
   
