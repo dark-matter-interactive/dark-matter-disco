@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { LiveSocketService } from '../live-socket.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,13 +8,20 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private liveSocketService: LiveSocketService) {
+    this.liveSocketService.on('chat', (username, message) => {
+      console.log(username, message)
+      this.convos.push({ username, message });
+    }); 
+  }
 
   @Input() changeInvitee: any;
+  @Input() changeVideoID: any;
   @Input() username: string;
 
-  isOpen: boolean = true;
-  whichToolbar: string = 'friends';
+  isOpen: boolean = false;
+  whichToolbar: string = '';
+  convos: any = [];
 
   iconClick(whichToolbar: string) {
     if (!this.isOpen) {

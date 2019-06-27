@@ -1,5 +1,5 @@
-<div *ngFor="let video of videos" (click)="selectSong(video.id.videoId)">
+<div *ngFor="let video of videos" (click)="selectSong(video.id.videoId)" class="m-2 d-flex text-wrap">
     <img src="{{video.snippet.thumbnails.default.url}}" alt="">
-    <h4>{{ video.snippet.title }}</h4>
+    <div class="p-2">{{ video.snippet.title }}</div>
 </div>
 

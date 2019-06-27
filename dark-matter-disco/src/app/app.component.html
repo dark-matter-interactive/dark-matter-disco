@@ -1,20 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div id="app" class="text-light"> 
+<div id="app" class="text-light "> 
 
   <div id="header"> 
     <div *ngIf=hostUsername>
       {{ hostUsername }} wants to dance! 
-      <button (click)=acceptInvite()>lets do this</button>
+      <button class="btn btn-success" (click)=acceptInvite()>lets do this</button>
     </div>
     <div *ngIf=inviteeUsername>
       waiting for {{ inviteeUsername }}...
     </div>
   </div>
   
-  <div class="d-flex">
+  <div class="d-flex justify-content-between">
     <app-toolbar 
       [username]=username 
       [changeInvitee]=changeInvitee 
+      [changeVideoID]=changeVideoID
     ></app-toolbar>
 
     <!-- <app-friends 
@@ -38,9 +39,9 @@
       [danceBuddies]=danceBuddies
     ></app-dance-floor>
 
-    <div id="rightbar" class="d-flex flex-column">
+    <div id="rightbar" class="d-flex flex-column p-3">
       <h4 class="text-light">{{ username }}</h4>
-      <!-- <app-audio></app-audio> -->
+      <app-audio [videoID]=videoID></app-audio>
 
      
   </div>
