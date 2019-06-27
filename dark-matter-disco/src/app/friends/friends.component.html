@@ -21,12 +21,12 @@
       <div>Invalid Username</div>
     </div>
 <h2>Pending Requests</h2>
-      <button (click)=showFriendRequests() > Show Requests </button>
-      <div *ngIf="showRequests">
+      <!-- <button (click)=showFriendRequests() > Show Requests </button> -->
+      <!-- <div *ngIf="showRequests"> -->
         <div *ngFor="let name of allRequests">
             <button (click)=acceptFriendRequest(username,name) class="btn btn-success"> Accept </button> {{ name }}
         </div>
-      </div>
+      <!-- </div> -->
 <h2>Friends</h2>
   <button (click)=showNewFriends()> Show Friends </button> 
   <div *ngIf="showFriends">

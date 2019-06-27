@@ -18,14 +18,15 @@ const storeOrFindUser = (username) => {
 const getUserByUsername = (username) => {
   //return sequelize model query that returns found user
     return User.findAll({ where: { username } }).then((foundUser) => {
-    let user = foundUser[0].dataValues.username
-    return Friends.findAll({ where: { friendName: user }}).then((results) => {
-      if(results.length === 0) {
-        return foundUser
-      } else {
-        return results.map(result => result);
-      }
-    })
+    // let user = foundUser[0].dataValues.username
+    // return Friends.findAll({ where: { friendName: user }}).then((results) => {
+    //   if(results.length === 0) {
+    //     return foundUser
+    //   } else {
+    //     return results.map(result => result);
+    //   }
+    // })
+    return foundUser;
   });
 }
 

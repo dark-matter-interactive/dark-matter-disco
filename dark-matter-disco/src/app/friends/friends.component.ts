@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ApplicationRef } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
+import { FriendsService } from '../friends.service';
 //import axios to trigger server requests
 import axios from 'axios';
 import { Subject } from 'rxjs';
@@ -11,7 +12,9 @@ import { Subject } from 'rxjs';
 })
 export class FriendsComponent implements OnInit {
 
-  constructor(private liveSocketService: LiveSocketService) { }
+
+  
+  constructor(appRef: ApplicationRef, private liveSocketService: LiveSocketService, private friendsService: FriendsService) { }
 
   onlineUsers: string[] = [];
 
@@ -42,7 +45,23 @@ export class FriendsComponent implements OnInit {
     this.liveSocketService.on('who online', (onlineUsers) => {
       this.onlineUsers = onlineUsers.filter((name: string) => name !== this.username);
     });
+    this.friendsService.getRequests(this.username)
+      .subscribe((requests) =>{
+        this.showRequests = true;
+        this.allRequests = requests
+        console.log(this.allRequests, 'requests');
+      });
+    
   }
+  ngAfterViewInit() {
+    this.friendsService.getRequests(this.username)
+    .subscribe((requests) =>{
+      this.showRequests = true;
+      this.allRequests = requests
+      console.log(this.allRequests, 'requests');
+    });
+  }
+
 
   
   sendInvite(toUsername) {
@@ -53,19 +72,35 @@ export class FriendsComponent implements OnInit {
   }
   sendFriendRequest(username, friendName) {
     //add requests to database
-    axios.post('/friend/request', {
-      username,
-      friendName
-    })
+    // axios.post('/friend/request', {
+    //   username,
+    //   friendName
+    // })
+    console.log(username, friendName);
+    let body = {
+      "username": username,
+      "friendName": friendName,
+    }
+    this.friendsService.addRequests(body).subscribe();
+    this.friendsService.getRequests(this.username)
+      .subscribe((requests) =>{
+        this.showRequests = true;
+        this.allRequests = requests
+        console.log(this.allRequests, 'requests');
+      });
   }
 
   showFriendRequests() {
     //get pending requests
     this.showRequests = true;
-    axios.get(`/friend/request/${this.username}`).then((requests) => {
-      this.allRequests = requests.data
-      console.log(this.allRequests);
-    })
+    // axios.get(`/friend/request/${this.username}`).then((requests) => {
+    //   this.allRequests = requests.data
+    //   console.log(this.allRequests);
+    // })
+    this.friendsService.getRequests(this.username)
+      .subscribe((requests) =>{
+        this.allRequests = requests
+      });
   }
   acceptFriendRequest(username, friendName) {
     //trigger put request
@@ -84,15 +119,21 @@ export class FriendsComponent implements OnInit {
   }
 
   findFriends(username) {
-    axios.get(`/user/${username}`).then((user) => {
-      // console.log(user);
-      if(Array.isArray(user)) {
-        this.allUsers = user
-      } else {
-        this.allUsers = user.data;
-      }
-      console.log(this.allUsers);
-    });
+    this.friendsService.searchUsers(username)
+      .subscribe((response: any) => {
+        console.log(response, 'response');
+        this.allUsers = response;
+      })
+    console.log(this.allUsers, 'results');
+    // axios.get(`/user/${username}`).then((user) => {
+    //   // console.log(user);
+    //   if(Array.isArray(user)) {
+    //     this.allUsers = user
+    //   } else {
+    //     this.allUsers = user.data;
+    //   }
+    //   console.log(this.allUsers);
+    // });
   }
 
   
