@@ -1,0 +1,8 @@
+<h1>Chat</h1>
+
+<div *ngFor="let chat of convos">{{chat.username}}: {{chat.message}} </div>
+
+<div class="d-flex">
+  <textarea [(ngModel)]="message"></textarea>
+  <button (click)="sendMsg(message)" class="btn btn-success">send</button>
+</div>

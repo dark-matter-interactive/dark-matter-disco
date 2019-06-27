@@ -18,6 +18,7 @@ export class AppComponent implements OnInit{
   hostUsername: string = null;
   inviteeUsername: string = null;
   danceBuddies: any = {};
+  videoID: string = '';
   // allUsers: any = [];
   // allRequests: any = [];
   // customize: any = { color: '#f06' };
@@ -82,6 +83,11 @@ export class AppComponent implements OnInit{
     this.inviteeUsername = username;
     // console.log(this.friendUsername);
   }
+
+  changeVideoID = (videoID) => {
+    this.videoID = videoID;
+  }
+
 
   // sendFriendRequest(username, friendName) {
   //   //add requests to database

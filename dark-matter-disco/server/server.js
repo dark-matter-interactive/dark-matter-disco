@@ -80,7 +80,9 @@ io.on('connection', (socket) => {
 
     // handle pose data
     socket.on('pose', (username, pose) => {
-        socket.broadcast.to(parties[username].partyName).emit('pose', username, pose);
+        if (parties[username]) {
+            socket.broadcast.to(parties[username].partyName).emit('pose', username, pose);
+        }
         // socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
     })
 
@@ -101,6 +103,15 @@ io.on('connection', (socket) => {
         // console.log('pause song button emitted')
         io.emit('pauseSong')
     })
+
+    // handle chat
+    socket.on('chat', (username, message) => {
+        if (parties[username]) {
+            socket.broadcast.to(parties[username].partyName).emit('chat', username, message);
+            console.log(username, message)
+        }
+    });
+
 
     // handle disconnect 
     socket.on('disconnect', () => {
