@@ -27,6 +27,6 @@ export class FriendsService {
   }
 
   getFriends(username: string) {
-    return this.http.get(`/friend/request/${username}`);
+    return this.http.get(`/friend/${username}`);
   }
 }
