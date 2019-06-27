@@ -12,6 +12,8 @@ import { FriendsComponent } from './friends/friends.component';
 import { AudioListComponent } from './audio/audio-list/audio-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ChatComponent } from './toolbar/chat/chat.component';
+import { AudioControlsComponent } from './audio/audio-controls/audio-controls.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     FriendsComponent,
     AudioListComponent,
     ToolbarComponent,
+    ChatComponent,
+    AudioControlsComponent,
   ],
   imports: [
     BrowserModule,
