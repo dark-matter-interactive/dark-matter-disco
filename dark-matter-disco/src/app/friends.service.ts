@@ -21,4 +21,8 @@ export class FriendsService {
   addRequests(body: any) {
     return this.http.post('/friend/request', body);
   }
+
+  acceptFriends(body: any) {
+    return this.http.put('/friend/request', body);
+  }
 }

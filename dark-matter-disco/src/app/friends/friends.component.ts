@@ -41,12 +41,13 @@ export class FriendsComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log('ngOnInit');
     this.liveSocketService.emit('who online', 'please')
     this.liveSocketService.on('who online', (onlineUsers) => {
       this.onlineUsers = onlineUsers.filter((name: string) => name !== this.username);
     });
     this.friendsService.getRequests(this.username)
-      .subscribe((requests) =>{
+      .subscribe((requests) => {
         this.showRequests = true;
         this.allRequests = requests
         console.log(this.allRequests, 'requests');
@@ -72,10 +73,6 @@ export class FriendsComponent implements OnInit {
   }
   sendFriendRequest(username, friendName) {
     //add requests to database
-    // axios.post('/friend/request', {
-    //   username,
-    //   friendName
-    // })
     console.log(username, friendName);
     let body = {
       "username": username,
@@ -104,10 +101,16 @@ export class FriendsComponent implements OnInit {
   }
   acceptFriendRequest(username, friendName) {
     //trigger put request
-    axios.put('/friend/request', {
+    let body = {
       username,
-      friendName
-    });
+      friendName,
+    }
+    // axios.put('/friend/request', {
+    //   username,
+    //   friendName
+    // });
+    this.friendsService.acceptFriends(body)
+      .subscribe(); 
   }
 
   showNewFriends() {
