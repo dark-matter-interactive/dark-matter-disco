@@ -1,6 +1,6 @@
 #app-dance-floor {
-  display:flex;
-  justify-content: flex-center;
+  /* display:flex;
+  justify-content: flex-center; */
 }
 
 #webcam {
@@ -11,10 +11,10 @@
   z-index: -1;
   margin-top: -112px;
   filter: blur(10px);
+  display:none;
 }
 
 #dancer {
   position: absolute;
   border: 1px rgba(211, 211, 211, 0.486) solid;
-  width: 900px;
 }

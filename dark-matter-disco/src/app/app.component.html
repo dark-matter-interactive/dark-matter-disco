@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div id="app"> 
+<div id="app" class="text-light"> 
+
   <div id="header"> 
-    <h1 id="title">{{ title }}</h1>
     <div *ngIf=hostUsername>
       {{ hostUsername }} wants to dance! 
       <button (click)=acceptInvite()>lets do this</button>
@@ -9,26 +9,43 @@
     <div *ngIf=inviteeUsername>
       waiting for {{ inviteeUsername }}...
     </div>
-    <h3>{{ username }}</h3>
   </div>
-  <app-dance-floor 
-    [username]=username 
-    [friendUsername]=friendUsername
-    [customize]=customize
-    [danceBuddies]=danceBuddies
-   
-  ></app-dance-floor>
-  <div id="rightbar">
-    <app-stars
-      [danceBuddies]=danceBuddies
-    ></app-stars>
-    <app-audio></app-audio>
+  
+  <div class="d-flex">
+    <app-toolbar></app-toolbar>
+
     <app-friends 
-    [changeInvitee]=changeInvitee 
-    [username]=username 
-    [danceBuddies]=danceBuddies
-    [allUsers]=allUsers
-  ></app-friends>
+      [changeInvitee]=changeInvitee 
+      [username]=username 
+      [danceBuddies]=danceBuddies
+      [allUsers]=allUsers
+      [sendFriendRequest]=sendFriendRequest
+      [allRequests]=allRequests
+      [showFriendRequests]=showFriendRequests
+      [showRequests]=showRequests
+      [acceptFriendRequest]=acceptFriendRequest
+      [friends]=friends
+      [showFriends]=showFriends
+      [showNewFriends]=showNewFriends
+      [findFriends]=findFriends
+    ></app-friends>
+
+    <app-dance-floor 
+      [username]=username 
+      [friendUsername]=friendUsername  
+      [customize]=customize
+      [danceBuddies]=danceBuddies
+    ></app-dance-floor>
+
+    <div id="rightbar" class="d-flex flex-column">
+      <h4 class="text-light">{{ username }}</h4>
+      <!-- <app-audio></app-audio> -->
+
+     
+  </div>
+
+  
+  
   </div>
 
 </div>

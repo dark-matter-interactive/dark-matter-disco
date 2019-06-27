@@ -4,8 +4,8 @@ const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-// const users = require('./routes/users.js');
-// const friends = require('./routes/friends.js');
+const users = require('./routes/users.js');
+const friends = require('./routes/friends.js');
 const bodyParser = require('body-parser');
 
 
@@ -20,8 +20,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 //use user routes
-// app.use('/user', users);
-// app.use('/friend', friends);
+app.use('/user', users);
+app.use('/friend', friends);
 
 
 //serve static assets

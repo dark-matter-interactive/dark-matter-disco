@@ -8,6 +8,7 @@ const sequelize = new Sequelize('postgres', 'operationspark', '', {
 
 
 
+
 // Option 2: Passing a connection URI
 sequelize
   .authenticate()
@@ -29,8 +30,8 @@ const User = sequelize.define('Users', {
     unique: true,
   },
   starsTotal: Sequelize.INTEGER,
-  
 });
+
 
 //define Friends model
 const Friends = sequelize.define('Friends', {
@@ -38,6 +39,10 @@ const Friends = sequelize.define('Friends', {
   friendName: Sequelize.STRING,
   status: Sequelize.INTEGER
 });
+
+// User.sync()
+// Friends.sync()
+
 
 module.exports.User = User;
 module.exports.Friends = Friends;

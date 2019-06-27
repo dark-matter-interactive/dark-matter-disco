@@ -10,8 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FriendsComponent } from './friends/friends.component';
 import { AudioListComponent } from './audio/audio-list/audio-list.component';
-import { StarsComponent } from './stars/stars.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 
 @NgModule({
@@ -22,12 +22,17 @@ import { StarsComponent } from './stars/stars.component';
     DancerComponent,
     FriendsComponent,
     AudioListComponent,
+<<<<<<< HEAD
     StarsComponent,
+=======
+    ToolbarComponent,
+>>>>>>> b74460c664eb6ca1b6403cd0ce73312c9eff66c4
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

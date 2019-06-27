@@ -24,9 +24,9 @@ export class DrawService {
   /**
    * init calls SVG 'dancer
    */
-  init() {
+  init(size) {
     if (!this.draw) {
-      this.draw = window.SVG('dancer').size(900,900); 
+      this.draw = window.SVG('dancer').size(size, size); 
     }
     return this.draw;
   }
