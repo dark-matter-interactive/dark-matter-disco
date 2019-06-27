@@ -1,38 +1,31 @@
-<h2>online</h2>
-  <!-- <ul> -->
+<!-- <h2>online</h2>
     <div *ngFor="let username of onlineUsers">
       <button (click)=sendInvite(username) class="btn btn-success"> invite </button> {{ username }}
+    </div> -->
+    <h2>Friends</h2>
+    <div *ngFor="let friend of friends">
+      {{ friend }} <button *ngIf="onlineUsers.includes(friend)" class="btn btn-success"> Invite </button> 
     </div>
-<h2>Find Friends</h2>
+    
+    <h2>Pending Requests</h2>
+    <!-- <button (click)=showFriendRequests() > Show Requests </button> -->
+    <!-- <div *ngIf="showRequests"> -->
+      <div *ngFor="let name of allRequests">
+        <button (click)=acceptFriendRequest(username,name) class="btn btn-success"> Accept </button> {{ name }}
+        </div>
+      <!-- </div> -->
+
+
+<h2>Find New Friends</h2>
 <div>
     <form>
         <input [(ngModel)]="name" name="Nancy" #ctrl="ngModel" required>
-        <p>Value: {{ name }}</p>
         <button (click)=findFriends(name) type="submit">Submit</button>
     </form>
-</div>
-<h2>Users</h2>
     <div *ngIf="allUsers?.length > 0">
-      <div *ngFor="let user of allUsers">
-        <button (click)=sendFriendRequest(username,user.username)> Friend </button> {{ user.username }}
-      </div>
-    </div>
-    <div *ngIf="allUsers?.length === 0">
-      <div>Invalid Username</div>
-    </div>
-<h2>Pending Requests</h2>
-      <button (click)=showFriendRequests() > Show Requests </button>
-      <div *ngIf="showRequests">
-        <div *ngFor="let name of allRequests">
-            <button (click)=acceptFriendRequest(username,name) class="btn btn-success"> Accept </button> {{ name }}
+        <div *ngFor="let user of allUsers">
+          <button (click)=sendFriendRequest(username,user.username)> Friend </button> {{ user.username }}
         </div>
-      </div>
-<h2>Friends</h2>
-  <button (click)=showNewFriends()> Show Friends </button> 
-  <div *ngIf="showFriends">
-    <div *ngFor="let friend of friends">
-      <button class="btn btn-success"> Unfriend </button> {{ friend.username }}
     </div>
-  </div> 
-
+</div>
   <!-- </ul> -->
