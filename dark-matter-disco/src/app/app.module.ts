@@ -16,6 +16,7 @@ import { StarsComponent } from './stars/stars.component';
 import { ChatComponent } from './toolbar/chat/chat.component';
 import { AudioControlsComponent } from './audio/audio-controls/audio-controls.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SettingsComponent } from './toolbar/settings/settings.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StarsComponent,
     ChatComponent,
     AudioControlsComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
