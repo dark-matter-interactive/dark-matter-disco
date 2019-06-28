@@ -41,7 +41,7 @@ const Friends = sequelize.define('Friends', {
 // User.sync()
 // Friends.sync()
 sequelize.sync({
-  force: true, // Drops info in database for testing
+  force: false, // Drops info in database for testing
 });
 
 module.exports.User = User;
