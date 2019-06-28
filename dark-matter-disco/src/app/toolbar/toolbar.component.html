@@ -11,7 +11,7 @@
         ></app-friends>
         <app-chat [username]=username [convos]=convos *ngSwitchCase="'chat'"></app-chat>
         <app-audio-controls *ngSwitchCase="'music'" [changeVideoID]=changeVideoID></app-audio-controls>
-        <div *ngSwitchCase="'settings'"><h1>Settings</h1></div>
+        <app-settings *ngSwitchCase="'settings'"></app-settings>
         <!-- <ng-template ngSwitchCase="case2LiteralString">...</ng-template>
         <ng-template ngSwitchDefault>...</ng-template> -->
     </div>
