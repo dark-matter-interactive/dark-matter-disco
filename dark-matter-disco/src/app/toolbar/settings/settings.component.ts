@@ -13,13 +13,15 @@ export class SettingsComponent implements OnInit {
   }
 
   changeToSpace() {
-    console.log('hit');
     this.renderer.setStyle(document.body, 'background-image', "url('./assets/planet-cartoon-space-background.jpeg')");
   }
 
   changeToRanch() {
-    console.log('hit');
     this.renderer.setStyle(document.body, 'background-image', "url('./assets/farm-fields-minimal-flat-art-work-style_22350-732.jpg')");
+  }
+
+  changeToPineapple() {
+    this.renderer.setStyle(document.body, 'background-image', "url('./assets/Pineapple.png')");
   }
 
 }
