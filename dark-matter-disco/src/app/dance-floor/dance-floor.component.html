@@ -2,9 +2,7 @@
   
   <!-- USER DANCER -->
   <app-dancer [customize]=customize [poseStream]=userPoseStream></app-dancer>
-  
-  <!-- DANCE BUDDIES -->
-  <app-dancer *ngFor="let buddyStream of danceBuddies | keyvalue" [poseStream]="buddyStream.value"></app-dancer>
+  <app-dancer *ngFor="let buddy of danceBuddies | keyvalue" [poseStream]="buddy.value.poseStream"></app-dancer>
  
 
   

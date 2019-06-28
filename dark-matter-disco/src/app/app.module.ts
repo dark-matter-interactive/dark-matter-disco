@@ -12,6 +12,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { AudioListComponent } from './audio/audio-list/audio-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { StarsComponent } from './stars/stars.component';
 import { ChatComponent } from './toolbar/chat/chat.component';
 import { AudioControlsComponent } from './audio/audio-controls/audio-controls.component';
 
@@ -25,6 +26,7 @@ import { AudioControlsComponent } from './audio/audio-controls/audio-controls.co
     FriendsComponent,
     AudioListComponent,
     ToolbarComponent,
+    StarsComponent,
     ChatComponent,
     AudioControlsComponent,
   ],
