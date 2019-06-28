@@ -19,9 +19,7 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-// sequelize.sync({
-//   force: true, // Drops info in database for testing
-// });
+
 //define User model
 const User = sequelize.define('Users', {
   username: {
@@ -42,7 +40,9 @@ const Friends = sequelize.define('Friends', {
 
 // User.sync()
 // Friends.sync()
-
+sequelize.sync({
+  force: true, // Drops info in database for testing
+});
 
 module.exports.User = User;
 module.exports.Friends = Friends;
