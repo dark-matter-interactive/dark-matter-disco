@@ -48,8 +48,21 @@ export class AppComponent implements OnInit{
 
     this.liveSocketService.on('invite accepted', (friendUsername: string) => {
       console.log('invite accepted from', friendUsername);
+      this.danceBuddies[friendUsername] = {watch: true, poseStream: new Subject()};
       this.friendUsername = 'bananas'//friendUsername;
       this.inviteeUsername = null;
+    })
+
+    this.liveSocketService.on('guests', (guests) => {
+      console.log('guests', guests);
+      let usernames = Object.keys(this.danceBuddies);
+      guests.forEach((guest) => {
+        console.log(guest, usernames);
+        if (!usernames.includes(guest) && this.username !== guest) {
+          this.danceBuddies[guest] = {watch: true, poseStream: new Subject()};
+        }
+      })
+      console.log(this.danceBuddies);
     })
 
     //store logged in user to database
@@ -72,9 +85,9 @@ export class AppComponent implements OnInit{
 
   acceptInvite() {
     console.log('you accepted invite from', this.hostUsername)
+    this.danceBuddies[this.hostUsername] = {watch: true, poseStream: new Subject()};
     this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
     this.friendUsername = 'bananas'// this.hostUsername;
-    this.danceBuddies[this.hostUsername] = 'watcher'
     // this.danceBuddies[this.hostUsername] = new Subject();
     this.hostUsername = null;
   }
