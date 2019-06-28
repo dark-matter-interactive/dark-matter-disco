@@ -17,8 +17,6 @@ panda.init = function(draw) {
 }
 
 panda.render = function(pose){
-  console.log(pose)
-
   let { leftLeg, rightLeg, torso, head, leftArmBorder, rightArmBorder, leftArm, rightArm } = this.body;
   let [
     nose,

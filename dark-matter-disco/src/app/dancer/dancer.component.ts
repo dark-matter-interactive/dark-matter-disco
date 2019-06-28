@@ -6,6 +6,7 @@ import { DrawService } from '../draw.service';
 import { poseChain } from '@tensorflow-models/posenet';
 import { eye } from '@tensorflow/tfjs-core';
 import panda from '../../assets/skins/panda.js';
+import Skin from '../../assets/skins/skin.js';
 
 interface Position {
   x: number,
@@ -53,6 +54,8 @@ export class DancerComponent implements AfterViewInit, OnInit {
   @Input() draw: any
   
   pose: any;
+  skin: any = new Skin();
+  skinName: string = 'stick man';
 
   // Canvas for animation
   @ViewChild('canvas', {static: false}) canvasRef: any;
@@ -88,15 +91,23 @@ export class DancerComponent implements AfterViewInit, OnInit {
     // SVG drawing tool
     const draw = this.drawService.init(700);
     
-    //initialize panda
-    panda.init(draw);
+    //initialize skin
+    if (this.skinName === 'stick man') {
+      this.skin.init(draw, 'green');
+    } else if (this.skinName === 'panda') {
+      this.skin = panda;
+      this.skin.init(draw);
+    }
+
+    // panda.init(draw);
 
     
     // let prevEyeWidth = 20;
 
     // animate step function
     const step = (time) => {
-      panda.render(this.pose);
+      // panda.render(this.pose);
+      this.skin.render(this.pose);
       window.requestAnimationFrame(step);  
     }
 
