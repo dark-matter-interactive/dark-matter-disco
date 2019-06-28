@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, OnChanges, SimpleChange } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'svg.js';
 // import { distance } from 'mathjs';
@@ -44,7 +44,7 @@ interface Pose {
   styleUrls: ['./dancer.component.css']
 })
 
-export class DancerComponent implements AfterViewInit, OnInit {
+export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
 
   constructor(private drawService: DrawService) { }
 
@@ -52,15 +52,29 @@ export class DancerComponent implements AfterViewInit, OnInit {
   @Input() poseStream: any;
   @Input() customize: any;
   @Input() draw: any
+  @Input() skinName: string;
   
   pose: any;
   skin: any = new Skin();
-  skinName: string = 'stick man';
+
 
   // Canvas for animation
   @ViewChild('canvas', {static: false}) canvasRef: any;
   
   ngOnInit() {
+  }
+
+  ngOnChanges(changes) {
+    console.log(changes);
+    if (changes.skinName.previousValue) {
+      this.skin.hide();
+      if (changes.skinName.currentValue === 'panda') {
+        this.skin = panda;
+      } else if (changes.skinName.currentValue === 'stick man') {
+        this.skin = new Skin();
+      }
+      this.skin.init(this.draw);
+    }
   }
 
   
@@ -89,14 +103,14 @@ export class DancerComponent implements AfterViewInit, OnInit {
 
     
     // SVG drawing tool
-    const draw = this.drawService.init(700);
+    this.draw = this.drawService.init(700);
     
     //initialize skin
     if (this.skinName === 'stick man') {
-      this.skin.init(draw, 'green');
+      this.skin.init(this.draw, 'green');
     } else if (this.skinName === 'panda') {
       this.skin = panda;
-      this.skin.init(draw);
+      this.skin.init(this.draw);
     }
 
     // panda.init(draw);

@@ -38,6 +38,7 @@ export class ToolbarComponent implements OnInit {
   @Input() changeInvitee: any;
   @Input() changeVideoID: any;
   @Input() username: string;
+  @Input() changeSkinName: any;
 
   isOpen: boolean = false;
   whichToolbar: string = '';

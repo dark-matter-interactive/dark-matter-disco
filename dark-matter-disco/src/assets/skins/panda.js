@@ -1,7 +1,8 @@
 import { distance } from 'mathjs';
+import Skin from './skin';
 
 
-const panda = {};
+const panda = new Skin();
 panda.init = function(draw) {
   let dancerColor = 'white'
   this.body = {};

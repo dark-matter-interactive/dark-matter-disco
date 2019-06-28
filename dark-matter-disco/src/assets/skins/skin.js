@@ -6,6 +6,13 @@ class Skin {
     this.body = {};
   }
 
+
+  hide(){
+    for(let part in this.body) {
+      this.body[part].hide();
+    }
+  }
+
   /**
    * The default for a skin is stick man
    * init defines the body parts
@@ -15,7 +22,6 @@ class Skin {
    */
   init(draw, dancerColor = 'blue', headImg) {
     // let dancerColor = 'white'
-  this.body = {};
   this.body.torso = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 4, linecap: 'round' }).fill(dancerColor);
   this.body.leftLegBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
   this.body.leftLeg  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: dancerColor, width: 10, linecap: 'round' }).fill('none');

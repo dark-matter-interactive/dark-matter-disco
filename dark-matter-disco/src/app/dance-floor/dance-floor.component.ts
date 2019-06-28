@@ -23,6 +23,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   @Input() friendUsername: string;
   @Input() customize: any;
   @Input() danceBuddies: any;
+  @Input() skinName: string;
 
   
   // this is the users pose data as an observable
