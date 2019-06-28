@@ -39,6 +39,8 @@ const socketIds = {};
  *  */ 
 const parties = {};
 
+// const usersByParty = {};
+
 io.on('connection', (socket) => {
     console.log('new websock connection');
 
@@ -63,6 +65,7 @@ io.on('connection', (socket) => {
         socket.broadcast.to(socketIds[toUsername]).emit('invite', fromUsername);
         // create a new party if there isn't one
         if (!parties[fromUsername]) {
+            // usersByParty[fromUsername] = [fromUsername];
             parties[fromUsername] = { partyName: fromUsername, private: true };
             socket.join(fromUsername)
         }
@@ -71,12 +74,24 @@ io.on('connection', (socket) => {
 
      // handle accept invite
      socket.on('accept invite', (fromUsername, toUsername) => {
+        let partyName = parties[toUsername].partyName;
          // send accept notification
-        socket.broadcast.to(socketIds[toUsername]).emit('invite accepted', fromUsername);
+        socket.broadcast.to(partyName).emit('invite accepted', fromUsername);
         // add new dancer to party!
         parties[fromUsername] = parties[toUsername];
-        socket.join(parties[toUsername].partyName); 
+        socket.join(partyName);
+        let guests = [];
+        for (let username in parties) {
+            if (parties[username].partyName === partyName) {
+                guests.push(username);
+            }
+        }
+        socket.emit('guests', guests);
     });
+
+    socket.on('guests', (guests) => {
+        console.log('welcome, server', guests);
+    })
 
     // handle pose data
     socket.on('pose', (username, pose) => {
@@ -91,6 +106,7 @@ io.on('connection', (socket) => {
         console.log(videoID, 'Server');
         io.emit('changeSong', videoID)
     })
+
 
     // handle song play
     socket.on('playSong', () => {
@@ -118,7 +134,7 @@ io.on('connection', (socket) => {
         for(let username in socketIds) {
             if (socketIds[username] === socket.id){
                 delete socketIds[username];
-                parties[username] = null;
+                delete parties[username];
             } 
         }
     });
@@ -142,6 +158,14 @@ app.get('/search/youtube', (req, res, next) => {
         console.log(response);
         res.send(response);
     }).catch(err => console.error(err))
+})
+
+app.put('/user/stars', (req, res, next) => {
+    console.log(req);
+    updateStars().then((response) => {
+        console.log(response);
+        res.send(response);
+    }).catch(err => console.error(err));
 })
 
 

@@ -15,4 +15,10 @@ export class ConfigService {
     })
   }
 
+  addingStars(username: string) {
+    return this.http.put('/user/stars', {
+      username: username
+    })
+  }
+
 }
