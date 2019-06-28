@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 // Option 1: Passing parameters separately
-const sequelize = new Sequelize('postgres', 'operationspark', '', {
+const sequelize = new Sequelize('postgres', 'root', 'root', {
   host: 'localhost',
   dialect: 'postgres'
 });

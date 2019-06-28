@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ChatComponent } from './toolbar/chat/chat.component';
 import { AudioControlsComponent } from './audio/audio-controls/audio-controls.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { AudioControlsComponent } from './audio/audio-controls/audio-controls.co
     FormsModule,
     HttpClientModule,
     NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

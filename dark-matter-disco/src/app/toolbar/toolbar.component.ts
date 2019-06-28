@@ -1,10 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css']
+  styleUrls: ['./toolbar.component.css'],
+  animations:  [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateX(-100%)', 'z-index': '-20'}),
+        animate('200ms ease-in-out', style({transform: 'translateX(0%)'}))
+      ]),
+      transition(':leave', [
+        style({'z-index': '-20'}),
+        animate('200ms ease-in-out', style({transform: 'translateX(-100%)'}))
+      ])
+    ])
+  ]
 })
 export class ToolbarComponent implements OnInit {
 
