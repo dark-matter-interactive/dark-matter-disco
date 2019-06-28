@@ -52,7 +52,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() poseStream: any;
   @Input() customize: any;
   @Input() draw: any
-  @Input() skinName: string;
+  @Input() skinName: string = 'stick man';
   
   pose: any;
   skin: any = new Skin();
@@ -65,7 +65,6 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    console.log(changes);
     if (changes.skinName.previousValue) {
       this.skin.hide();
       if (changes.skinName.currentValue === 'panda') {
@@ -106,11 +105,11 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
     this.draw = this.drawService.init(700);
     
     //initialize skin
-    if (this.skinName === 'stick man') {
-      this.skin.init(this.draw, 'green');
-    } else if (this.skinName === 'panda') {
+    if (this.skinName === 'panda') {
       this.skin = panda;
       this.skin.init(this.draw);
+    } else {
+      this.skin.init(this.draw, 'green');
     }
 
     // panda.init(draw);

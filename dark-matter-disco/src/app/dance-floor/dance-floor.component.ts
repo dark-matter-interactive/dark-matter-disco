@@ -100,12 +100,12 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     this.userPoseStream.subscribe((poses) => {
       // socketService.emit('pose', poses, this.friendUsername);
       if (this.friendUsername) {
-        socketService.emit('pose', this.username, poses);
+        socketService.emit('pose', this.username, poses, this.skinName);
       }
     })
     
     // listen for pose data from friends
-    socketService.on('pose', (username, poses) => {
+    socketService.on('pose', (username, poses, skinName) => {
       // console.log('receiving pose from', username, poses, this.danceBuddies)
       // this.friendPoseStream.next(pose);
       // comment if
@@ -113,6 +113,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
       //   this.danceBuddies[username] = new Subject();
       // }
       this.danceBuddies[username].poseStream.next(poses) //= pose;
+      this.danceBuddies[username].skinName = skinName;
       // console.log(this.danceBuddies[username])
     })
   }
