@@ -13,6 +13,8 @@ import { AudioListComponent } from './audio/audio-list/audio-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { StarsComponent } from './stars/stars.component';
+import { ChatComponent } from './toolbar/chat/chat.component';
+import { AudioControlsComponent } from './audio/audio-controls/audio-controls.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { StarsComponent } from './stars/stars.component';
     FriendsComponent,
     AudioListComponent,
     ToolbarComponent,
-    StarsComponent
+    StarsComponent,
+    ChatComponent,
+    AudioControlsComponent,
   ],
   imports: [
     BrowserModule,

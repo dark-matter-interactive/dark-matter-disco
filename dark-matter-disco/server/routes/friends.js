@@ -4,6 +4,16 @@ const { storeFriendRequest, updateStatus, getPendingRequests, getFriends, accept
 
 //setup get request for friend invitations
 router
+  //setup post request for friend invitations
+  .post('/request', (req, res) => {
+    const username =  req.body.username;
+    const friendName = req.body.friendName;
+    
+    //call helper to save pending requests
+    storeFriendRequest(username, friendName);
+    //send 201 status code
+    res.send(201);
+  })
   .get('/request/:username', (req, res) => {  
     //get user by username
     const username = req.params.username;
@@ -18,16 +28,6 @@ router
     // })
   })
 
-  //setup post request for friend invitations
-  .post('/request', (req, res) => {
-    const username =  req.body.username;
-    const friendName = req.body.friendName;
-    
-    //call helper to save pending requests
-    storeFriendRequest(username, friendName);
-    //send 201 status code
-    res.send(201);
-  })
   //setup post for accepted friends
   .put('/request', (req, res) => {
     // storeFriendRequest(2, 1).then(() => {

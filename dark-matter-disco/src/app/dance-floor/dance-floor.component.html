@@ -1,14 +1,14 @@
   <div id="dancer"></div>
+  
+  <!-- USER DANCER -->
   <app-dancer [customize]=customize [poseStream]=userPoseStream></app-dancer>
   <app-dancer *ngFor="let buddy of danceBuddies | keyvalue" [poseStream]="buddy.value.poseStream"></app-dancer>
  
 
   
   <!-- This is the video player attached to the webcam that PoseNet uses -->
-  <div id="video-container">
-    <video autoplay="true" id="webcam" #webcamVideo width="700" height="700">
-    </video>
-  </div>
+    <video autoplay="true" id="webcam" #webcamVideo width="700" height="700"></video>
+
 
 
 
