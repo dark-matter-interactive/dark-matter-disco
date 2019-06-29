@@ -5,8 +5,9 @@ import 'svg.js';
 import { DrawService } from '../draw.service';
 import { poseChain } from '@tensorflow-models/posenet';
 import { eye } from '@tensorflow/tfjs-core';
-import panda from '../../assets/skins/panda.js';
-import Skin from '../../assets/skins/skin.js';
+// import panda from '../../assets/skins/panda.js';
+// import Skin from '../../assets/skins/skin.js';
+import { panda, stickMan } from '../../assets/skins/skins.js';
 
 interface Position {
   x: number,
@@ -55,7 +56,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() skinName: string = 'stick man';
   
   pose: any;
-  skin: any = new Skin();
+  skin: any = stickMan;
 
 
   // Canvas for animation
@@ -70,7 +71,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
       if (changes.skinName.currentValue === 'panda') {
         this.skin = panda;
       } else if (changes.skinName.currentValue === 'stick man') {
-        this.skin = new Skin();
+        this.skin = stickMan
       }
       this.skin.init(this.draw);
     }

@@ -13,6 +13,12 @@ class Skin {
     }
   }
 
+  show(){
+    for(let part in this.body) {
+      this.body[part].show();
+    }
+  }
+
   /**
    * The default for a skin is stick man
    * init defines the body parts
