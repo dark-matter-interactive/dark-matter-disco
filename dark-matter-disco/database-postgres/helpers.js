@@ -77,6 +77,7 @@ const getFriends = (username) => {
   return Friends.findAll({where : { friendName: username, status: 1}}).then(friends => friends.map(friend => friend));
 }
 
+// updates stars for user
 const updateStars = (username) => {
   return User.findAll({ where: { username } }).then((user) => {
     console.log(user);
@@ -85,7 +86,13 @@ const updateStars = (username) => {
   })
 }
 
+// gets stars for user
+const getStars = () => {
 
+}
+
+
+module.exports.getStars = getStars;
 module.exports.updateStars = updateStars;
 module.exports.storeFriendRequest = storeFriendRequest;
 module.exports.acceptFriendRequest = acceptFriendRequest;
