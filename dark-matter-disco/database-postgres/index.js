@@ -1,7 +1,12 @@
 const Sequelize = require('sequelize');
 
 // Option 1: Passing parameters separately
-const sequelize = new Sequelize(process.env.DBNAME || 'postgres', process.env.USERNAME || 'root', process.env.PASSWORD || 'root', {
+// const sequelize = new Sequelize(process.env.DBNAME || 'postgres', process.env.USERNAME || 'root', process.env.PASSWORD || 'root', {
+//   host: process.env.HOSTNAME || 'localhost',
+//   dialect: 'postgres'
+// });
+
+const sequelize = new Sequelize('postgres',  'root', 'root', {
   host: process.env.HOSTNAME || 'localhost',
   dialect: 'postgres'
 });
