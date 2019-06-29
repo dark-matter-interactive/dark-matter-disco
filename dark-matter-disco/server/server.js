@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
+const { updateStars } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const users = require('./routes/users.js');
@@ -128,6 +129,11 @@ io.on('connection', (socket) => {
         }
     });
 
+    // handle stars
+    socket.on('stars', (toUsername, fromUsername) => {
+        socket.broadcast.to(parties[toUsername].partyName).emit('stars', toUsername, fromUsername);
+    })
+
 
     // handle disconnect 
     socket.on('disconnect', () => {
@@ -161,10 +167,10 @@ app.get('/search/youtube', (req, res, next) => {
 })
 
 app.put('/user/stars', (req, res, next) => {
-    console.log(req);
-    updateStars().then((response) => {
+    console.log('updateStars', req);
+    updateStars(req.body.username).then((response) => {
         console.log(response);
-        res.send(response);
+        res.sendStatus(201);
     }).catch(err => console.error(err));
 })
 
