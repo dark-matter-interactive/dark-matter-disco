@@ -6,7 +6,11 @@ const Sequelize = require('sequelize');
 //   dialect: 'postgres'
 // });
 
-const sequelize = new Sequelize('postgres',  'root', 'root', {
+const name = process.env.DB_NAME || 'postgres';
+const username = process.env.DB_USERNAME || 'operationspark';
+const password = process.env.DB_PASSWORD || '';
+
+const sequelize = new Sequelize(name,  username, password, {
   host: process.env.HOSTNAME || 'localhost',
   dialect: 'postgres'
 });
