@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, OnChanges, SimpleChange } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'svg.js';
-// import { distance } from 'mathjs';
 import { DrawService } from '../draw.service';
 import { poseChain } from '@tensorflow-models/posenet';
 import { eye } from '@tensorflow/tfjs-core';
-import panda from '../../assets/skins/panda.js';
-import Skin from '../../assets/skins/skin.js';
+
+import { panda, stickMan, robot } from '../../assets/skins/skins.js';
 
 interface Position {
   x: number,
@@ -55,7 +54,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() skinName: string = 'stick man';
   
   pose: any;
-  skin: any = new Skin();
+  skin: any = stickMan;
 
 
   // Canvas for animation
@@ -66,12 +65,19 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
 
   ngOnChanges(changes) {
     if (changes.skinName.previousValue) {
-      this.skin.hide();
+      this.skin.hide(200);
       if (changes.skinName.currentValue === 'panda') {
         this.skin = panda;
       } else if (changes.skinName.currentValue === 'stick man') {
-        this.skin = new Skin();
+        this.skin = stickMan;
+      } else if (changes.skinName.currentValue === 'robot') {
+        this.skin = robot;
       }
+      // if (!this.skin.isInitialized) {
+      //   this.skin.init(this.draw);
+      // } else {
+      //   this.skin.show(200);
+      // }
       this.skin.init(this.draw);
     }
   }
@@ -104,17 +110,20 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
     // SVG drawing tool
     this.draw = this.drawService.init(700);
     
-    //initialize skin
+    //initialize skins
+    // if (this.skin.isInitialized) {
+      this.skin.hide();
+    // }
     if (this.skinName === 'panda') {
       this.skin = panda;
-      this.skin.init(this.draw);
-    } else {
-      this.skin.init(this.draw, 'green');
-    }
-
-    // panda.init(draw);
-
-    
+    } else if (this.skinName === 'robot') {
+      this.skin = robot;
+    } else if (this.skinName === 'stick man') {
+      this.skin = stickMan;
+    } 
+    this.skin.init(this.draw)
+     
+  
     // let prevEyeWidth = 20;
 
     // animate step function
@@ -141,6 +150,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
           //   dancerColor = this.customize.color;
           // } 
           
+
           // movement smoothing, average with previous points
           for(let i = 0; i < this.pose.length; i++) {
             this.pose[i].position.x = ( this.pose[i].position.x + prevPose[i].position.x ) / 2;

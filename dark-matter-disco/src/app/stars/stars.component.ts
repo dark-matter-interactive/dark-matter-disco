@@ -30,24 +30,16 @@ export class StarsComponent implements OnInit {
         console.log(this.username, '2nd star cond', toUsername);
         this.recievedStar();
         // this.configService.addingStars(toUsername);
-      }
-      this.starsSubscription = this.configService.getStarCount(toUsername).subscribe((res) => {
-        console.log('res', res);
-        this.danceBuddies[toUsername].starCount = res[0].starsTotal;
-        // this.danceBuddies[guest] = {watch: true, poseStream: new Subject(), gotStar: false, starCount: this.stars};
-      }, (err) => console.error(err), () => {});
-      // this.configService.addingStars(toUsername);
+      } 
     })
-
-    // this.lookupStars();
   }
 
   addStar(username) {
     // let username = Object.keys(username)
     console.log('clicked adding star to ', username);
-    this.liveSocketService.emit('stars', username, this.username);
     this.star(username);
     this.configService.addingStars(username);
+    this.liveSocketService.emit('stars', username, this.username);
   }
 
   star(username) {

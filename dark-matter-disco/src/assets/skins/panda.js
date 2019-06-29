@@ -3,22 +3,24 @@ import Skin from './skin';
 
 
 const panda = new Skin();
+
 panda.init = function(draw) {
   let dancerColor = 'white'
-  this.body = {};
-  this.body.leftLeg  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: dancerColor, width: 60, linecap: 'round' }).fill('none');
-  this.body.rightLeg = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: dancerColor, width: 60, linecap: 'round' }).fill('none')
+  this.body.leftLegBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: '#EEEEEE', width: 70, linecap: 'round' }).fill('none')
+  this.body.leftLeg  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: 'black', width: 60, linecap: 'round' }).fill('none');
+  this.body.rightLegBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: '#EEEEEE', width: 70, linecap: 'round' }).fill('none')
+  this.body.rightLeg = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 60, linecap: 'round' }).fill('none')
   this.body.torso = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 10, linecap: 'round' }).fill(dancerColor);
   this.body.head = draw.image('../../assets/pandahead.png', 300, 300).addClass('panda-head').style(`background-color: ${dancerColor}`);
-  this.body.leftArmBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: 'black', width: 72, linecap: 'round' }).fill('none')
-  this.body.leftArm  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: dancerColor, width: 60, linecap: 'round' }).fill('none')
-  this.body.rightArmBorder = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 72, linecap: 'round' }).fill('none')
-  this.body.rightArm = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: dancerColor, width: 60, linecap: 'round' }).fill('none')
+  this.body.leftArmBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: '#EEEEEE', width: 70, linecap: 'round' }).fill('none')
+  this.body.leftArm  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: 'black', width: 60, linecap: 'round' }).fill('none')
+  this.body.rightArmBorder = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: '#EEEEEE', width: 70, linecap: 'round' }).fill('none')
+  this.body.rightArm = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 60, linecap: 'round' }).fill('none')
 
 }
 
 panda.render = function(pose){
-  let { leftLeg, rightLeg, torso, head, leftArmBorder, rightArmBorder, leftArm, rightArm } = this.body;
+  let { leftLegBorder, rightLegBorder, leftLeg, rightLeg, torso, head, leftArmBorder, rightArmBorder, leftArm, rightArm } = this.body;
   let [
     nose,
     leftEye,
@@ -58,8 +60,12 @@ panda.render = function(pose){
 
   leftLeg.plot(`M ${leftHip.position.x}, ${leftHip.position.y} C ${leftKnee.position.x}, ${leftKnee.position.y} ${leftKnee.position.x}, ${leftKnee.position.y} ${leftAnkle.position.x}, ${leftAnkle.position.y}`)
   .size(null, leftLegLength / 2).stroke({ width: (torsoHeight + shoulderWidth) / 4 });
+  leftLegBorder.plot(`M ${leftHip.position.x}, ${leftHip.position.y} C ${leftKnee.position.x}, ${leftKnee.position.y} ${leftKnee.position.x}, ${leftKnee.position.y} ${leftAnkle.position.x}, ${leftAnkle.position.y}`)
+  .size(null, leftLegLength / 2).stroke({ width: (torsoHeight + shoulderWidth) / 4 + 8});
   rightLeg.plot(`M ${rightHip.position.x}, ${rightHip.position.y} C ${rightKnee.position.x}, ${rightKnee.position.y} ${rightKnee.position.x}, ${rightKnee.position.y} ${rightAnkle.position.x}, ${rightAnkle.position.y}`)
   .size(null, rightLegLength / 2).stroke({ width: (torsoHeight + shoulderWidth) / 4 });
+  rightLegBorder.plot(`M ${rightHip.position.x}, ${rightHip.position.y} C ${rightKnee.position.x}, ${rightKnee.position.y} ${rightKnee.position.x}, ${rightKnee.position.y} ${rightAnkle.position.x}, ${rightAnkle.position.y}`)
+  .size(null, rightLegLength / 2).stroke({ width: (torsoHeight + shoulderWidth) / 4 + 8});
   torso.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} 
   C ${leftShoulder.position.x - hipWidth}, ${torsoCY} ${leftHip.position.x - hipWidth}, ${torsoCY + torsoHeight * 0.35 } ${leftHip.position.x}, ${leftHip.position.y}
   C ${hipCX}, ${leftHip.position.y + 10} ${hipCX}, ${rightHip.position.y + 10}, ${rightHip.position.x}, ${rightHip.position.y}
@@ -70,11 +76,11 @@ panda.render = function(pose){
   leftArm.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} C ${leftElbow.position.x}, ${leftElbow.position.y} ${leftElbow.position.x}, ${leftElbow.position.y} ${leftWrist.position.x}, ${leftWrist.position.y}`)
   .stroke({ width: (torsoHeight + shoulderWidth) / 6 });
   leftArmBorder.plot(`M ${leftShoulder.position.x}, ${leftShoulder.position.y} C ${leftElbow.position.x}, ${leftElbow.position.y} ${leftElbow.position.x}, ${leftElbow.position.y} ${leftWrist.position.x}, ${leftWrist.position.y}`)
-  .stroke({ width: (torsoHeight + shoulderWidth) / 6 + 20});
+  .stroke({ width: (torsoHeight + shoulderWidth) / 6 + 8});
   rightArm.plot(`M ${rightShoulder.position.x}, ${rightShoulder.position.y} C ${rightElbow.position.x}, ${rightElbow.position.y} ${rightElbow.position.x}, ${rightElbow.position.y} ${rightWrist.position.x}, ${rightWrist.position.y}`)
   .stroke({ width: (torsoHeight + shoulderWidth) / 6 });
   rightArmBorder.plot(`M ${rightShoulder.position.x}, ${rightShoulder.position.y} C ${rightElbow.position.x}, ${rightElbow.position.y} ${rightElbow.position.x}, ${rightElbow.position.y} ${rightWrist.position.x}, ${rightWrist.position.y}`)
-  .stroke({ width: (torsoHeight + shoulderWidth) / 6 + 20});
+  .stroke({ width: (torsoHeight + shoulderWidth) / 6 + 8});
 
 }
 
