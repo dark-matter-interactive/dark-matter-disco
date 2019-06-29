@@ -16,9 +16,10 @@ export class ConfigService {
   }
 
   addingStars(username: string) {
-    return this.http.put('/user/stars', {
-      username: username
-    })
+    console.log('adding stars', username)
+    return this.http.put('/user/stars', { username }).subscribe((response) => {
+      console.log('response', response);
+    }, (err) => {console.log(err)})
   }
 
 }

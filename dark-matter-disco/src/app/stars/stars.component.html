@@ -1,3 +1,4 @@
 <div *ngFor="let username of danceBuddies | keyvalue" name="username.key">
-  <button type="button" (click)="addStar(name)" >Add Star</button> {{ username.key }}
+  <div *ngIf="username.value.gotStar">**STAR**</div>
+  <button type="button" (click)="addStar(username.key)" >Add Star</button> {{ username.key }}
 </div>

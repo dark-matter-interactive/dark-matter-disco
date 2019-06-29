@@ -12,27 +12,19 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {}
 
-  changeToSpace() {
-    this.renderer.setStyle(
-      document.body,
-      "background-image",
-      "url('./assets/planet-cartoon-space-background.jpeg')"
-    );
+
+  changeBackground(e) {
+    console.log(e);
+    if(e === "Space") {
+      this.renderer.setStyle(document.body, 'background-image', "url('./assets/planet-cartoon-space-background.jpeg')");
+    } 
+    if(e === "Ranch") {
+      this.renderer.setStyle(document.body, 'background-image', "url('./assets/farm-fields-minimal-flat-art-work-style_22350-732.jpg')");
+    } 
+    if(e === "Pineapple") {
+      this.renderer.setStyle(document.body, 'background-image', "url('./assets/Pineapple.png')");
+    }
   }
 
-  changeToRanch() {
-    this.renderer.setStyle(
-      document.body,
-      "background-image",
-      "url('./assets/farm-fields-minimal-flat-art-work-style_22350-732.jpg')"
-    );
-  }
 
-  changeToPineapple() {
-    this.renderer.setStyle(
-      document.body,
-      "background-image",
-      "url('./assets/Pineapple.png')"
-    );
-  }
 }

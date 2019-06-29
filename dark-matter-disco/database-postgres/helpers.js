@@ -78,9 +78,10 @@ const getFriends = (username) => {
 }
 
 const updateStars = (username) => {
-  User.find({ where: username }).then((user) => {
-    const currentStars = user.starsTotal;
-    User.update({ starsTotal: currentStars + 1 })
+  return User.findAll({ where: { username } }).then((user) => {
+    console.log(user);
+    const currentStars = user[0].starsTotal;
+    return User.update({ starsTotal: currentStars + 1 }, { where: { username: user[0].username }})
   })
 }
 

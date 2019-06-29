@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
   inviteeUsername: string = null;
   danceBuddies: any = {};
   videoID: string = '';
+  gotStar: boolean = false;
   skinName: string = 'stick man';
   // allUsers: any = [];
   // allRequests: any = [];
@@ -50,21 +51,21 @@ export class AppComponent implements OnInit{
 
     this.liveSocketService.on('invite accepted', (friendUsername: string) => {
       console.log('invite accepted from', friendUsername);
-      this.danceBuddies[friendUsername] = {watch: true, poseStream: new Subject()};
+      this.danceBuddies[friendUsername] = {watch: true, poseStream: new Subject(), gotStar: false};
       this.friendUsername = 'bananas'//friendUsername;
       this.inviteeUsername = null;
     })
 
     this.liveSocketService.on('guests', (guests) => {
-      console.log('guests', guests);
+      // console.log('guests', guests);
       let usernames = Object.keys(this.danceBuddies);
       guests.forEach((guest) => {
-        console.log(guest, usernames);
+        // console.log(guest, usernames);
         if (!usernames.includes(guest) && this.username !== guest) {
-          this.danceBuddies[guest] = {watch: true, poseStream: new Subject()};
+          this.danceBuddies[guest] = {watch: true, poseStream: new Subject(), gotStar: false};
         }
       })
-      console.log(this.danceBuddies);
+      // console.log(this.danceBuddies);
     })
 
     //store logged in user to database
@@ -81,7 +82,7 @@ export class AppComponent implements OnInit{
 
   acceptInvite() {
     console.log('you accepted invite from', this.hostUsername)
-    this.danceBuddies[this.hostUsername] = {watch: true, poseStream: new Subject()};
+    this.danceBuddies[this.hostUsername] = {watch: true, poseStream: new Subject(), gotStar: false};
     this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
     this.friendUsername = 'bananas'// this.hostUsername;
     // this.danceBuddies[this.hostUsername] = new Subject();
@@ -95,6 +96,13 @@ export class AppComponent implements OnInit{
 
   changeVideoID = (videoID) => {
     this.videoID = videoID;
+  }
+
+  recievedStar = () => {
+    this.gotStar = true;
+    setTimeout(() => {
+      this.gotStar = false;
+    }, 3000)
   }
   
   changeSkinName = (skinName) => {
