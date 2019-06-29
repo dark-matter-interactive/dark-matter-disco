@@ -2,6 +2,11 @@
   height: 100vh;
 }
 
-div {
-  transition: all ease-in-out 2s;
+
+#slide-out {
+  box-shadow: 20px 0 20px -10px inset #00000059;
+}
+
+.icon {
+  max-width: 4rem;
 }

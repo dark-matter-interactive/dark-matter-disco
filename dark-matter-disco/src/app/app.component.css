@@ -1,5 +1,7 @@
 #dance-floor {
   position: absolute;
-  transform: translateX(50%);
+  left: calc(50% - 350px);
+  top: calc(50% - 350px);
   z-index: -100;
+  box-shadow: 0 0 13px 8px #00000024 inset;
 }

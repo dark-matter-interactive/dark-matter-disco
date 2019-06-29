@@ -20,7 +20,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
 
   // username and friend username
   @Input() username: string;
-  @Input() friendUsername: string;
+  @Input() hasJoined: boolean;
   @Input() customize: any;
   @Input() danceBuddies: any;
   @Input() skinName: string;
@@ -99,21 +99,16 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     // send user pose data to friends
     this.userPoseStream.subscribe((poses) => {
       // socketService.emit('pose', poses, this.friendUsername);
-      if (this.friendUsername) {
+      if (this.hasJoined) {
         socketService.emit('pose', this.username, poses, this.skinName);
       }
     })
     
     // listen for pose data from friends
     socketService.on('pose', (username, poses, skinName) => {
-      // console.log('receiving pose from', username, poses, this.danceBuddies)
-      // this.friendPoseStream.next(pose);
-      // comment if
-      // if (!this.danceBuddies[username]) {
-      //   this.danceBuddies[username] = new Subject();
-      // }
-      this.danceBuddies[username].poseStream.next(poses) //= pose;
+   
       this.danceBuddies[username].skinName = skinName;
+      this.danceBuddies[username].poseStream.next(poses) //= pose;
       // console.log(this.danceBuddies[username])
     })
   }

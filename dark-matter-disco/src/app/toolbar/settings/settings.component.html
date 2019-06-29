@@ -1,19 +1,22 @@
 <h1>Settings</h1>
 
-<h2>Change Skin</h2>
-<button (click)="changeSkinName('panda')" class="btn btn-success">Panda</button>
-<button (click)="changeSkinName('stick man')" class="btn btn-success">Stick Man</button>
+<div class="mt-4">
+  <h2>Change Skin</h2>
+  <button (click)="changeSkinName('panda')" class="btn btn-success">Panda</button>
+  <button (click)="changeSkinName('robot')" class="btn btn-success">Robot</button>
+  <button (click)="changeSkinName('stick man')" class="btn btn-success">Stick Man</button>
+</div>
 
 
-<div>
+<div class="mt-4">
   <h2>Backgrounds</h2>
   <div>
-    <button (click)=changeBackground($event.target.outerText)>Space</button>
+    <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Space</button>
   </div>
   <div>
-    <button (click)=changeBackground($event.target.outerText)>Ranch</button>
+    <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Ranch</button>
   </div>
   <div>
-    <button (click)=changeBackground($event.target.outerText)>Pineapple</button>
+    <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Pineapple</button>
   </div>
 </div>
