@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
   inviteeUsername: string = null;
   danceBuddies: any = {};
   videoID: string = '';
+  skinName: string = 'stick man';
   // allUsers: any = [];
   // allRequests: any = [];
   // customize: any = { color: '#f06' };
@@ -76,12 +77,6 @@ export class AppComponent implements OnInit{
     //   this.allUsers = users.data;
     // });
 
-    
-
-
-
-    
-
   }
 
   acceptInvite() {
@@ -101,50 +96,10 @@ export class AppComponent implements OnInit{
   changeVideoID = (videoID) => {
     this.videoID = videoID;
   }
-
-
-  // sendFriendRequest(username, friendName) {
-  //   //add requests to database
-  //   axios.post('/friend/request', {
-  //     username,
-  //     friendName
-  //   })
-  // }
-
-  // showFriendRequests() {
-  //   //get pending requests
-  //   this.showRequests = true;
-  //   axios.get(`/friend/request/${this.username}`).then((requests) => {
-  //     this.allRequests = requests.data
-  //     console.log(this.allRequests);
-  //   })
-  // }
-  // acceptFriendRequest(username, friendName) {
-  //   //trigger put request
-  //   axios.put('/friend/request', {
-  //     username,
-  //     friendName
-  //   });
-  // }
-
-  // showNewFriends() {
-  //   this.showFriends = true;
-  //   axios.get(`/friend/${this.username}`).then((requests) => {
-  //     this.friends = requests.data
-  //     console.log(this.allRequests);
-  //   })
-  // }
-
-  // findFriends(username) {
-  //   axios.get(`/user/${username}`).then((user) => {
-  //     // console.log(user);
-  //     if(Array.isArray(user)) {
-  //       this.allUsers = user
-  //     } else {
-  //       this.allUsers = user.data;
-  //     }
-  //     console.log(this.allUsers);
-  //   });
-  // }
+  
+  changeSkinName = (skinName) => {
+    this.skinName = skinName;
+    console.log(this.skinName, this)
+  }
 
 }

@@ -1,16 +1,16 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, Renderer2 } from "@angular/core";
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  selector: "app-settings",
+  templateUrl: "./settings.component.html",
+  styleUrls: ["./settings.component.css"]
 })
 export class SettingsComponent implements OnInit {
+  constructor(private renderer: Renderer2) {}
 
-  constructor(private renderer: Renderer2) { }
+  @Input() changeSkinName: any;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 
   changeBackground(e) {
