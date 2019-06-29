@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
 import { ConfigService } from '../config.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { ConfigService } from '../config.service';
 })
 export class StarsComponent implements OnInit {
 
+  private starsSubscription: Subscription
   constructor(private liveSocketService: LiveSocketService, private configService: ConfigService) { }
 
   @Input() danceBuddies: any;
@@ -28,24 +30,33 @@ export class StarsComponent implements OnInit {
         console.log(this.username, '2nd star cond', toUsername);
         this.recievedStar();
         // this.configService.addingStars(toUsername);
-      }
-      // this.configService.addingStars(toUsername);
+      } 
     })
   }
 
   addStar(username) {
     // let username = Object.keys(username)
     console.log('clicked adding star to ', username);
-    this.liveSocketService.emit('stars', username, this.username);
     this.star(username);
     this.configService.addingStars(username);
+    this.liveSocketService.emit('stars', username, this.username);
   }
 
   star(username) {
     this.danceBuddies[username].gotStar = true;
+    this.danceBuddies[username].starCount++;
     setTimeout(() => {
       this.danceBuddies[username].gotStar = false;
     }, 3000);
   }
+
+  // lookupStars() {
+  //   let users = Object.keys(this.danceBuddies);
+  //   users.forEach((user) => {
+  //     let stars = this.configService.getStarCount(user);
+  //     this.danceBuddies[user].starCount = stars;
+  //     console.log(this.danceBuddies);
+  //   })
+  // }
 
 }

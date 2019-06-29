@@ -74,10 +74,10 @@ io.on('connection', (socket) => {
     });
 
      // handle accept invite
-     socket.on('accept invite', (fromUsername, toUsername) => {
+     socket.on('accept invite', (fromUsername, toUsername, userStars) => {
         let partyName = parties[toUsername].partyName;
          // send accept notification
-        socket.broadcast.to(partyName).emit('invite accepted', fromUsername);
+        socket.broadcast.to(partyName).emit('invite accepted', fromUsername, userStars);
         // add new dancer to party!
         parties[fromUsername] = parties[toUsername];
         socket.join(partyName);
