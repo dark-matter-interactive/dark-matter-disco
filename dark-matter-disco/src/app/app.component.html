@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div id="app" class="text-light "> 
+<div id="app" class="text-light h-100"> 
 
   <div id="header"> 
     <div *ngIf=hostUsername>
@@ -16,27 +16,16 @@
       [username]=username 
       [changeInvitee]=changeInvitee 
       [changeVideoID]=changeVideoID
+      [changeSkinName]=changeSkinName
     ></app-toolbar>
 
-    <!-- <app-friends 
-      [danceBuddies]=danceBuddies
-      [allUsers]=allUsers
-      [sendFriendRequest]=sendFriendRequest
-      [allRequests]=allRequests
-      [showFriendRequests]=showFriendRequests
-      [showRequests]=showRequests
-      [acceptFriendRequest]=acceptFriendRequest
-      [friends]=friends
-      [showFriends]=showFriends
-      [showNewFriends]=showNewFriends
-      [findFriends]=findFriends
-    ></app-friends> -->
 
-    <app-dance-floor 
+    <app-dance-floor id="dance-floor"
       [username]=username 
       [friendUsername]=friendUsername  
       [customize]=customize
       [danceBuddies]=danceBuddies
+      [skinName]=skinName
     ></app-dance-floor>
 
     <div id="rightbar" class="d-flex flex-column p-3">

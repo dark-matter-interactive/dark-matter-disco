@@ -1,8 +1,8 @@
-<div class="d-flex flex-row-reverse h-100 text-nowrap">
+<div class="d-flex flex-row-reverse text-nowrap" id="toolbar">
 
   <!-- SLIDE OUT  -->  
 
-  <div *ngIf="isOpen" class="text-dark bg-white h-100 d-flex flex-column p-3 w-20" >
+  <div *ngIf="isOpen" [@slideInOut] class="text-dark bg-white h-100 d-flex flex-column p-3 w-20" >
      <h3 class="text-success">Dark Matter Disco</h3>
 
      <div [ngSwitch]="whichToolbar">
@@ -11,30 +11,12 @@
         ></app-friends>
         <app-chat [username]=username [convos]=convos *ngSwitchCase="'chat'"></app-chat>
         <app-audio-controls *ngSwitchCase="'music'" [changeVideoID]=changeVideoID></app-audio-controls>
-        <div *ngSwitchCase="'settings'"><h1>Settings</h1></div>
+        <app-settings [changeSkinName]="changeSkinName" *ngSwitchCase="'settings'"></app-settings>
         <!-- <ng-template ngSwitchCase="case2LiteralString">...</ng-template>
         <ng-template ngSwitchDefault>...</ng-template> -->
     </div>
 
 
-    <!-- <div *ngIf="whichToolbar === 'friends'">
-      <app-friends
-      [username]=username 
-      [changeInvitee]=changeInvitee 
-      ></app-friends>
-    </div>
-    <div *ngIf="whichToolbar === 'chat'">
-      <h1>Chat</h1>
-      <app-chat [username]=username [convos]=convos></app-chat>
-    </div>
-    <div *ngIf="whichToolbar === 'music'">
-      <h1>Music</h1>
-      <app-audio></app-audio>
-    </div>
-    <div *ngIf="whichToolbar === 'settings'">
-        <h1>Settings</h1> -->
-        <!-- PUT FRIENDS COMPONENTE HERE -->
-    <!-- </div> -->
   </div>
 
   <!-- ICON BAR -->

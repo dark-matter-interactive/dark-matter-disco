@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
   sendMsg(message) {
     this.liveSocketService.emit('chat', this.username, message);
     this.convos.push({username: 'me', message})
+    this.message = '';
   }
 
   ngOnInit() {

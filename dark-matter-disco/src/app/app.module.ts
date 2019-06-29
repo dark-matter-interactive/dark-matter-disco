@@ -15,6 +15,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { StarsComponent } from './stars/stars.component';
 import { ChatComponent } from './toolbar/chat/chat.component';
 import { AudioControlsComponent } from './audio/audio-controls/audio-controls.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SettingsComponent } from './toolbar/settings/settings.component';
 
 
 @NgModule({
@@ -29,12 +31,14 @@ import { AudioControlsComponent } from './audio/audio-controls/audio-controls.co
     StarsComponent,
     ChatComponent,
     AudioControlsComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

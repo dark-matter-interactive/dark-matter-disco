@@ -169,7 +169,7 @@ export class AudioComponent implements OnInit, OnChanges {
 
  ngOnChanges(changes){
   //  console.log("CHANGES:", changes)
-   if (changes.videoID) {
+   if (changes.videoID && this.videoID) {
      this.loadSong(changes.videoID.currentValue)
    }
  }

@@ -95,9 +95,9 @@ io.on('connection', (socket) => {
     })
 
     // handle pose data
-    socket.on('pose', (username, pose) => {
+    socket.on('pose', (username, pose, skinName) => {
         if (parties[username]) {
-            socket.broadcast.to(parties[username].partyName).emit('pose', username, pose);
+            socket.broadcast.to(parties[username].partyName).emit('pose', username, pose, skinName);
         }
         // socket.broadcast.to(socketIds[friendUsername]).emit('pose', pose);
     })
