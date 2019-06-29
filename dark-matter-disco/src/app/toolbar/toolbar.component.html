@@ -2,7 +2,7 @@
 
   <!-- SLIDE OUT  -->  
 
-  <div id="slide-out" *ngIf="isOpen" [@slideInOut] class="text-dark bg-white h-100 d-flex flex-column p-4 w-20" >
+  <div id="slide-out" *ngIf="isOpen" [@slideInOut] class="text-dark bg-white h-100 d-flex flex-column p-5 w-20" >
      <h3 class="text-success">Dark Matter Disco</h3>
 
      <div [ngSwitch]="whichToolbar">
@@ -21,13 +21,21 @@
 
   <!-- ICON BAR -->
   <div class="bg-success h-100 d-flex flex-column p-2 shadow-lg">
-    <p>
-      logo
-    </p>
-    <button (click)="iconClick('friends')" class="btn btn-success">Friends</button>
-    <button (click)="iconClick('chat')" class="btn btn-success">Chat</button>
-    <button (click)="iconClick('music')" class="btn btn-success">Music</button>
-    <button (click)="iconClick('settings')" class="btn btn-success">Settings</button>
+      <button (click)="isOpen = false" class="btn btn-success mb-5 mt-2">
+        <img src="../../assets/dark-matter-disco-logo.png" class="icon"/>
+      </button>
+    <button (click)="iconClick('friends')" class="btn btn-success mt-5">
+      <img src="../../assets/icon-friends.png" class="icon"/>
+    </button>
+    <button (click)="iconClick('chat')" class="btn btn-success mt-5" >
+      <img src="../../assets/icon-chat.png" class="icon"/>
+    </button>
+    <button (click)="iconClick('music')" class="btn btn-success mt-5">
+      <img src="../../assets/icon-play.png" class="icon"/>
+    </button>
+    <button (click)="iconClick('settings')" class="btn btn-success mt-5">
+      <img src="../../assets/icon-gears.png" class="icon"/>
+    </button>
   
   </div>
 </div>

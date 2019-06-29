@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
   title = 'Dark Matter Disco';
 
   username: string = null; 
-  friendUsername: string = null;
+  hasJoined: boolean = false;
   hostUsername: string = null;
   inviteeUsername: string = null;
   danceBuddies: any = {};
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit{
     this.liveSocketService.on('invite accepted', (friendUsername: string) => {
       console.log('invite accepted from', friendUsername);
       this.danceBuddies[friendUsername] = {watch: true, poseStream: new Subject(), gotStar: false};
-      this.friendUsername = 'bananas'//friendUsername;
+      this.hasJoined = true; //friendUsername;
       this.inviteeUsername = null;
     })
 
@@ -84,7 +84,7 @@ export class AppComponent implements OnInit{
     console.log('you accepted invite from', this.hostUsername)
     this.danceBuddies[this.hostUsername] = {watch: true, poseStream: new Subject(), gotStar: false};
     this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
-    this.friendUsername = 'bananas'// this.hostUsername;
+    this.hasJoined = true; // this.hostUsername;
     // this.danceBuddies[this.hostUsername] = new Subject();
     this.hostUsername = null;
   }
@@ -107,7 +107,6 @@ export class AppComponent implements OnInit{
   
   changeSkinName = (skinName) => {
     this.skinName = skinName;
-    console.log(this.skinName, this)
   }
 
 }
