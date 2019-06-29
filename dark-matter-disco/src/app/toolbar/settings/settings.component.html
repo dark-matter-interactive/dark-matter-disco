@@ -2,12 +2,12 @@
 <div>
   <h2>Backgrounds</h2>
   <div>
-    <button (click)=changeToSpace()>Space</button>
+    <button (click)=changeBackground($event.target.outerText)>Space</button>
   </div>
   <div>
-    <button (click)=changeToRanch()>Ranch</button>
+    <button (click)=changeBackground($event.target.outerText)>Ranch</button>
   </div>
   <div>
-      <button (click)=changeToPineapple()>Pineapple</button>
-    </div>
+    <button (click)=changeBackground($event.target.outerText)>Pineapple</button>
+  </div>
 </div>
