@@ -1,11 +1,8 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
 import { ConfigService } from '../config.service';
-<<<<<<< HEAD
 import { StarService } from '../star.service';
-=======
 import { Subscription } from 'rxjs';
->>>>>>> 704475937bb7d4c199cde3f688a732aa4bab9a0f
 
 
 @Component({
@@ -15,12 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class StarsComponent implements OnInit {
 
-<<<<<<< HEAD
   constructor(private liveSocketService: LiveSocketService, private configService: ConfigService, private starService: StarService) { }
-=======
-  private starsSubscription: Subscription
-  constructor(private liveSocketService: LiveSocketService, private configService: ConfigService) { }
->>>>>>> 704475937bb7d4c199cde3f688a732aa4bab9a0f
 
   @Input() danceBuddies: any;
   @Input() username: any;
