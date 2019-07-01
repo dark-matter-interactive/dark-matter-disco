@@ -32,7 +32,8 @@ class Skin {
    * */
   show(delay = 0){
     for(let part in this.body) {
-      this.body[part].animate(delay).opacity(1)
+      // this.body[part].animate(delay).opacity(1)
+      this.body[part].show();
     }
     return this;
   }

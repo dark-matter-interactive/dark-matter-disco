@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
 import { ConfigService } from '../config.service';
+import { StarService } from '../star.service';
 import { Subscription } from 'rxjs';
 
 
@@ -11,8 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class StarsComponent implements OnInit {
 
-  private starsSubscription: Subscription
-  constructor(private liveSocketService: LiveSocketService, private configService: ConfigService) { }
+  constructor(private liveSocketService: LiveSocketService, private configService: ConfigService, private starService: StarService) { }
 
   @Input() danceBuddies: any;
   @Input() username: any;
@@ -30,7 +30,9 @@ export class StarsComponent implements OnInit {
         console.log(this.username, '2nd star cond', toUsername);
         this.recievedStar();
         // this.configService.addingStars(toUsername);
-      } 
+      }
+      // this.configService.addingStars(toUsername);
+      this.starService.giveStar(toUsername);
     })
   }
 

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, OnChanges, SimpleChange } from '@angular/core';
-import { Observable } from 'rxjs';
 import 'svg.js';
 import { DrawService } from '../draw.service';
-import { poseChain } from '@tensorflow-models/posenet';
-import { eye } from '@tensorflow/tfjs-core';
+// import { Observable } from 'rxjs';
+// import { poseChain } from '@tensorflow-models/posenet';
+// import { eye } from '@tensorflow/tfjs-core';
 
 import { panda, stickMan, robot } from '../../assets/skins/skins.js';
 
@@ -52,6 +52,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() customize: any;
   @Input() draw: any
   @Input() skinName: string = 'stick man';
+  @Input() username: string;
   
   pose: any;
   skin: any = stickMan;
@@ -64,7 +65,8 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    if (changes.skinName.previousValue) {
+    if (changes.skinName.previousValue && changes.skinName.previousValue !== changes.skinName.currentValue) {
+      console.log("SKIN CHANGE")
       this.skin.hide(200);
       if (changes.skinName.currentValue === 'panda') {
         this.skin = panda;
@@ -73,47 +75,19 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
       } else if (changes.skinName.currentValue === 'robot') {
         this.skin = robot;
       }
-      // if (!this.skin.isInitialized) {
-      //   this.skin.init(this.draw);
-      // } else {
-      //   this.skin.show(200);
-      // }
       this.skin.init(this.draw);
     }
   }
 
   
   ngAfterViewInit() {
- 
-    //  Initialize Pose
-    this.pose = [
-       { position: { x: -200, y: -200 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-       { position: { x: 0, y: 0 }, score: 1 },
-    ];
 
     
     // SVG drawing tool
     this.draw = this.drawService.init(700);
     
     //initialize skins
-    // if (this.skin.isInitialized) {
-      this.skin.hide();
-    // }
+    this.skin.hide();
     if (this.skinName === 'panda') {
       this.skin = panda;
     } else if (this.skinName === 'robot') {
@@ -121,7 +95,8 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
     } else if (this.skinName === 'stick man') {
       this.skin = stickMan;
     } 
-    this.skin.init(this.draw)
+    if (!this.skin.isInitialize) this.skin.init(this.draw)
+    this.skin.show();
      
   
     // let prevEyeWidth = 20;
@@ -132,6 +107,29 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
       this.skin.render(this.pose);
       window.requestAnimationFrame(step);  
     }
+
+
+      //  Initialize Pose
+      this.pose = [
+        { position: { x: -200, y: -200 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+        { position: { x: 0, y: 0 }, score: 1 },
+     ];
+
 
     // Subscribe to pose data stream and animate
     let prevPose: any;
@@ -149,7 +147,6 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
           // if (this.customize) {
           //   dancerColor = this.customize.color;
           // } 
-          
 
           // movement smoothing, average with previous points
           for(let i = 0; i < this.pose.length; i++) {

@@ -3,6 +3,8 @@ import randomNames from '../assets/random-usernames';
 import { LiveSocketService } from "./live-socket.service";
 import axios from 'axios';
 import { Subject, Subscription } from 'rxjs';
+import { StarService } from './star.service';
+// import { Subject, Subscription } from 'rxjs';
 import { ConfigService } from './config.service';
 
 
@@ -32,10 +34,13 @@ export class AppComponent implements OnInit{
   // showFriends: boolean = false;
 
   private starsSubscription: Subscription;
-  constructor (private liveSocketService: LiveSocketService, private configService: ConfigService) {}
+  constructor (private liveSocketService: LiveSocketService, private starService: StarService, private configService: ConfigService) {}
 
 
   ngOnInit(){
+
+    //init star service
+    this.starService.init(this.danceBuddies);
 
      // select a random username 
     this.username = randomNames[Math.floor(Math.random() * randomNames.length)];
@@ -120,13 +125,8 @@ export class AppComponent implements OnInit{
     this.userStars++;
     setTimeout(() => {
       this.gotStar = false;
-    }, 3000);
-    // this.starsSubscription = this.configService.getStarCount(this.username).subscribe((res) => {
-    //   console.log('res', res);
-    //   this.userStars = res[0].starsTotal;
-    //   console.log(this.userStars);
-    // }, (err) => console.error(err), () => {});
-    // console.log(this.userStars);
+    }, 3000)
+
   }
   
   changeSkinName = (skinName) => {
