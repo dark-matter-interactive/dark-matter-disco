@@ -1,11 +1,12 @@
   <div id="dancer"></div>
   
   <!-- USER DANCER -->
-  <app-dancer [customize]=customize [poseStream]=userPoseStream [skinName]=skinName></app-dancer>
+  <app-dancer [customize]=customize [poseStream]=userPoseStream [skinName]=skinName [username]=[username]></app-dancer>
   <app-dancer 
     *ngFor="let buddy of danceBuddies | keyvalue" 
     [poseStream]="buddy.value.poseStream" 
     [skinName]="buddy.value.skinName"
+    [username]="buddy.key"
   ></app-dancer>
  
 

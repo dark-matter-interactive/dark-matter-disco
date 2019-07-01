@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
 import { ConfigService } from '../config.service';
+import { StarService } from '../star.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { ConfigService } from '../config.service';
 })
 export class StarsComponent implements OnInit {
 
-  constructor(private liveSocketService: LiveSocketService, private configService: ConfigService) { }
+  constructor(private liveSocketService: LiveSocketService, private configService: ConfigService, private starService: StarService) { }
 
   @Input() danceBuddies: any;
   @Input() username: any;
@@ -30,6 +31,7 @@ export class StarsComponent implements OnInit {
         // this.configService.addingStars(toUsername);
       }
       // this.configService.addingStars(toUsername);
+      this.starService.giveStar(toUsername);
     })
   }
 
