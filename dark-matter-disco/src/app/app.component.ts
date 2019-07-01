@@ -2,7 +2,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import randomNames from '../assets/random-usernames';
 import { LiveSocketService } from "./live-socket.service";
 import axios from 'axios';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { StarService } from './star.service';
 // import { Subject, Subscription } from 'rxjs';
 import { ConfigService } from './config.service';
@@ -33,7 +33,8 @@ export class AppComponent implements OnInit{
   // friends: any = [];
   // showFriends: boolean = false;
 
-  constructor (private liveSocketService: LiveSocketService, private starService: StarService) {}
+  private starsSubscription: Subscription;
+  constructor (private liveSocketService: LiveSocketService, private starService: StarService, private configService: ConfigService) {}
 
 
   ngOnInit(){

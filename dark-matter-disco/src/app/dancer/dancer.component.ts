@@ -95,7 +95,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
     } else if (this.skinName === 'stick man') {
       this.skin = stickMan;
     } 
-    this.skin.init(this.draw)
+    if (!this.skin.isInitialize) this.skin.init(this.draw)
     this.skin.show();
      
   
