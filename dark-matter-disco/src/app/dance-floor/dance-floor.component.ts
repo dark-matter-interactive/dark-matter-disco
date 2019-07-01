@@ -54,7 +54,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     const poseNetModel: any = {
       architecture: 'MobileNetV1',
       outputStride: 16,
-      inputResolution: 353,
+      inputResolution: 385,
       multiplier: 0.75
     };
     
@@ -109,7 +109,6 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     // listen for pose data from friends
     socketService.on('pose', (username, poses, skinName) => {
    
-      console.log("friend SKIN:", skinName, "your skin:", this.skinName);
       this.danceBuddies[username].skinName = skinName;
       this.danceBuddies[username].poseStream.next(poses) //= pose;
       // console.log(this.danceBuddies[username])

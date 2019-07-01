@@ -1,8 +1,8 @@
-import Skin from './skin';
-import pandaSkin from './panda';
-import robotSkin from './robot';
+import StickManSkin from './stick-man';
+import PandaSkin from './panda';
+import RobotSkin from './robot';
 
-export const robot = robotSkin;
-export const panda = pandaSkin;
-export const stickMan = new Skin();
+export const Robot = RobotSkin;
+export const Panda = PandaSkin;
+export const StickMan = StickManSkin; 
 
