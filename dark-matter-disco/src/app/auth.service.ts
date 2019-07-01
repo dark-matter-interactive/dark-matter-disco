@@ -13,7 +13,7 @@ export class AuthService {
   // public  router:  Router
   constructor(public  afAuth:  AngularFireAuth) { }
   //store user data
-  user: User;
+  // user: User;
   //google sign in
   signInWithGoogle() {
     return this.afAuth.auth.signInWithPopup(

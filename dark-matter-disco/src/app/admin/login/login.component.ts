@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(public authService: AuthService) {}
   googleLogin() {
     console.log('hit');
-    // this.authService.signInWithGoogle();
+    this.authService.signInWithGoogle();
   }
   // signup() {
   //   this.authService.signup(this.email, this.password);
