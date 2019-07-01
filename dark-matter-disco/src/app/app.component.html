@@ -29,7 +29,9 @@
     ></app-dance-floor>
 
     <div id="rightbar" class="d-flex flex-column p-3">
-      <div *ngIf="gotStar">**STAR**</div>
+      <div *ngIf="gotStar">
+        <img src="../../assets/star6.png" alt="">
+      </div>
       <h4 class="text-light">{{ username }} {{ userStars }}</h4> 
       <!-- <app-audio></app-audio> -->
       <app-stars
