@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import randomNames from '../assets/random-usernames';
 import { LiveSocketService } from "./live-socket.service";
 import axios from 'axios';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { StarService } from './star.service';
+// import { Subject, Subscription } from 'rxjs';
+import { ConfigService } from './config.service';
 
 
 @Component({
@@ -21,6 +24,8 @@ export class AppComponent implements OnInit{
   videoID: string = '';
   gotStar: boolean = false;
   skinName: string = 'stick man';
+  stars: number;
+  userStars: number;
   // allUsers: any = [];
   // allRequests: any = [];
   // customize: any = { color: '#f06' };
@@ -28,10 +33,14 @@ export class AppComponent implements OnInit{
   // friends: any = [];
   // showFriends: boolean = false;
 
-  constructor (private liveSocketService: LiveSocketService) {}
+  private starsSubscription: Subscription;
+  constructor (private liveSocketService: LiveSocketService, private starService: StarService, private configService: ConfigService) {}
 
 
   ngOnInit(){
+
+    //init star service
+    this.starService.init(this.danceBuddies);
 
      // select a random username 
     this.username = randomNames[Math.floor(Math.random() * randomNames.length)];
@@ -49,10 +58,14 @@ export class AppComponent implements OnInit{
       console.log('invite from', friendUsername)
     });
 
-    this.liveSocketService.on('invite accepted', (friendUsername: string) => {
-      console.log('invite accepted from', friendUsername);
-      this.danceBuddies[friendUsername] = {watch: true, poseStream: new Subject(), gotStar: false};
-      this.hasJoined = true; //friendUsername;
+    this.liveSocketService.on('invite accepted', (friendUsername: string, friendStars) => {
+      console.log('invite accepted from', friendUsername, friendStars);
+      this.starsSubscription = this.configService.getStarCount(friendUsername).subscribe((res) => {
+        console.log('res', res);
+        this.stars = res[0].starsTotal;
+        this.danceBuddies[friendUsername] = {watch: true, poseStream: new Subject(), gotStar: false, starCount: this.stars};
+      }, (err) => console.error(err), () => {});
+      this.hasJoined = true//friendUsername;
       this.inviteeUsername = null;
     })
 
@@ -60,11 +73,15 @@ export class AppComponent implements OnInit{
       // console.log('guests', guests);
       let usernames = Object.keys(this.danceBuddies);
       guests.forEach((guest) => {
-        // console.log(guest, usernames);
+        console.log(guest);
         if (!usernames.includes(guest) && this.username !== guest) {
-          this.danceBuddies[guest] = {watch: true, poseStream: new Subject(), gotStar: false};
-        }
-      })
+          this.starsSubscription = this.configService.getStarCount(guest).subscribe((res) => {
+            console.log('res', res);
+            this.stars = res[0].starsTotal;
+            this.danceBuddies[guest] = {watch: true, poseStream: new Subject(), gotStar: false, starCount: this.stars};
+          }, (err) => console.error(err), () => {});
+          }
+        })
       // console.log(this.danceBuddies);
     })
 
@@ -78,12 +95,17 @@ export class AppComponent implements OnInit{
     //   this.allUsers = users.data;
     // });
 
+    axios.get(`/user/${this.username}`).then((response) => {
+      console.log('on init', response);
+      this.userStars = response.data[0].starsTotal;
+    }).catch(err => console.error(err));
+
   }
 
   acceptInvite() {
     console.log('you accepted invite from', this.hostUsername)
-    this.danceBuddies[this.hostUsername] = {watch: true, poseStream: new Subject(), gotStar: false};
-    this.liveSocketService.emit('accept invite', this.username, this.hostUsername)
+    // this.danceBuddies[this.hostUsername] = {watch: true, poseStream: new Subject(), gotStar: false};
+    this.liveSocketService.emit('accept invite', this.username, this.hostUsername, this.userStars);
     this.hasJoined = true; // this.hostUsername;
     // this.danceBuddies[this.hostUsername] = new Subject();
     this.hostUsername = null;
@@ -100,13 +122,16 @@ export class AppComponent implements OnInit{
 
   recievedStar = () => {
     this.gotStar = true;
+    this.userStars++;
     setTimeout(() => {
       this.gotStar = false;
     }, 3000)
+
   }
   
   changeSkinName = (skinName) => {
     this.skinName = skinName;
   }
+
 
 }

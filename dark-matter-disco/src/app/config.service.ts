@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,12 @@ export class ConfigService {
     console.log('adding stars', username)
     return this.http.put('/user/stars', { username }).subscribe((response) => {
       console.log('response', response);
-    }, (err) => {console.log(err)})
+    }, (err) => {console.error(err)})
+  }
+
+  getStarCount(username: string) {
+    console.log('get stars', username);
+    return this.http.get(`/user/${username}`)
   }
 
 }

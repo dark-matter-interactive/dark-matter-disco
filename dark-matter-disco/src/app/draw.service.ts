@@ -31,4 +31,8 @@ export class DrawService {
     return this.draw;
   }
 
+  getDraw() {
+    return this.draw;
+  }
+
 }

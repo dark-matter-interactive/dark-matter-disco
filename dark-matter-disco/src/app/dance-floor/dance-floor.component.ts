@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/cor
 import { load } from '@tensorflow-models/posenet';
 import { from, Observable, Subject } from 'rxjs';
 import { LiveSocketService } from "../live-socket.service";
+import { StarService } from '../star.service';
 
 /**
  * This component is responsible for managing dancer states (i.e pose data)
@@ -16,7 +17,7 @@ import { LiveSocketService } from "../live-socket.service";
 })
 export class DanceFloorComponent implements AfterViewInit, OnInit {
 
-  constructor(private liveSocketService: LiveSocketService) {}
+  constructor(private liveSocketService: LiveSocketService, private starService: StarService) {}
 
   // username and friend username
   @Input() username: string;
@@ -43,7 +44,8 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   @ViewChild('webcamVideo', {static: false}) webcamVideo: any;
   
   ngAfterViewInit() {
-    console.log(this.danceBuddies)
+    this.starService.addUserStream(this.username, this.userPoseStream)
+    
     /** 
      * PoseNet
      * poseNetModel: inputResolution - Can be one of 161, 193, 257, 289, 321, 353, 385, 417, 449, 481, 
@@ -107,6 +109,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     // listen for pose data from friends
     socketService.on('pose', (username, poses, skinName) => {
    
+      console.log("friend SKIN:", skinName, "your skin:", this.skinName);
       this.danceBuddies[username].skinName = skinName;
       this.danceBuddies[username].poseStream.next(poses) //= pose;
       // console.log(this.danceBuddies[username])
