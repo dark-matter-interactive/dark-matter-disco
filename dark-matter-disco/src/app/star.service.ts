@@ -30,7 +30,7 @@ export class StarService {
         let noseX = poses[0].keypoints[0].position.x
         let noseY = poses[0].keypoints[0].position.y
         // console.log(nose);
-        this.draw.circle(20).cx(noseX).cy(noseY).fill('red');
+        this.draw.image('../assets/star6.png').cx(noseX).cy(noseY);
   
       });
     } else {
