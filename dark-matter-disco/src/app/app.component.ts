@@ -2,13 +2,10 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import randomNames from '../assets/random-usernames';
 import { LiveSocketService } from "./live-socket.service";
 import axios from 'axios';
-<<<<<<< HEAD
 import { Subject } from 'rxjs';
 import { StarService } from './star.service';
-=======
-import { Subject, Subscription } from 'rxjs';
+// import { Subject, Subscription } from 'rxjs';
 import { ConfigService } from './config.service';
->>>>>>> 704475937bb7d4c199cde3f688a732aa4bab9a0f
 
 
 @Component({
