@@ -18,6 +18,12 @@ import { AudioControlsComponent } from './audio/audio-controls/audio-controls.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SettingsComponent } from './toolbar/settings/settings.component';
 
+//firebase
+import { environment } from '../environments/environment';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { LoginComponent } from './admin/login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -32,13 +38,16 @@ import { SettingsComponent } from './toolbar/settings/settings.component';
     ChatComponent,
     AudioControlsComponent,
     SettingsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
