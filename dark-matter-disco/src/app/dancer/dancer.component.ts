@@ -5,7 +5,7 @@ import { DrawService } from '../draw.service';
 // import { poseChain } from '@tensorflow-models/posenet';
 // import { eye } from '@tensorflow/tfjs-core';
 
-import { panda, stickMan, robot } from '../../assets/skins/skins.js';
+import { Panda, StickMan, Robot } from '../../assets/skins/skins.js';
 
 interface Position {
   x: number,
@@ -55,7 +55,10 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() username: string;
   
   pose: any;
-  skin: any = stickMan;
+  panda: any = new Panda();
+  stickMan: any = new StickMan();
+  robot: any = new Robot('gray', './assets/skins/robot-head.png');
+  skin: any = this.stickMan;
 
 
   // Canvas for animation
@@ -69,13 +72,18 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
       console.log("SKIN CHANGE")
       this.skin.hide(200);
       if (changes.skinName.currentValue === 'panda') {
-        this.skin = panda;
+        this.skin = this.panda;
       } else if (changes.skinName.currentValue === 'stick man') {
-        this.skin = stickMan;
+        this.skin = this.stickMan;
       } else if (changes.skinName.currentValue === 'robot') {
-        this.skin = robot;
+        this.skin = this.robot;
       }
-      this.skin.init(this.draw);
+      if (!this.skin.isInitialized) {
+        console.log('initializing new skin');
+        this.skin.init(this.draw)
+      } 
+
+      this.skin.show();
     }
   }
 
@@ -89,17 +97,32 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
     //initialize skins
     this.skin.hide();
     if (this.skinName === 'panda') {
-      this.skin = panda;
+      this.skin = this.panda;
     } else if (this.skinName === 'robot') {
-      this.skin = robot;
+      this.skin = this.robot;
     } else if (this.skinName === 'stick man') {
-      this.skin = stickMan;
+      this.skin = this.stickMan;
     } 
-    if (!this.skin.isInitialize) this.skin.init(this.draw)
+    if (!this.skin.isInitialized) this.skin.init(this.draw)
     this.skin.show();
      
   
     // let prevEyeWidth = 20;
+
+
+    //  Initialize Pose
+    this.pose = [
+      { position: { x: -300, y: -300 }, score: 1 }, { position: { x: 0, y: 0 }, score: 1 },
+      { position: { x: 0, y: 0 }, score: 1 }, { position: { x: 0, y: 0 }, score: 1 },
+      { position: { x: 0, y: 0 }, score: 1 }, { position: { x: 0, y: 0 }, score: 1 },
+      { position: { x: 0, y: 0 }, score: 1 }, { position: { x: 0, y: 0 }, score: 1 },
+      { position: { x: 0, y: 0 }, score: 1 }, { position: { x: 0, y: 0 }, score: 1 },
+      { position: { x: 0, y: 0 }, score: 1 }, { position: { x: 0, y: 0 }, score: 1 },
+      { position: { x: 0, y: 0 }, score: 1 }, { position: { x: 0, y: 0 }, score: 1 },
+      { position: { x: 0, y: 0 }, score: 1 }, { position: { x: 0, y: 0 }, score: 1 },
+      { position: { x: 0, y: 0 }, score: 1 }, 
+    ];
+
 
     // animate step function
     const step = (time) => {
@@ -107,28 +130,6 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
       this.skin.render(this.pose);
       window.requestAnimationFrame(step);  
     }
-
-
-      //  Initialize Pose
-      this.pose = [
-        { position: { x: -200, y: -200 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-        { position: { x: 0, y: 0 }, score: 1 },
-     ];
 
 
     // Subscribe to pose data stream and animate
@@ -142,11 +143,6 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
           if (!prevPose) {
             prevPose = this.pose;
           }
-  
-          // // add distortion
-          // if (this.customize) {
-          //   dancerColor = this.customize.color;
-          // } 
 
           // movement smoothing, average with previous points
           for(let i = 0; i < this.pose.length; i++) {
