@@ -2,10 +2,10 @@
 
   <!-- SLIDE OUT  -->  
 
-  <div id="slide-out" *ngIf="isOpen" [@slideInOut] class="text-dark bg-white h-100 d-flex flex-column p-5 w-20" >
+  <div id="slide-out" *ngIf="isOpen" [@slideInOut] class="h-100 text-dark bg-white h-100 d-flex flex-column p-5 w-20" >
      <h3 class="text-success">Dark Matter Disco</h3>
 
-     <div [ngSwitch]="whichToolbar">
+     <div [ngSwitch]="whichToolbar" class="h-100">
         <!-- <ng-template >...</ng-template> -->
         <app-friends [username]=username [changeInvitee]=changeInvitee *ngSwitchCase="'friends'"
         ></app-friends>

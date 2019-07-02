@@ -1,22 +1,37 @@
 <h1>Settings</h1>
 
-<div class="mt-4">
-  <h2>Change Skin</h2>
-  <button (click)="changeSkinName('panda')" class="btn btn-success">Panda</button>
-  <button (click)="changeSkinName('robot')" class="btn btn-success">Robot</button>
-  <button (click)="changeSkinName('stick man')" class="btn btn-success">Stick Man</button>
-</div>
+<div class="d-flex flex-column justify-content-around h-100">
+  <div class="">
+    <h2>Character</h2>
+    <div class="d-flex flex-row">
+      <button (click)="changeSkinName('stick man')" class="btn btn-primary m-2">blue</button>
+      <button (click)="changeSkinName('red man')" class="btn btn-danger m-2">red</button>
+      <button (click)="changeSkinName('green man')" class="btn btn-success m-2">green</button>
+    </div>
+    
+    <div class="d-flex flex-row">
+      <button (click)="changeSkinName('panda')" class="btn btn-dark btn-sm m-2">
+        <img src="../../../assets/pandahead.png" class="skin-button "/>
+      </button>
+      <button (click)="changeSkinName('robot')" class="btn btn-dark m-2">
+        <img src="../../../assets/skins/robot-head.png" class="skin-button"/>
+      </button>
+    </div>
+  </div>
+  
+  
+  <div class="">
+    <h2>Backgrounds</h2>
+    <div>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Space</button>
+    </div>
+    <div>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Ranch</button>
+    </div>
+    <div>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Pineapple</button>
+    </div>
+  </div>
 
 
-<div class="mt-4">
-  <h2>Backgrounds</h2>
-  <div>
-    <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Space</button>
-  </div>
-  <div>
-    <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Ranch</button>
-  </div>
-  <div>
-    <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Pineapple</button>
-  </div>
 </div>
