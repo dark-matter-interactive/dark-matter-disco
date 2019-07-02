@@ -57,6 +57,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   pose: any;
   panda: any = new Panda();
   stickMan: any = new StickMan();
+  redStickMan: any = new StickMan('red');
   robot: any = new Robot('gray', './assets/skins/robot-head.png');
   skin: any = this.stickMan;
 
@@ -77,6 +78,10 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
         this.skin = this.stickMan;
       } else if (changes.skinName.currentValue === 'robot') {
         this.skin = this.robot;
+      } else if (changes.skinName.currentValue === 'red man') {
+        this.skin = new StickMan('red');
+      } else if (changes.skinName.currentValue === 'green man') {
+        this.skin = new StickMan('green');
       }
       if (!this.skin.isInitialized) {
         console.log('initializing new skin');

@@ -1,34 +1,34 @@
-<!-- <h2>online</h2>
-    <div *ngFor="let username of onlineUsers">
-      <button (click)=sendInvite(username) class="btn btn-success"> invite </button> {{ username }}
-    </div> -->
+<div class="d-flex flex-column align-items-between">
+  <div>
     <h2 class="mt-4">Friends</h2>
     <div *ngFor="let friend of friends">
       {{ friend.username }} 
       <button (click)=sendInvite(friend.username) *ngIf="onlineUsers.includes(friend.username)" class="btn btn-success btn-sm"> invite to dance</button> 
     </div>
-    
+  </div>
+
+  <div>
     <h2 class="mt-4">Friend Requests</h2>
-    <!-- <button (click)=showFriendRequests() > Show Requests </button> -->
-    <!-- <div *ngIf="showRequests"> -->
-     <div *ngIf="!allRequests.length">you have no pending friends requests</div>
-      <div *ngFor="let name of allRequests">
-          {{ name }} wants to be friends <button (click)=acceptFriendRequest(username,name) class="btn btn-success btn-sm"> accept </button> 
-        </div>
-      <!-- </div> -->
-
-
-<h2 class="mt-4">Find New Friends</h2>
-<div>
-    <form>
-        <input [(ngModel)]="name" name="Nancy" #ctrl="ngModel" required>
-        <button (click)=findFriends(name) type="submit" class="btn btn-success btn-sm">search</button>
-    </form>
-    <div *ngIf="allUsers?.length > 0">
-        <div *ngFor="let user of allUsers">
-            {{ user.username }} 
-            <button (click)=sendFriendRequest(username,user.username) class="btn btn-success btn-sm"> friend </button> 
-        </div>
+  
+    <div *ngIf="!allRequests.length">you have no pending friends requests</div>
+    <div *ngFor="let name of allRequests">
+        {{ name }} wants to be friends <button (click)=acceptFriendRequest(username,name) class="btn btn-success btn-sm"> accept </button> 
     </div>
+  </div>
+   
+
+
+  <div>
+      <h2 class="mt-4">Find New Friends</h2>
+      <form>
+          <input [(ngModel)]="name" name="Nancy" #ctrl="ngModel" required>
+          <button (click)=findFriends(name) type="submit" class="btn btn-success btn-sm">search</button>
+      </form>
+      <div *ngIf="allUsers?.length > 0">
+          <div *ngFor="let user of allUsers">
+              {{ user.username }} 
+              <button (click)=sendFriendRequest(username,user.username) class="btn btn-success btn-sm"> friend </button> 
+          </div>
+      </div>
+  </div>
 </div>
-  <!-- </ul> -->
