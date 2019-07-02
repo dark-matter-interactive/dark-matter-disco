@@ -32,6 +32,8 @@ export class StarsComponent implements OnInit {
         // this.configService.addingStars(toUsername);
       }
       // this.configService.addingStars(toUsername);
+      // this.danceBuddies[toUsername].gotStar = true;
+      // this.danceBuddies[toUsername].starCount++;
       this.starService.giveStar(toUsername);
     })
   }

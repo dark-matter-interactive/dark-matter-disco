@@ -12,6 +12,7 @@ export class StarService {
   userStream: any;
   username: string;
   draw: any;
+  
 
   init(danceBuddies) {
     this.danceBuddies = danceBuddies;
@@ -20,19 +21,33 @@ export class StarService {
   addUserStream(username, userStream) {
     this.username = username;
     this.userStream = userStream;
+
+    // const subscription = this.userStream.subscribe((poses) => {
+    //   let noseX = poses[0].keypoints[0].position.x
+    //   let noseY = poses[0].keypoints[0].position.y
+    //   // console.log(nose);
+    //   const star = this.draw.image('../assets/star6.png').cx(noseX).cy(noseY).opacity(0);
+    //   star.animate(500).opacity(1).after(() => {
+    //     star.animate(1000).opacity(0);
+    //   })
+    // });
+    // subscription.unsubscribe();
   }
   
   giveStar(username){
     this.draw = this.drawService.getDraw();
     console.log("SERVICE:star for....", username)
-    if (username = this.username) {
-      this.userStream.subscribe((poses) => {
+    if (username === this.username) {
+      const subscription = this.userStream.subscribe((poses) => {
         let noseX = poses[0].keypoints[0].position.x
         let noseY = poses[0].keypoints[0].position.y
         // console.log(nose);
-        this.draw.circle(20).cx(noseX).cy(noseY).fill('red');
-  
-      });
+        const star = this.draw.image('../assets/star6.png').cx(noseX).cy(noseY).opacity(0);
+        star.animate(500).opacity(1).after(() => {
+          star.animate(1000).opacity(0);
+        })
+        subscription.unsubscribe();
+      }, () => {});
     } else {
       this.danceBuddies[username].poseStream.subscribe((poses) => {
         let nose = poses[0].keypoints[0].position.x
