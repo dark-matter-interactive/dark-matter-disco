@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/cor
 import { load } from '@tensorflow-models/posenet';
 import { from, Observable, Subject } from 'rxjs';
 import { LiveSocketService } from "../live-socket.service";
+import { StarService } from '../star.service';
 
 /**
  * This component is responsible for managing dancer states (i.e pose data)
@@ -16,11 +17,11 @@ import { LiveSocketService } from "../live-socket.service";
 })
 export class DanceFloorComponent implements AfterViewInit, OnInit {
 
-  constructor(private liveSocketService: LiveSocketService) {}
+  constructor(private liveSocketService: LiveSocketService, private starService: StarService) {}
 
   // username and friend username
   @Input() username: string;
-  @Input() friendUsername: string;
+  @Input() hasJoined: boolean;
   @Input() customize: any;
   @Input() danceBuddies: any;
   @Input() skinName: string;
@@ -43,7 +44,8 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   @ViewChild('webcamVideo', {static: false}) webcamVideo: any;
   
   ngAfterViewInit() {
-    console.log(this.danceBuddies)
+    this.starService.addUserStream(this.username, this.userPoseStream)
+    
     /** 
      * PoseNet
      * poseNetModel: inputResolution - Can be one of 161, 193, 257, 289, 321, 353, 385, 417, 449, 481, 
@@ -52,7 +54,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     const poseNetModel: any = {
       architecture: 'MobileNetV1',
       outputStride: 16,
-      inputResolution: 353,
+      inputResolution: 385,
       multiplier: 0.75
     };
     
@@ -99,21 +101,16 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     // send user pose data to friends
     this.userPoseStream.subscribe((poses) => {
       // socketService.emit('pose', poses, this.friendUsername);
-      if (this.friendUsername) {
+      if (this.hasJoined) {
         socketService.emit('pose', this.username, poses, this.skinName);
       }
     })
     
     // listen for pose data from friends
     socketService.on('pose', (username, poses, skinName) => {
-      // console.log('receiving pose from', username, poses, this.danceBuddies)
-      // this.friendPoseStream.next(pose);
-      // comment if
-      // if (!this.danceBuddies[username]) {
-      //   this.danceBuddies[username] = new Subject();
-      // }
-      this.danceBuddies[username].poseStream.next(poses) //= pose;
+   
       this.danceBuddies[username].skinName = skinName;
+      this.danceBuddies[username].poseStream.next(poses) //= pose;
       // console.log(this.danceBuddies[username])
     })
   }

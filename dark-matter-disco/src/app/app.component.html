@@ -2,6 +2,8 @@
 <div id="app" class="text-light h-100"> 
 
   <div id="header"> 
+    <button class="btn btn-success" (click)=showSuccess()>click me</button>
+
     <div *ngIf=hostUsername>
       {{ hostUsername }} wants to dance! 
       <button class="btn btn-success" (click)=acceptInvite()>lets do this</button>
@@ -22,15 +24,17 @@
 
     <app-dance-floor id="dance-floor"
       [username]=username 
-      [friendUsername]=friendUsername  
+      [hasJoined]=hasJoined  
       [customize]=customize
       [danceBuddies]=danceBuddies
       [skinName]=skinName
     ></app-dance-floor>
 
     <div id="rightbar" class="d-flex flex-column p-3">
-      <div *ngIf="gotStar">**STAR**</div>
-      <h4 class="text-light">{{ username }}</h4>
+      <div *ngIf="gotStar">
+        <img src="../../assets/star6.png" alt="">
+      </div>
+      <h4 class="text-light">{{ username }} {{ userStars }}</h4> 
       <!-- <app-audio></app-audio> -->
       <app-stars
       [danceBuddies]=danceBuddies
@@ -39,8 +43,7 @@
       [recievedStar]=recievedStar
       ></app-stars>
       <app-audio [videoID]=videoID></app-audio>
-
-     
+      
   </div>
 
   

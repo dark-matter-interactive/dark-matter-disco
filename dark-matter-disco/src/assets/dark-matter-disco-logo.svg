@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="210mm"
+   viewBox="0 0 210 210"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="dark-matter-disco-logo.svg"
+   inkscape:export-filename="/home/jesse/Code/immersion-sr/thesis/dark-matter-disco/dark-matter-disco/src/assets/dark-matter-disco-logo.png"
+   inkscape:export-xdpi="117.3"
+   inkscape:export-ydpi="117.3">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-420.25791"
+     inkscape:cy="660.10823"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="974"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:measure-start="0,0"
+     inkscape:measure-end="0,0"
+     inkscape:pagecheckerboard="true" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-87)">
+    <g
+       aria-label="D"
+       transform="matrix(7.1400131,0,0,6.5018561,-1304.8143,-2118.1976)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Keraleeyam;-inkscape-font-specification:Keraleeyam;letter-spacing:0px;word-spacing:0px;fill:#fffff8;fill-opacity:1;stroke:none;opacity:1"
+       id="flowRoot815">
+      <path
+         d="m 207.2832,355.08594 c 0,4.32291 -0.84635,7.43489 -2.53906,9.33593 -1.67969,1.90105 -5.01218,4.15781 -8.82255,3.96764 l -4.47265,-0.22323 c 0,0 -5.3954,-14.82525 -0.62501,-24.14622 0.85677,-1.67406 5.22044,-2.63392 5.22044,-2.63392 4.59338,0.20295 6.94196,1.90941 8.66071,4.03181 1.71875,2.10937 2.57812,5.33203 2.57812,9.66797 z m -4.00669,-3.98717 c -0.80183,-1.48699 -2.19887,-2.71749 -3.81697,-3.33426 -1.6469,-0.62775 -3.23612,-0.81383 -4.2578,0.17299 -1.7067,1.64844 -1.73364,2.36606 -0.53571,7.09821 1.44026,5.32206 5.13764,8.54495 5.13764,8.54495 2.04123,-0.82629 3.7868,-3.35474 4.40755,-5.66549 0.595,-2.21487 0.15379,-4.79778 -0.93471,-6.8164 z"
+         id="path823"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="scscsscssasaccaa"
+         style="fill:#fffff8;fill-opacity:1" />
+    </g>
+    <path
+       style="opacity:1;fill:#28a745;fill-opacity:1;stroke:none;stroke-width:109.27570343;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:6.4000001;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M -275.22791,83.231151 V 285.08308 H -72.746964 V 83.231151 Z m 89.57019,19.915569 c 26.28647,1.19718 39.72653,11.26303 49.5624,23.78275 9.83586,12.44284 14.75421,31.4527 14.75421,57.02974 0,25.50016 -4.84369,43.85756 -14.53054,55.07149 -9.61233,11.21401 -28.68307,24.52641 -50.48862,23.40461 l -25.59528,-1.31708 c 0,0 -30.87646,-87.45166 -3.57702,-142.43461 4.90302,-9.87502 29.87485,-15.5369 29.87485,-15.5369 z m 6.01897,34.56347 c -4.18258,-0.01 -7.91768,1.17096 -10.84106,4.08149 -9.7669,9.72391 -9.92078,13.95738 -3.0654,41.87161 8.24215,31.39399 29.40093,50.40513 29.40093,50.40513 11.68131,-4.87416 21.67032,-19.78889 25.22268,-33.41964 3.40501,-13.06517 0.88059,-28.30174 -5.34855,-40.20928 -4.58861,-8.77152 -12.5835,-16.03011 -21.84338,-19.66834 -4.71235,-1.8515 -9.34264,-3.05131 -13.52522,-3.06097 z"
+       id="rect828"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g2277"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Keraleeyam;-inkscape-font-specification:Keraleeyam;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+       transform="matrix(4.7860143,0,0,4.8209843,-845.12744,-1615.2653)"
+       aria-label="D" />
+  </g>
+</svg>

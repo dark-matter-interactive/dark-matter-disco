@@ -1,16 +1,41 @@
-import { distance } from 'mathjs';
+// import { distance } from 'mathjs';
 
 
 class Skin {
-  constructor() {
+  constructor(color = 'blue', headImg) {
     this.body = {};
+    this.isInitialized = false;
+    this.color = color;
+    this.headImg = headImg;
   }
 
-
-  hide(){
+  /** 
+   * hide a character 
+   * @param { number } delay time milliseconds to fade in character
+   * @returns itself for chainability 
+   * */
+  hide(delay = 0){
     for(let part in this.body) {
+      // this.body[part].animate(delay).opacity(0).after(() => {
+      //   this.body[part].hide();
+      // });
+      // this.body[part].hide();
       this.body[part].hide();
     }
+    return this;
+  }
+
+   /** 
+   * show a character 
+   * @param { number } delay time milliseconds to fade in character
+   * @returns itself for chainability 
+   * */
+  show(delay = 0){
+    for(let part in this.body) {
+      // this.body[part].animate(delay).opacity(1)
+      this.body[part].show();
+    }
+    return this;
   }
 
   /**
@@ -19,25 +44,35 @@ class Skin {
    * @param {any} draw: any 
    * @param {string} dancerColor color name or hex 
    * @param {string} headImg: url of head image
+   * @returns itself for chainablity
    */
-  init(draw, dancerColor = 'blue', headImg) {
-    // let dancerColor = 'white'
-  this.body.torso = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 4, linecap: 'round' }).fill(dancerColor);
-  this.body.leftLegBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
-  this.body.leftLeg  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: dancerColor, width: 10, linecap: 'round' }).fill('none');
-  this.body.rightLegBorder = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
-  this.body.rightLeg = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: dancerColor, width: 10, linecap: 'round' }).fill('none')
-  if (headImg) {
-    this.body.head = draw.image('../../assets/pandahead.png', 300, 300).addClass('panda-head').style(`background-color: ${dancerColor}`);
-  } else {
-    this.body.head = draw.circle(200).stroke({ color: 'black', width: 4}).fill(dancerColor);
-  }
-  this.body.leftArmBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
-  this.body.leftArm  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: dancerColor, width: 10, linecap: 'round' }).fill('none')
-  this.body.rightArmBorder = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
-  this.body.rightArm = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: dancerColor, width: 10, linecap: 'round' }).fill('none')
+
+  init(draw) {
+   
+    this.body.torso = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 4, linecap: 'round' }).fill(this.color)
+    // .click(() => {  console.log('click'); this.fill({ color: 'white' }) });
+    this.body.leftLegBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
+    this.body.leftLeg  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: this.color, width: 10, linecap: 'round' }).fill('none');
+    this.body.rightLegBorder = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
+    this.body.rightLeg = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: this.color, width: 10, linecap: 'round' }).fill('none')
+    if (this.headImg) {
+      this.body.head = draw.image(this.headImg, 300, 300).addClass('panda-head').style(`background-color: ${this.color}`);
+    } else {
+      this.body.head = draw.circle(200).stroke({ color: 'black', width: 4}).fill(this.color);
+    }
+    this.body.leftArmBorder  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
+    this.body.leftArm  = draw.path('M 10, 10 C 20, 20 40, 20 50, 10').stroke({ color: this.color, width: 10, linecap: 'round' }).fill('none')
+    this.body.rightArmBorder = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: 'black', width: 14, linecap: 'round' }).fill('none')
+    this.body.rightArm = draw.path('M 200, 200 C 300, 100 300, 50 400, 250').stroke({ color: this.color, width: 10, linecap: 'round' }).fill('none')
+  
+    this.isInitialized = true;
+    return this;
   }
 
+  /**
+   * renders skin based on pose
+   * @param {object} pose 17 point body pose data from PoseNet 
+   */
   render(pose){
     let { leftLeg, leftLegBorder, rightLeg, rightLegBorder, torso, head, leftArmBorder, rightArmBorder, leftArm, rightArm } = this.body;
   let [
