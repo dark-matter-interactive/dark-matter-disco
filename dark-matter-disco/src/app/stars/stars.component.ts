@@ -44,6 +44,7 @@ export class StarsComponent implements OnInit {
     this.star(username);
     this.configService.addingStars(username);
     this.liveSocketService.emit('stars', username, this.username);
+    this.starService.giveStar(username)
   }
 
   star(username) {
@@ -51,7 +52,7 @@ export class StarsComponent implements OnInit {
     this.danceBuddies[username].starCount++;
     setTimeout(() => {
       this.danceBuddies[username].gotStar = false;
-    }, 3000);
+    }, 500);
   }
 
   // lookupStars() {
