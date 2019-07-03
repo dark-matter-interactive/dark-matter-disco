@@ -39,6 +39,15 @@ class Skin {
   }
 
   /**
+   * 
+   * @param {string} color change color of a stick man skin, color name or hex 
+   */
+  color(color) {
+    this.color = color;
+  }
+
+
+  /**
    * The default for a skin is stick man
    * init defines the body parts
    * @param {any} draw: any 
