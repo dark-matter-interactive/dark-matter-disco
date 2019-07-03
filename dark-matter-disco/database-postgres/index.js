@@ -47,11 +47,36 @@ const Friends = sequelize.define('Friends', {
   status: Sequelize.INTEGER
 });
 
+
+// define Achievments model
+const Achievements = sequelize.define('Achievements', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: Sequelize.STRING,
+  badgeURL: Sequelize.STRING,
+  starsThreshold: Sequelize.INTEGER
+});
+
+
+// define userAchievments model
+const userAchievements = sequelize.define('userAchievements', {
+  status: Sequelize.INTEGER
+});
+User.belongsToMany(Achievements, { through: userAchievements });
+Achievements.belongsToMany(User, { through: userAchievements });
+
 // User.sync()
 // Friends.sync()
+// Achievements.sync({ force: true })
+// userAchievements.sync({ force: true })
 sequelize.sync({
   force: false, // Drops info in database for testing
 });
 
 module.exports.User = User;
 module.exports.Friends = Friends;
+module.exports.Achievements = Achievements;
+module.exports.userAchievements = userAchievements;
