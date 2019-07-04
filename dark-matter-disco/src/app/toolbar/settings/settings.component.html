@@ -27,14 +27,10 @@
   
   <div class="">
     <h2>Background</h2>
-    <div>
-      <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Space</button>
-    </div>
-    <div>
-      <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Ranch</button>
-    </div>
-    <div>
-      <button (click)=changeBackground($event.target.outerText) class="btn btn-success">Pineapple</button>
+    <div class="d-flex flex-row">
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success space m-2">Space</button>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success ranch m-2">Ranch</button>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success pineapple m-2">Pineapple</button>
     </div>
   </div>
 

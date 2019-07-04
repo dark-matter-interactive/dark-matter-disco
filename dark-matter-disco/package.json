@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~8.0.1",
+    "@angular/animations": "^8.0.3",
     "@angular/common": "~8.0.1",
     "@angular/compiler": "~8.0.1",
     "@angular/core": "~8.0.1",
@@ -32,6 +32,7 @@
     "firebase": "^6.2.4",
     "mathjs": "^6.0.2",
     "ngx-color-picker": "^8.0.1",
+    "ngx-toastr": "^10.0.4",
     "path": "^0.12.7",
     "pg": "^7.11.0",
     "rxjs": "^6.4.0",

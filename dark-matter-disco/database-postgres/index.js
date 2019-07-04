@@ -6,6 +6,7 @@ const Sequelize = require('sequelize');
 //   dialect: 'postgres'
 // });
 
+
 const name = process.env.DB_NAME || 'postgres';
 const username = process.env.DB_USERNAME || 'root';
 const password = process.env.DB_PASSWORD || 'root';
@@ -27,7 +28,6 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-
 
 //define User model
 const User = sequelize.define('Users', {
