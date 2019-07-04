@@ -54,8 +54,8 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     const poseNetModel: any = {
       architecture: 'MobileNetV1',
       outputStride: 16,
-      inputResolution: 385,
-      multiplier: 0.75
+      inputResolution: 289,
+      multiplier: 0.5
     };
     
     const poseNetOptions: any = {

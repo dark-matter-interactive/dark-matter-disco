@@ -2,14 +2,14 @@
 
   <!-- SLIDE OUT  -->  
 
-  <div id="slide-out" *ngIf="isOpen" [@slideInOut] class="h-100 text-dark bg-white h-100 d-flex flex-column p-5 w-20" >
+  <div id="slide-out" *ngIf="isOpen" [@slideInOut] class="h-100 text-light h-100 d-flex flex-column p-5 w-20" >
      <h3 class="text-success">Dark Matter Disco</h3>
 
      <div [ngSwitch]="whichToolbar" class="h-100">
         <!-- <ng-template >...</ng-template> -->
         <app-friends [username]=username [changeInvitee]=changeInvitee *ngSwitchCase="'friends'"
         ></app-friends>
-        <app-chat [username]=username [convos]=convos *ngSwitchCase="'chat'"></app-chat>
+        <app-chat [username]=username [skinName]=skinName [convos]=convos *ngSwitchCase="'chat'" ></app-chat>
         <app-audio-controls *ngSwitchCase="'music'" [changeVideoID]=changeVideoID></app-audio-controls>
         <app-settings [changeSkinName]="changeSkinName" *ngSwitchCase="'settings'"></app-settings>
         <!-- <ng-template ngSwitchCase="case2LiteralString">...</ng-template>

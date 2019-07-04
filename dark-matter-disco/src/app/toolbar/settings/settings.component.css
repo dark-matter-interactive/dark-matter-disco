@@ -1,3 +1,22 @@
 .skin-button {
   max-width: 4rem;
 }
+
+.background-thumb {
+  background-size: cover;
+  min-height: 5rem;
+}
+
+.space {
+  background-image: url('../../../assets/planet-cartoon-space-background.jpeg');
+  color: white;
+}
+
+.ranch {
+  background-image: url('../../../assets/farm-fields-minimal-flat-art-work-style_22350-732.jpg');
+  color: brown;
+}
+.pineapple {
+  background-image: url('../../../assets/Pineapple.png');
+  color: black
+}

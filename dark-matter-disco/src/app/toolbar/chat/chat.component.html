@@ -1,6 +1,6 @@
-<h1>Chat</h1>
+<h1 class="mt-4">Chat</h1>
 
-<div *ngFor="let chat of convos">{{chat.username}}: {{chat.message}} </div>
+<div *ngFor="let chat of convos" [style.color]="chat.color">{{chat.username}}: {{chat.message}} </div>
 
 <div class="d-flex">
   <textarea [(ngModel)]="message"></textarea>

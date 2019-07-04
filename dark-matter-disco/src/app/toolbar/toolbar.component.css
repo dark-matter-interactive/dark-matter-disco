@@ -4,7 +4,16 @@
 
 
 #slide-out {
-  box-shadow: 20px 0 20px -10px inset #00000059;
+  /* box-shadow: 20px 0 20px -10px inset #00000059; */
+  box-shadow: 20px 0 20px -10px inset #46e83261;
+  background-color: rgba(0, 0, 0, 0.856);
+  
+  
+}
+#slide-out::after {
+  
+  width: 100%;
+  height: 100%;
 }
 
 .icon {

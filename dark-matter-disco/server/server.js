@@ -9,6 +9,19 @@ const users = require('./routes/users.js');
 const friends = require('./routes/friends.js');
 const bodyParser = require('body-parser');
 
+const redirectApp = express();
+
+redirectApp.listen(8081, () => {
+  console.log('redirect server on 8081');
+})
+
+redirectApp.use((req, res, next) => {
+ console.log('redirecting to https ...')   
+ res.redirect('https://disco.darknrgy.com');
+});
+
+
+
 
 const port = process.env.PORT || 8080;
 
@@ -122,9 +135,9 @@ io.on('connection', (socket) => {
     })
 
     // handle chat
-    socket.on('chat', (username, message) => {
+    socket.on('chat', (username, message, color) => {
         if (parties[username]) {
-            socket.broadcast.to(parties[username].partyName).emit('chat', username, message);
+            socket.broadcast.to(parties[username].partyName).emit('chat', username, message, color);
             console.log(username, message)
         }
     });
