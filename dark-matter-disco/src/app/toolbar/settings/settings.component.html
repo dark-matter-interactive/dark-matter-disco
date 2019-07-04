@@ -1,7 +1,7 @@
-<h1>Settings</h1>
+<h1 class="mt-4">Settings</h1>
 
 <div class="d-flex flex-column justify-content-around h-100">
-  <div class="">
+  <div>
     <h2>Character</h2>
     <!-- <div class="d-flex flex-row"> -->
       <!-- <button (click)="changeSkinName('blue')" class="btn btn-primary m-2">blue</button> -->
@@ -12,7 +12,6 @@
     <div>
       <input [(colorPicker)]="color" type="button" value="pick color" [style.background]="color" (colorPickerChange)="changeSkinName(color)" class=" m-2 btn btn-dark"/>
     </div>
-
     
     <div class="d-flex flex-row">
       <button (click)="changeSkinName('panda')" class="btn btn-dark btn-sm m-2">
@@ -25,7 +24,7 @@
   </div>
   
   
-  <div class="">
+  <div>
     <h2>Background</h2>
     <div class="d-flex flex-column ">
       <button (click)=changeBackground($event.target.outerText) class="btn btn-success space m-2 background-thumb">Space</button>
