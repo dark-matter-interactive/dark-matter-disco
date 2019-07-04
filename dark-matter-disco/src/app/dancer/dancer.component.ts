@@ -74,15 +74,12 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
       this.skin.hide(200);
       if (changes.skinName.currentValue === 'panda') {
         this.skin = this.panda;
-      } else if (changes.skinName.currentValue === 'stick man') {
-        this.skin = this.stickMan;
       } else if (changes.skinName.currentValue === 'robot') {
         this.skin = this.robot;
-      } else if (changes.skinName.currentValue === 'red man') {
-        this.skin.changeColor('red');
-      } else if (changes.skinName.currentValue === 'green man') {
-        this.skin.changeColor('green');
-      }
+      } else {
+        this.skin = this.stickMan;
+        this.skin.changeColor(changes.skinName.currentValue);
+      } 
       if (!this.skin.isInitialized) {
         console.log('initializing new skin...');
         this.skin.init(this.draw)
@@ -98,6 +95,8 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
     console.log(this.skin)
     // SVG drawing tool
     this.draw = this.drawService.init(700);
+
+    
     
     //initialize skins
     this.skin.hide();
@@ -105,10 +104,13 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
       this.skin = this.panda;
     } else if (this.skinName === 'robot') {
       this.skin = this.robot;
-    } else if (this.skinName === 'stick man') {
+    } else {
       this.skin = this.stickMan;
     } 
-    if (!this.skin.isInitialized) this.skin.init(this.draw)
+    if (!this.skin.isInitialized) {
+      this.skin.init(this.draw)
+      this.skin.changeColor(this.skinName);
+    }
     this.skin.show();
      
   

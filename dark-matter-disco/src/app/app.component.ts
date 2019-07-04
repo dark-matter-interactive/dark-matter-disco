@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
   danceBuddies: any = {};
   videoID: string = '';
   gotStar: boolean = false;
-  skinName: string = 'stick man';
+  skinName: string = 'yellow';
   stars: number;
   userStars: number;
   // allUsers: any = [];

@@ -3,11 +3,16 @@
 <div class="d-flex flex-column justify-content-around h-100">
   <div class="">
     <h2>Character</h2>
-    <div class="d-flex flex-row">
-      <button (click)="changeSkinName('stick man')" class="btn btn-primary m-2">blue</button>
-      <button (click)="changeSkinName('red man')" class="btn btn-danger m-2">red</button>
-      <button (click)="changeSkinName('green man')" class="btn btn-success m-2">green</button>
+    <!-- <div class="d-flex flex-row"> -->
+      <!-- <button (click)="changeSkinName('blue')" class="btn btn-primary m-2">blue</button> -->
+      <!-- <button (click)="changeSkinName('green')" class="btn btn-success m-2">green</button> -->
+      <!-- <button (click)="changeSkinName('red')" class="btn btn-danger m-2">red</button> -->
+    <!-- </div> -->
+
+    <div>
+      <input [(colorPicker)]="color" type="button" value="pick color" [style.background]="color" (colorPickerChange)="changeSkinName(color)" class=" m-2 btn btn-dark"/>
     </div>
+
     
     <div class="d-flex flex-row">
       <button (click)="changeSkinName('panda')" class="btn btn-dark btn-sm m-2">
@@ -17,7 +22,6 @@
         <img src="../../../assets/skins/robot-head.png" class="skin-button"/>
       </button>
     </div>
-    <input [(colorPicker)]="color" type="button" value="pick your own color" [style.background]="color" class="btn btn-dark"/>
   </div>
   
   

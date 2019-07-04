@@ -1,17 +1,23 @@
-import { Component, OnInit, Input, Renderer2 } from "@angular/core";
+import { Component, OnInit, Input, Renderer2, OnChanges } from "@angular/core";
 
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.component.html",
   styleUrls: ["./settings.component.css"]
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnChanges {
   constructor(private renderer: Renderer2) {}
 
   @Input() changeSkinName: any;
+  
+
+  color: any;
 
   ngOnInit() {}
 
+  ngOnChanges(changes) {
+    console.log(changes);
+  }
 
   changeBackground(e) {
     console.log(e);
@@ -25,6 +31,10 @@ export class SettingsComponent implements OnInit {
       this.renderer.setStyle(document.body, 'background-image', "url('./assets/Pineapple.png')");
     }
   }
+
+  // changeColor(color) {
+  //   console.log(color);
+  // }
 
 
 }
