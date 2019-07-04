@@ -17,17 +17,21 @@ export class ChatComponent implements OnInit {
 
   @Input() username: string;
   @Input() convos: any = [];
+  @Input() skinName: string;
 
   message: string = '';
 
   sendMsg(message) {
-    this.liveSocketService.emit('chat', this.username, message);
-    this.convos.push({username: 'me', message})
+    this.liveSocketService.emit('chat', this.username, message, this.skinName);
+    this.convos.push({username: 'me', message, color: this.skinName})
     this.message = '';
   }
 
   ngOnInit() {
-
+    this.liveSocketService.on('chat', (username, message, color) => {
+      console.log(username, message)
+      this.convos.push({ username, message, color });
+    });
     
   }
 

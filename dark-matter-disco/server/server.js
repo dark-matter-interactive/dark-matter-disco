@@ -135,9 +135,9 @@ io.on('connection', (socket) => {
     })
 
     // handle chat
-    socket.on('chat', (username, message) => {
+    socket.on('chat', (username, message, color) => {
         if (parties[username]) {
-            socket.broadcast.to(parties[username].partyName).emit('chat', username, message);
+            socket.broadcast.to(parties[username].partyName).emit('chat', username, message, color);
             console.log(username, message)
         }
     });
