@@ -1,34 +1,37 @@
-<div class="d-flex flex-column align-items-between">
+<div class="d-flex flex-column justify-content-around h-100">
+    <div class="">
+        <h1 class="">Find New Friends</h1>
+        <form>
+            <input [(ngModel)]="name" name="Nancy" #ctrl="ngModel" required>
+            <button (click)=findFriends(name) type="submit" class="btn btn-success btn-sm">search</button>
+        </form>
+        <div *ngIf="allUsers?.length > 0">
+            <div *ngFor="let user of allUsers" class="p-2">
+                {{ user.username }} 
+                <button (click)=sendFriendRequest(username,user.username) class="btn btn-success btn-sm mt-2"> friend </button> 
+            </div>
+        </div>
+    </div>
+  
+  
   <div>
-    <h2 class="mt-4">Friends</h2>
-    <div *ngFor="let friend of friends">
+    <h1 class="">Friends</h1>
+    <div *ngFor="let friend of friends" class="pl-2">
       {{ friend.username }} 
       <button (click)=sendInvite(friend.username) *ngIf="onlineUsers.includes(friend.username)" class="btn btn-success btn-sm"> invite to dance</button> 
     </div>
   </div>
 
   <div>
-    <h2 class="mt-4">Friend Requests</h2>
+    <h1 class="">Friend Requests</h1>
   
     <div *ngIf="!allRequests.length">you have no pending friends requests</div>
-    <div *ngFor="let name of allRequests">
+    <div *ngFor="let name of allRequests" class="pl-2">
         {{ name }} wants to be friends <button (click)=acceptFriendRequest(username,name) class="btn btn-success btn-sm"> accept </button> 
     </div>
   </div>
    
 
 
-  <div>
-      <h2 class="mt-4">Find New Friends</h2>
-      <form>
-          <input [(ngModel)]="name" name="Nancy" #ctrl="ngModel" required>
-          <button (click)=findFriends(name) type="submit" class="btn btn-success btn-sm">search</button>
-      </form>
-      <div *ngIf="allUsers?.length > 0">
-          <div *ngFor="let user of allUsers">
-              {{ user.username }} 
-              <button (click)=sendFriendRequest(username,user.username) class="btn btn-success btn-sm"> friend </button> 
-          </div>
-      </div>
-  </div>
+
 </div>
