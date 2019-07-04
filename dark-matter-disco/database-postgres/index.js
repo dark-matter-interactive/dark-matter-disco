@@ -6,23 +6,15 @@ const Sequelize = require('sequelize');
 //   dialect: 'postgres'
 // });
 
+
 const name = process.env.DB_NAME || 'postgres';
 const username = process.env.DB_USERNAME || 'root';
 const password = process.env.DB_PASSWORD || 'root';
 
 const sequelize = new Sequelize(name,  username, password, {
-  host: process.env.DB_HOSTNAME || 'localhost',
+  host: process.env.HOSTNAME || 'localhost',
   dialect: 'postgres'
 });
-
-// const name = process.env.DB_NAME || 'postgres';
-// const username = process.env.DB_USERNAME || 'root';
-// const password = process.env.DB_PASSWORD || 'root';
-
-// const sequelize = new Sequelize(name,  username, password, {
-//   host: process.env.HOSTNAME || 'localhost',
-//   dialect: 'postgres'
-// });
 
 
 
