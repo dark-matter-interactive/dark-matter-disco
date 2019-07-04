@@ -37,7 +37,7 @@ export class StarsComponent implements OnInit {
       // this.configService.addingStars(toUsername);
       // this.danceBuddies[toUsername].gotStar = true;
       // this.danceBuddies[toUsername].starCount++;
-      this.starService.giveStar(toUsername);
+      this.starService.giveStar(toUsername)
     })
   }
 
@@ -51,7 +51,6 @@ export class StarsComponent implements OnInit {
   }
 
   star(username) {
-    this.showSuccess()
     this.danceBuddies[username].gotStar = true;
     this.danceBuddies[username].starCount++;
     setTimeout(() => {

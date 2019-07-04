@@ -81,6 +81,7 @@ export class AppComponent implements OnInit{
           this.starsSubscription = this.configService.getStarCount(guest).subscribe((res) => {
             console.log('res', res);
             this.stars = res[0].starsTotal;
+            
             this.danceBuddies[guest] = {watch: true, poseStream: new Subject(), gotStar: false, starCount: this.stars};
           }, (err) => console.error(err), () => {});
           }
@@ -93,7 +94,7 @@ export class AppComponent implements OnInit{
     axios.post('/user/login', {
       username: this.username
     })
-    
+
 
     // //get list of all users
     // axios.get(`/user/login`).then((users) => {
@@ -110,7 +111,7 @@ export class AppComponent implements OnInit{
   }
   showSuccess() {
     console.log('heeeeeeyyy');
-    this.toastr.success('Hello world!', 'Toastr fun!');
+    this.toastr.success('Achievement Unlocked!', 'Star Attraction!');
   }
   acceptInvite() {
     console.log('you accepted invite from', this.hostUsername)
@@ -134,6 +135,11 @@ export class AppComponent implements OnInit{
   recievedStar = () => {
     this.gotStar = true;
     this.userStars++;
+    //show toast when user has 5 stars
+    if(this.userStars === 5) {
+      console.log('hit');
+      this.showSuccess();
+    }
     setTimeout(() => {
       this.gotStar = false;
     }, 3000)

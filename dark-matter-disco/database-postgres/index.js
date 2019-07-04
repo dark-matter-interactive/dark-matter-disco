@@ -28,7 +28,6 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-
 //define User model
 const User = sequelize.define('Users', {
   username: {
