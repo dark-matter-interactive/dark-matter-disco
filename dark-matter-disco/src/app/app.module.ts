@@ -17,6 +17,8 @@ import { ChatComponent } from './toolbar/chat/chat.component';
 import { AudioControlsComponent } from './audio/audio-controls/audio-controls.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SettingsComponent } from './toolbar/settings/settings.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+
 
 //firebase
 import { environment } from '../environments/environment';
@@ -47,7 +49,8 @@ import { LoginComponent } from './admin/login/login.component';
     NgbModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ColorPickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
