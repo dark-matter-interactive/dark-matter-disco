@@ -29,16 +29,14 @@ import {
 export class ToolbarComponent implements OnInit {
 
   constructor(private liveSocketService: LiveSocketService) {
-    this.liveSocketService.on('chat', (username, message) => {
-      console.log(username, message)
-      this.convos.push({ username, message });
-    }); 
+    
   }
 
   @Input() changeInvitee: any;
   @Input() changeVideoID: any;
   @Input() username: string;
   @Input() changeSkinName: any;
+  @Input() skinName: string;
 
   isOpen: boolean = false;
   whichToolbar: string = '';
