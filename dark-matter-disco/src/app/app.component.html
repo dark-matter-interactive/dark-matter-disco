@@ -2,7 +2,6 @@
 <div id="app" class="text-light h-100"> 
 
   <div id="header"> 
-
     <div *ngIf=hostUsername>
       {{ hostUsername }} wants to dance! 
       <button class="btn btn-success" (click)=acceptInvite()>lets do this</button>
@@ -38,10 +37,12 @@
         <img src="../assets/star.png" class="user-star" />
         {{ userStars }}
       </h4> 
+      <div>
+        // add achievements
+      </div>
       <app-audio [videoID]=videoID></app-audio>
       <app-stars
       [danceBuddies]=danceBuddies
-      [showSuccess]=showSuccess
       [username]=username
       [gotStar]=gotStar
       [recievedStar]=recievedStar

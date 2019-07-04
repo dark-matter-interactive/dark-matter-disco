@@ -3,7 +3,7 @@ import { LiveSocketService } from '../live-socket.service';
 import { ConfigService } from '../config.service';
 import { StarService } from '../star.service';
 import { Subscription } from 'rxjs';
-import { ToastrService, ToastContainerDirective } from 'ngx-toastr';
+
 
 
 
@@ -14,13 +14,12 @@ import { ToastrService, ToastContainerDirective } from 'ngx-toastr';
 })
 export class StarsComponent implements OnInit {
 
-  constructor(private toastr: ToastrService, private liveSocketService: LiveSocketService, private configService: ConfigService, private starService: StarService) { }
+  constructor(private liveSocketService: LiveSocketService, private configService: ConfigService, private starService: StarService) { }
 
   @Input() danceBuddies: any;
   @Input() username: any;
   @Input() gotStar: boolean;
   @Input() recievedStar: any;
-  @Input() showSuccess: any;
 
   ngOnInit() {
     this.liveSocketService.on('stars', (toUsername, fromUsername) => {

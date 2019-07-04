@@ -6,7 +6,7 @@ import { Subject, Subscription } from 'rxjs';
 import { StarService } from './star.service';
 // import { Subject, Subscription } from 'rxjs';
 import { ConfigService } from './config.service';
-import { ToastrService, ToastContainerDirective } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -110,7 +110,6 @@ export class AppComponent implements OnInit{
 
   }
   showSuccess() {
-    console.log('heeeeeeyyy');
     this.toastr.success('Achievement Unlocked!', 'Star Attraction!');
   }
   acceptInvite() {
