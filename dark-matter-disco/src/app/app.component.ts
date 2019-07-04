@@ -26,6 +26,7 @@ export class AppComponent implements OnInit{
   skinName: string = 'stick man';
   stars: number;
   userStars: number;
+  achievements: any = [];
   // allUsers: any = [];
   // allRequests: any = [];
   // customize: any = { color: '#f06' };
@@ -126,7 +127,19 @@ export class AppComponent implements OnInit{
     setTimeout(() => {
       this.gotStar = false;
     }, 3000)
-
+    if (this.userStars >= 50) {
+      this.configService.recieveAchievement().subscribe((res) => {
+        console.log(res);
+        res.forEach((item) => {
+          // console.log(item);
+          if (item.id === 1) {
+            // console.log(item);
+            this.achievements.push(item.badgeURL);
+            console.log(this.achievements);
+          }
+        })
+      })
+    }
   }
   
   changeSkinName = (skinName) => {

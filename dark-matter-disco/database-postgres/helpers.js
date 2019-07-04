@@ -1,5 +1,5 @@
 //require models
-const { User, Friends } = require('./index.js');
+const { User, Friends, Achievements, userAchievements } = require('./index.js');
 
 const storeOrFindUser = (username) => {
   return User.findOrCreate({ 
@@ -86,13 +86,14 @@ const updateStars = (username) => {
   })
 }
 
-// gets stars for user
-const getStars = () => {
-
+// gets Achievement for user
+const getAchievement = (achievementID) => {
+  console.log(achievementID);
+  return Achievements.findAll({}).then(achieve => achieve);
 }
 
 
-module.exports.getStars = getStars;
+module.exports.getAchievement = getAchievement;
 module.exports.updateStars = updateStars;
 module.exports.storeFriendRequest = storeFriendRequest;
 module.exports.acceptFriendRequest = acceptFriendRequest;

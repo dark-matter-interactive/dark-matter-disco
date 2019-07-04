@@ -28,4 +28,8 @@ export class ConfigService {
     return this.http.get(`/user/${username}`)
   }
 
+  recieveAchievement() {
+    return this.http.get('/achievement');
+  }
+
 }

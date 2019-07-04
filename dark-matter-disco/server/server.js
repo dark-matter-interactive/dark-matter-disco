@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-const { updateStars } = require('../database-postgres/helpers.js');
+const { updateStars, getAchievement } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const users = require('./routes/users.js');
@@ -171,6 +171,14 @@ app.put('/user/stars', (req, res, next) => {
     updateStars(req.body.username).then((response) => {
         console.log(response);
         res.sendStatus(201);
+    }).catch(err => console.error(err));
+})
+
+app.get('/achievement', (req, res, next) => {
+    console.log('achievement', req);
+    getAchievement().then((response) => {
+        res.send(response);
+        // res.sendStatus(200);
     }).catch(err => console.error(err));
 })
 
