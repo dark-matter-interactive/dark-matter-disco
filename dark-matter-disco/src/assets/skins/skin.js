@@ -42,8 +42,16 @@ class Skin {
    * 
    * @param {string} color change color of a stick man skin, color name or hex 
    */
-  color(color) {
+  changeColor(color) {
     this.color = color;
+    this.body.torso.fill(this.color)
+    this.body.leftLeg.stroke(this.color)
+    this.body.rightLeg.stroke(this.color)
+    if (!this.headImg) {
+      this.body.head.fill(this.color);
+    } 
+    this.body.leftArm.stroke(this.color);
+    this.body.rightArm.stroke(this.color); 
   }
 
 

@@ -79,12 +79,12 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
       } else if (changes.skinName.currentValue === 'robot') {
         this.skin = this.robot;
       } else if (changes.skinName.currentValue === 'red man') {
-        this.skin = new StickMan('red');
+        this.skin.changeColor('red');
       } else if (changes.skinName.currentValue === 'green man') {
-        this.skin = new StickMan('green');
+        this.skin.changeColor('green');
       }
       if (!this.skin.isInitialized) {
-        console.log('initializing new skin');
+        console.log('initializing new skin...');
         this.skin.init(this.draw)
       } 
 
@@ -95,7 +95,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   
   ngAfterViewInit() {
 
-    
+    console.log(this.skin)
     // SVG drawing tool
     this.draw = this.drawService.init(700);
     
