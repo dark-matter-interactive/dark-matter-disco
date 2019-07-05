@@ -146,7 +146,7 @@ export class AppComponent implements OnInit{
       this.gotStar = false;
     }, 3000)
     // if (this.userStars >= 50) {
-      this.configService.recieveAchievement().subscribe((res) => {
+      this.configService.recieveAchievement().subscribe((res: Array<any>) => {
         console.log(res);
         res.forEach((item) => {
           // console.log(item);
