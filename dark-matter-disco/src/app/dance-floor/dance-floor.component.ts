@@ -107,10 +107,11 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     })
     
     // listen for pose data from friends
-    socketService.on('pose', (username, poses, skinName) => {
-   
-      this.danceBuddies[username].skinName = skinName;
-      this.danceBuddies[username].poseStream.next(poses) //= pose;
+    socketService.on('pose', (username, poses, skinName = 'yellow') => {
+      if (this.danceBuddies[username]) {
+        this.danceBuddies[username].skinName = skinName;
+        this.danceBuddies[username].poseStream.next(poses) //= pose;
+      }
       // console.log(this.danceBuddies[username])
     })
   }

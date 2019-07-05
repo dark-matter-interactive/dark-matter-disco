@@ -10,7 +10,7 @@ export class LiveSocketService {
 
   constructor() { }
 
-  socket: any = io();
+  socket: any = io('ws://localhost:8082');
 
   /**
    * Simply calls socket.emit with a custom event and any number of arguments 

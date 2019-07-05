@@ -51,7 +51,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() poseStream: any;
   @Input() customize: any;
   @Input() draw: any
-  @Input() skinName: string = 'stick man';
+  @Input() skinName: string = 'yellow';
   @Input() username: string;
   
   pose: any;
