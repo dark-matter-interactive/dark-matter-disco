@@ -9,7 +9,7 @@ export class SettingsComponent implements OnInit, OnChanges {
   constructor(private renderer: Renderer2) {}
 
   @Input() changeSkinName: any;
-  
+
 
   color: any;
 
@@ -28,7 +28,7 @@ export class SettingsComponent implements OnInit, OnChanges {
       this.renderer.setStyle(document.body, 'background-image', "url('./assets/farm-fields-minimal-flat-art-work-style_22350-732.jpg')");
     } 
     if(e === "Pineapple") {
-      this.renderer.setStyle(document.body, 'background-image', "url('./assets/Pineapple.png')");
+      this.renderer.setStyle(document.body, 'background-image', "url('./assets/Pineapple.jpg')");
     }
   }
 

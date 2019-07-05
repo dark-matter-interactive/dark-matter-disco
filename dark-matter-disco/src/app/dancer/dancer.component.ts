@@ -51,14 +51,14 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() poseStream: any;
   @Input() customize: any;
   @Input() draw: any
-  @Input() skinName: string = 'stick man';
+  @Input() skinName: string = 'yellow';
   @Input() username: string;
   
   pose: any;
   panda: any = new Panda();
   stickMan: any = new StickMan();
   redStickMan: any = new StickMan('red');
-  robot: any = new Robot('gray', './assets/skins/robot-head.png');
+  robot: any = new Robot('#a4a4a4', './assets/skins/robot-head.png');
   skin: any = this.stickMan;
 
 
@@ -109,7 +109,7 @@ export class DancerComponent implements AfterViewInit, OnInit, OnChanges {
     } 
     if (!this.skin.isInitialized) {
       this.skin.init(this.draw)
-      this.skin.changeColor(this.skinName);
+      // this.skin.changeColor(this.skinName);
     }
     this.skin.show();
      
