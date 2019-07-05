@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
-const { updateStars } = require('../database-postgres/helpers.js');
+const { updateStars, getAchievement, updateAchievement, unlockedAchievements } = require('../database-postgres/helpers.js');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const users = require('./routes/users.js');
@@ -184,6 +184,42 @@ app.put('/user/stars', (req, res, next) => {
     updateStars(req.body.username).then((response) => {
         console.log(response);
         res.sendStatus(201);
+    }).catch(err => console.error(err));
+})
+
+app.get('/achievement', (req, res, next) => {
+    console.log('achievement', req);
+    getAchievement().then((response) => {
+        res.send(response);
+        // res.sendStatus(200);
+    }).catch(err => console.error(err));
+})
+
+app.post('/achievement', (req, res, next) => {
+    console.log(req, 'update achievement');
+    const username = req.body.username;
+    const achievementID = req.body.achievementID;
+    updateAchievement(username, achievementID);
+})
+
+app.get('/userAchievements', (req, res, next) => {
+    console.log(req, 'unlocked achievements');
+    const username = req.query.username;
+    const results = [];
+    console.log(username);
+    unlockedAchievements(username).then((achievement) => {
+        console.log(achievement, 'please hit this');
+        achievement.forEach((element) => {
+            getAchievement().then((achievements) => {
+                achievements.forEach((item) => {
+                    if (item.id === element.AchievementId) {
+                        console.log('server, get achievements', element);
+                        results.push(item.badgeURL)
+                    }
+                    res.send(results);
+                });
+            }).catch(e => console.error(e));
+        });
     }).catch(err => console.error(err));
 })
 

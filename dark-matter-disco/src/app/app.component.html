@@ -33,16 +33,17 @@
       <!-- <div *ngIf="gotStar">
         <img src="../../assets/star6.png" alt="">
       </div> -->
-      <div>
-        <h4 class="text-light">
-          {{ username }} 
-          <img src="../assets/star.png" class="user-star" />
-          {{ userStars }}
-        </h4> 
-        <div>
-          <!-- // add achievements -->
+      <h4 class="text-light">
+        {{ username }} 
+        <img src="../assets/star.png" class="user-star" />
+        {{ userStars }}
+      </h4>
+      <ng-container *ngIf=this.achievements>
+        <div *ngFor="let achievement of achievements ">
+          <img src="{{achievement}}" class="user-achievements">
         </div>
-      </div>
+      </ng-container> 
+      <app-audio [videoID]=videoID></app-audio>
       <app-stars
       [danceBuddies]=danceBuddies
       [username]=username
