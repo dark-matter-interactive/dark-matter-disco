@@ -25,7 +25,7 @@
   <div>
     <h1 class="">Friend Requests</h1>
   
-    <div *ngIf="!allRequests.length">you have no pending friends requests</div>
+    <div *ngIf="!allRequests.length" class="pl-2">you have no pending friends requests</div>
     <div *ngFor="let name of allRequests" class="pl-2">
         {{ name }} wants to be friends <button (click)=acceptFriendRequest(username,name) class="btn btn-success btn-sm"> accept </button> 
     </div>

@@ -54,7 +54,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     const poseNetModel: any = {
       architecture: 'MobileNetV1',
       outputStride: 16,
-      inputResolution: 289,
+      inputResolution: 417,
       multiplier: 0.5
     };
     
@@ -64,7 +64,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
     };
     
     // delay in milliseconds between calls to estimate pose from webcam
-    const delay = 20;
+    const delay = 50;
     
     // webcam
     const webcamVideo = this.webcamVideo;

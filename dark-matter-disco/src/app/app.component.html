@@ -29,26 +29,28 @@
       [skinName]=skinName
     ></app-dance-floor>
 
-    <div id="rightbar" class="d-flex flex-column p-3">
+    <div id="rightbar" class="d-flex flex-column p-3 justify-content-between">
       <!-- <div *ngIf="gotStar">
         <img src="../../assets/star6.png" alt="">
       </div> -->
-      <h4 class="text-light">
-        {{ username }} 
-        <img src="../assets/star.png" class="user-star" />
-        {{ userStars }}
-      </h4> 
       <div>
-        <!-- // add achievements -->
+        <h4 class="text-light">
+          {{ username }} 
+          <img src="../assets/star.png" class="user-star" />
+          {{ userStars }}
+        </h4> 
+        <div>
+          <!-- // add achievements -->
+        </div>
       </div>
-      <app-audio [videoID]=videoID></app-audio>
       <app-stars
       [danceBuddies]=danceBuddies
       [username]=username
       [gotStar]=gotStar
       [recievedStar]=recievedStar
       ></app-stars>
-
+      
+      <app-audio [videoID]=videoID></app-audio>
       <!-- <app-login></app-login> -->
   </div>
 
