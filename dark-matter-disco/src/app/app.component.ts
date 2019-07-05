@@ -109,6 +109,13 @@ export class AppComponent implements OnInit{
     // this.showSuccess();
     
 
+    this.configService.userAchievements(this.username).subscribe((response) => {
+      console.log('get user unlocked achievements', response);
+      this.achievements = response;
+      console.log(this.achievements);
+    })
+
+
   }
   showSuccess() {
     this.toastr.success('Achievement Unlocked!', 'Star Attraction!');
@@ -135,27 +142,24 @@ export class AppComponent implements OnInit{
   recievedStar = () => {
     this.gotStar = true;
     this.userStars++;
-    //show toast when user has 5 stars
-    if(this.userStars === 5) {
-      console.log('hit');
-      this.showSuccess();
-    }
     setTimeout(() => {
       this.gotStar = false;
     }, 3000)
-    if (this.userStars >= 50) {
+    // if (this.userStars >= 50) {
       this.configService.recieveAchievement().subscribe((res) => {
         console.log(res);
         res.forEach((item) => {
           // console.log(item);
-          if (item.id === 1) {
-            // console.log(item);
-            this.achievements.push(item.badgeURL);
+          if (this.userStars === item.starsThreshold) {
+            this.showSuccess();
+            this.achievements.push(item.badgeURL)
+            this.configService.updateAchievements(this.username, item.id).subscribe();
             console.log(this.achievements);
           }
+            // console.log(item);
         })
       })
-    }
+  // }
   }
   
   changeSkinName = (skinName) => {

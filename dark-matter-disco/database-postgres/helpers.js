@@ -87,12 +87,25 @@ const updateStars = (username) => {
 }
 
 // gets Achievement for user
-const getAchievement = (achievementID) => {
-  console.log(achievementID);
+const getAchievement = () => {
+  // console.log(achievementID);
   return Achievements.findAll({}).then(achieve => achieve);
 }
 
+// update Achievement in join table
+const updateAchievement = (username, achievementID) => {
+  return userAchievements.findOrCreate({ where: { UserUsername: username, AchievementId: achievementID, status: 1 } });
+}
 
+// get unlocked achievements
+const unlockedAchievements = (username) => {
+  return userAchievements.findAll({ where: { UserUsername: username, status: 1 } });
+}
+
+
+
+module.exports.updateAchievement = updateAchievement;
+module.exports.unlockedAchievements = unlockedAchievements;
 module.exports.getAchievement = getAchievement;
 module.exports.updateStars = updateStars;
 module.exports.storeFriendRequest = storeFriendRequest;
