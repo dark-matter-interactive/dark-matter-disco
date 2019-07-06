@@ -74,6 +74,30 @@ const userAchievements = sequelize.define('userAchievements', {
 User.belongsToMany(Achievements, { through: userAchievements });
 Achievements.belongsToMany(User, { through: userAchievements });
 
+// // TEMPLATE QUERY TO ADD NEW ACHIEVEMENTS
+Achievements.findOrCreate({
+  where: {
+    name: 'u got moves',
+    badgeURL: '../assets/livestodance.png',
+    starsThreshold: 20,
+  }
+});
+Achievements.findOrCreate({
+  where: {
+    name: 'Dance Master',
+    badgeURL: '../assets/discoball.png',
+    starsThreshold: 100,
+  }
+});
+Achievements.findOrCreate({
+  where: {
+    name: 'Super Star',
+    badgeURL: '../assets/superstar.png',
+    starsThreshold: 200,
+  }
+});
+
+
 // User.sync()
 // Friends.sync()
 // Achievements.sync({ force: true })

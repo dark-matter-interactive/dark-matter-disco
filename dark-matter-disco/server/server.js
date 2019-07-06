@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
 const { updateStars, getAchievement, updateAchievement, unlockedAchievements } = require('../database-postgres/helpers.js');
-const http = require('http').createServer();
+const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const users = require('./routes/users.js');
 const friends = require('./routes/friends.js');
@@ -205,33 +205,21 @@ app.post('/achievement', (req, res, next) => {
 app.get('/userAchievements', (req, res, next) => {
     console.log(req, 'unlocked achievements');
     const username = req.query.username;
-    const results = [];
     console.log(username);
     unlockedAchievements(username).then((achievement) => {
-        console.log(achievement, 'please hit this');
-        achievement.forEach((element) => {
-            getAchievement().then((achievements) => {
-                achievements.forEach((item) => {
-                    if (item.id === element.AchievementId) {
-                        console.log('server, get achievements', element);
-                        results.push(item.badgeURL)
-                    }
-                    res.send(results);
-                });
-            }).catch(e => console.error(e));
-        });
-    }).catch(err => console.error(err));
+        console.log(achievement[0].Achievements, 'please hit this');
+        let result = achievement[0].Achievements.map((achieve) => achieve.badgeURL);
+        console.log(result);
+        res.send(result);
+    }).catch(err => console.error(err))
 })
 
 
-app.listen(port, () => {
+http.listen(port, () => {
     console.log(`listening on ${port}`)
 });
 
 
-//websocket
-http.listen(8082, () => {
-    console.log('websocket server listening on 8082')
-})
+
 
 
