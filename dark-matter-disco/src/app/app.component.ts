@@ -117,8 +117,8 @@ export class AppComponent implements OnInit{
 
 
   }
-  showSuccess() {
-    this.toastr.success('Achievement Unlocked!', 'Star Attraction!');
+  showSuccess(achievementName) {
+    this.toastr.success('Achievement Unlocked!', achievementName);
   }
   acceptInvite() {
     console.log('you accepted invite from', this.hostUsername)
@@ -151,7 +151,7 @@ export class AppComponent implements OnInit{
         res.forEach((item) => {
           // console.log(item);
           if (this.userStars === item.starsThreshold) {
-            this.showSuccess();
+            this.showSuccess(item.name);
             this.achievements.push(item.badgeURL)
             this.configService.updateAchievements(this.username, item.id).subscribe();
             console.log(this.achievements);

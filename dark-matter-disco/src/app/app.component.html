@@ -39,8 +39,10 @@
         {{ userStars }}
       </h4>
       <ng-container *ngIf=this.achievements>
-        <div *ngFor="let achievement of achievements ">
-          <img src="{{achievement}}" class="user-achievements">
+        <div class="d-flex flex-column">
+          <div class="m-2" *ngFor="let achievement of achievements ">
+            <img src="{{achievement}}" class="user-achievements">
+          </div>
         </div>
       </ng-container> 
       <app-audio [videoID]=videoID></app-audio>
