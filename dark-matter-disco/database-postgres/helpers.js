@@ -99,8 +99,27 @@ const updateAchievement = (username, achievementID) => {
 
 // get unlocked achievements
 const unlockedAchievements = (username) => {
-  return userAchievements.findAll({ where: { UserUsername: username, status: 1 } });
+  return User.findAll({
+    where: {
+      username: username
+    },
+    attributes: ['username'],
+    include: [{
+      model: Achievements,
+      attributes: ['id', 'badgeURL', 'starsThreshold'],
+      required: true,
+    }],
+  });
 }
+// const unlockedAchievements = (username) => {
+//   return userAchievements.findAll({ where: { UserUsername: username, status: 1 } }).then((achievements) => {
+//     console.log(achievements, 'helpers');
+//     
+// return achievements.map((achievement) => {
+//       Achievements.findAll({ where: { id: achievement.AchievementId } }).then((result) => result)
+//     })
+//   })
+// }
 
 
 
