@@ -8,12 +8,15 @@ const Sequelize = require('sequelize');
 
 
 const name = process.env.DB_NAME || 'postgres';
-const username = process.env.DB_USERNAME || 'root';
-const password = process.env.DB_PASSWORD || 'root';
+const username = process.env.DB_USERNAME || 'operationspark';
+const password = process.env.DB_PASSWORD || '';
 
 const sequelize = new Sequelize(name,  username, password, {
   host: process.env.DB_HOSTNAME || 'localhost',
   dialect: 'postgres',
+  define: {
+    timestamps: false
+  }
 });
 
 // sequelize.sync({
