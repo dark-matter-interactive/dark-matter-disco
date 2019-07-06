@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const { youTubeSearch } = require('./helpers/youtube-helpers.js');
 const { updateStars, getAchievement, updateAchievement, unlockedAchievements } = require('../database-postgres/helpers.js');
-const http = require('http').createServer();
+const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const users = require('./routes/users.js');
 const friends = require('./routes/friends.js');
@@ -215,14 +215,11 @@ app.get('/userAchievements', (req, res, next) => {
 })
 
 
-app.listen(port, () => {
+http.listen(port, () => {
     console.log(`listening on ${port}`)
 });
 
 
-//websocket
-http.listen(8082, () => {
-    console.log('websocket server listening on 8082')
-})
+
 
 
