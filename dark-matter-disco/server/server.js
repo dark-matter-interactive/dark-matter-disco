@@ -205,22 +205,13 @@ app.post('/achievement', (req, res, next) => {
 app.get('/userAchievements', (req, res, next) => {
     console.log(req, 'unlocked achievements');
     const username = req.query.username;
-    const results = [];
     console.log(username);
     unlockedAchievements(username).then((achievement) => {
-        console.log(achievement, 'please hit this');
-        achievement.forEach((element) => {
-            getAchievement().then((achievements) => {
-                achievements.forEach((item) => {
-                    if (item.id === element.AchievementId) {
-                        console.log('server, get achievements', element);
-                        results.push(item.badgeURL)
-                    }
-                    res.send(results);
-                });
-            }).catch(e => console.error(e));
-        });
-    }).catch(err => console.error(err));
+        console.log(achievement[0].Achievements, 'please hit this');
+        let result = achievement[0].Achievements.map((achieve) => achieve.badgeURL);
+        console.log(result);
+        res.send(result);
+    }).catch(err => console.error(err))
 })
 
 
