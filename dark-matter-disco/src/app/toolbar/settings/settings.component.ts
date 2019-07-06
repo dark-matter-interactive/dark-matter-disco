@@ -32,9 +32,4 @@ export class SettingsComponent implements OnInit, OnChanges {
     }
   }
 
-  // changeColor(color) {
-  //   console.log(color);
-  // }
-
-
 }

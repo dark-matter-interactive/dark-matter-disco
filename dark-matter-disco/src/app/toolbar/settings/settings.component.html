@@ -3,11 +3,6 @@
 <div class="d-flex flex-column justify-content-around h-100">
   <div>
     <h2>Character</h2>
-    <!-- <div class="d-flex flex-row"> -->
-      <!-- <button (click)="changeSkinName('blue')" class="btn btn-primary m-2">blue</button> -->
-      <!-- <button (click)="changeSkinName('green')" class="btn btn-success m-2">green</button> -->
-      <!-- <button (click)="changeSkinName('red')" class="btn btn-danger m-2">red</button> -->
-    <!-- </div> -->
 
     <div>
       <input [(colorPicker)]="color" type="button" value="pick color" [style.background]="color" (colorPickerChange)="changeSkinName(color)" class=" m-2 btn btn-dark"/>

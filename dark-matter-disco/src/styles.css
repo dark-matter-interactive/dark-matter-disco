@@ -26,7 +26,9 @@ body {
 }
 
 .user-achievements {
-  max-width: 3rem;
-  background-color: #28a745;
+  max-width: 2.2rem;
+  background-color: #8987e4;
+  border-radius: 4px;
+  box-shadow: 0 0 2px #0000004f;
 }
 
