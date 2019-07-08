@@ -37,32 +37,17 @@ export class AudioControlsComponent implements OnInit {
   ngOnInit() {
   }
 
-
   // function to search youtube then set videoSrc to embed video and render on screen
   loadAudio() {
     this.audioSubscription = this.configService.searchAudio(this.val).subscribe((response: any) => {
-      // console.log(response, response.items[0].id.videoId);
-      // this.videoID = response.items[0].id.videoId;
-
       // Gets list of videos adds to videos
-      // console.log(response);
       this.videos = response.items;
-      // console.log(this.videos);
-    }, () => {}, () => {
-      // console.log('subscription complete');
     });
-    // console.log(this.videoSrc);    
   }
-
- 
-
 
   // selects song and calls loadSong function with videoID
   selectSong = (videoID) => {
-    // this.videoID = videoID;
     this.changeVideoID(videoID);
-    // this.liveSocketService.emit('changeSong', this.videoID);
-    // this.loadSong(videoID);
   }
 
   // loads song into player, sends to all clients

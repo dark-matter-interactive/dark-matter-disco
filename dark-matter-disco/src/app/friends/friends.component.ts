@@ -20,17 +20,6 @@ export class FriendsComponent implements OnInit {
 
   @Input() changeInvitee: any;
   @Input() username: string;
-  // @Input() danceBuddies: any;
-  // @Input() allUsers: any;
-  // @Input() sendFriendRequest: any;
-  // @Input() allRequests: any;
-  // @Input() showFriendRequests: any;
-  // @Input() showRequests: boolean;
-  // @Input() acceptFriendRequest: any;
-  // @Input() friends: any;
-  // @Input() showFriends: boolean;
-  // @Input() showNewFriends: any;
-  // @Input() findFriends: any;
 
   allUsers: any = [];
   allRequests: any = [];
@@ -50,7 +39,6 @@ export class FriendsComponent implements OnInit {
       .subscribe((requests) => {
         this.showRequests = true;
         this.allRequests = requests
-        // console.log(this.allRequests, 'requests');
       });
     this.friendsService.getFriends(this.username).subscribe((friendsList) => {
       this.friends = friendsList;
@@ -58,15 +46,14 @@ export class FriendsComponent implements OnInit {
     })
     
   }
+
   ngAfterViewInit() {
     this.friendsService.getRequests(this.username)
     .subscribe((requests) =>{
       this.showRequests = true;
       this.allRequests = requests
-      // console.log(this.allRequests, 'requests');
     });
   }
-
 
   
   sendInvite(toUsername) {
@@ -131,7 +118,6 @@ export class FriendsComponent implements OnInit {
         console.log(response, 'response');
         this.allUsers = response;
       })
-    console.log(this.allUsers, 'results');
     // axios.get(`/user/${username}`).then((user) => {
     //   // console.log(user);
     //   if(Array.isArray(user)) {
