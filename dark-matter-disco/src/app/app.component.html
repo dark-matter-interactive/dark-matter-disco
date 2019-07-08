@@ -11,6 +11,7 @@
     </div>
   </div>
   
+  <!-- TOOL BAR -->
   <div class="d-flex justify-content-between">
     <app-toolbar 
       [username]=username 
@@ -20,19 +21,17 @@
       [skinName]=skinName
     ></app-toolbar>
 
-
+    <!-- DANCE FLOOR -->
     <app-dance-floor id="dance-floor"
       [username]=username 
       [hasJoined]=hasJoined  
-      [customize]=customize
       [danceBuddies]=danceBuddies
       [skinName]=skinName
     ></app-dance-floor>
 
+    <!-- RIGHT SIDE BAR -->
     <div id="rightbar" class="d-flex flex-column p-3">
-      <!-- <div *ngIf="gotStar">
-        <img src="../../assets/star6.png" alt="">
-      </div> -->
+  
       <h4 class="text-light">
         {{ username }} 
         <img src="../assets/star.png" class="user-star" />

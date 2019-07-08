@@ -22,7 +22,7 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   // username and friend username
   @Input() username: string;
   @Input() hasJoined: boolean;
-  @Input() customize: any;
+  // @Input() customize: any;
   @Input() danceBuddies: any;
   @Input() skinName: string;
 
@@ -30,20 +30,12 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   // this is the users pose data as an observable
   userPoseStream: any = new Subject();
   friendPoseStream: any = new Subject();
-  // danceBuddies: any = {};
 
-   // backup dancer
-   blueDancer: any = {
-    // shiftX: 400,
-    // shiftY: -80,
-    height: 0.8,
-    color: "blue"
-  };
-
-  //webcame html element ref
+  //webcam html element ref
   @ViewChild('webcamVideo', {static: false}) webcamVideo: any;
   
   ngAfterViewInit() {
+    //give star service access to user pose data
     this.starService.addUserStream(this.username, this.userPoseStream)
     
     /** 
@@ -76,31 +68,25 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
         from(load(poseNetModel)).subscribe((net) => {
           //Repeat calls to estimate pose and emit from poseStream
           setInterval(() => {
-       
             from(net.estimatePoses(webcamVideo.nativeElement, poseNetOptions))
             .subscribe((poses) => {
                 this.userPoseStream.next(poses);
-
             });
           }, delay);
         });
       });  
-    }
-
-    
+    } 
   }
   
   /**
    * Web Socket 
    * for friend pose data
    */
-  ngOnInit() { 
-
+  ngOnInit() {
     const socketService = this.liveSocketService;
 
     // send user pose data to friends
     this.userPoseStream.subscribe((poses) => {
-      // socketService.emit('pose', poses, this.friendUsername);
       if (this.hasJoined) {
         socketService.emit('pose', this.username, poses, this.skinName);
       }
@@ -112,8 +98,6 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
         this.danceBuddies[username].skinName = skinName;
         this.danceBuddies[username].poseStream.next(poses) //= pose;
       }
-      // console.log(this.danceBuddies[username])
     })
   }
-
 }

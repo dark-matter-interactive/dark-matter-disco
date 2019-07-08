@@ -8,12 +8,7 @@ import { LiveSocketService } from 'src/app/live-socket.service';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private liveSocketService: LiveSocketService) {
-    // this.liveSocketService.on('chat', (username, message) => {
-    //   console.log(username, message)
-    //   this.convos.push({ username, message });
-    // }); 
-  }
+  constructor(private liveSocketService: LiveSocketService) {}
 
   @Input() username: string;
   @Input() convos: any = [];
@@ -21,6 +16,7 @@ export class ChatComponent implements OnInit {
 
   message: string = '';
 
+  //Send a message thru web sockets
   sendMsg(message) {
     this.liveSocketService.emit('chat', this.username, message, this.skinName);
     this.convos.push({username: 'me', message, color: this.skinName})
@@ -28,6 +24,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
+    // listener for web socket chat event
     this.liveSocketService.on('chat', (username, message, color) => {
       console.log(username, message)
       this.convos.push({ username, message, color });
