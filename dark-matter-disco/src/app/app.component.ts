@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Subject, Subscription } from 'rxjs';
 import { StarService } from './star.service';
 // import { Subject, Subscription } from 'rxjs';
-import { ConfigService } from './config.service';
+import { httpService } from './config.service';
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit{
   // showFriends: boolean = false;
 
   private starsSubscription: Subscription;
-  constructor (private toastr: ToastrService, private liveSocketService: LiveSocketService, private starService: StarService, private configService: ConfigService) {}
+  constructor (private toastr: ToastrService, private liveSocketService: LiveSocketService, private starService: StarService, private configService: httpService) {}
 
 
   ngOnInit(){
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit{
     this.liveSocketService.emit('user', this.username);
     this.liveSocketService.on('user', () => {
       this.liveSocketService.emit('user', this.username);
-    })
+    });
 
     // listen for invites
     this.liveSocketService.on('invite', (friendUsername: string) => {
@@ -164,6 +164,13 @@ export class AppComponent implements OnInit{
   
   changeSkinName = (skinName) => {
     this.skinName = skinName;
+  }
+
+  changeUser = (username) => {
+    console.log('APP to change user to:', username);
+    const oldName = this.username;
+    this.username = username;
+    this.liveSocketService.emit('change user', oldName, this.username);
   }
 
 

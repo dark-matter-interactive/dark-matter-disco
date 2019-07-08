@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../auth.service';
+import { httpService } from 'src/app/config.service';
+import { any } from '@tensorflow/tfjs-core';
 
 
 @Component({
@@ -11,11 +13,30 @@ export class LoginComponent implements OnInit {
 
   email: string;
   password: string;
+  isLoggedIn: Boolean = false;
+  @Input() changeUser: any;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private httpService: httpService) {}
+  
   googleLogin() {
-    console.log('hit');
-    this.authService.signInWithGoogle();
+    this.authService.signInWithGoogle().then((login: any) => {
+      const { name } = login.additionalUserInfo.profile;
+      console.log('login successful:', name);
+      this.httpService.loginUser(name).subscribe(
+        (response) => {
+          this.isLoggedIn = true;
+          this.changeUser(name);
+        },
+        (err)=>{ console.log(err); }
+      );
+
+      // axios.post('/login', {
+      //   name: ,
+      //   email: result.additionalUserInfo.profile.email,
+      // });
+    }).catch((err) => {
+      console.log(err);
+    });
   }
   // signup() {
   //   this.authService.signup(this.email, this.password);
