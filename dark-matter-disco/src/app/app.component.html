@@ -31,6 +31,7 @@
 
     <!-- RIGHT SIDE BAR -->
     <div id="rightbar" class="d-flex flex-column p-3">
+      <app-login [changeUser]=changeUser ></app-login>
   
       <h4 class="text-light">
         {{ username }} 
@@ -53,7 +54,6 @@
       ></app-stars>
       
       <app-audio [videoID]=videoID></app-audio>
-      <!-- <app-login></app-login> -->
   </div>
 
   

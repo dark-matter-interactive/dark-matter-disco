@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { LiveSocketService } from '../live-socket.service';
-import { ConfigService } from '../config.service';
+import { httpService } from '../config.service';
 import { StarService } from '../star.service';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class StarsComponent implements OnInit {
 
-  constructor(private liveSocketService: LiveSocketService, private configService: ConfigService, private starService: StarService) { }
+  constructor(private liveSocketService: LiveSocketService, private configService: httpService, private starService: StarService) { }
 
   @Input() danceBuddies: any;
   @Input() username: any;

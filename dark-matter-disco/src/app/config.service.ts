@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigService {
+export class httpService {
 
   constructor(private http: HttpClient) { }
 
@@ -45,6 +45,10 @@ export class ConfigService {
     return this.http.get('/userAchievements', { 
       params: { username: username }
       });
+  }
+  
+  loginUser(username) {
+    return this.http.post('/user/login', { username });
   }
 
 }
