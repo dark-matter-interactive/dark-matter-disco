@@ -166,11 +166,12 @@ export class AppComponent implements OnInit{
     this.skinName = skinName;
   }
 
-  changeUser = (username) => {
+  changeUser = (username, stars) => {
     console.log('APP to change user to:', username);
     const oldName = this.username;
     this.username = username;
     this.liveSocketService.emit('change user', oldName, this.username);
+    this.userStars = stars;
   }
 
 

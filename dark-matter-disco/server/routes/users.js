@@ -27,10 +27,10 @@ router.get('/:username', (req, res) => {
 //setup post request for user login
 router.post('/login', (req, res) => {  
   //call helper to save user in db
-  storeOrFindUser(req.body.username).then(()=>{
+  storeOrFindUser(req.body.username).then((user)=>{
     //send 201 status code
     res.status(201);
-    res.send({ message: 'Created'});
+    res.send(user);
   }).catch((err) => {
     console.log(err);
     res.sendStatus(500);

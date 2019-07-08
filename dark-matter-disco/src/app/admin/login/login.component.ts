@@ -24,8 +24,10 @@ export class LoginComponent implements OnInit {
       console.log('login successful:', name);
       this.httpService.loginUser(name).subscribe(
         (response) => {
+          console.log(response)
+          const { username, starsTotal } = response[0];
           this.isLoggedIn = true;
-          this.changeUser(name);
+          this.changeUser(username, starsTotal);
         },
         (err)=>{ console.log(err); }
       );
