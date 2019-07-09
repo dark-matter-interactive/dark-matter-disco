@@ -85,7 +85,7 @@ const updateAchievement = (username, achievementID) => {
   return userAchievements.findOrCreate({ where: { UserUsername: username, AchievementId: achievementID, status: 1 } });
 }
 
-// get unlocked achievements
+// get unlocked achievements using join table userAchievements
 const unlockedAchievements = (username) => {
   return User.findAll({
     where: {
