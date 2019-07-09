@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { httpService } from '../config.service';
@@ -55,7 +55,6 @@ export class AudioComponent implements OnInit, OnChanges {
           'onReady': (e) => {
             if (!this.reframed) {
               this.reframed = true;
-              // reframe(e.target.a);
             }
           }
         }
@@ -84,7 +83,6 @@ export class AudioComponent implements OnInit, OnChanges {
   loadAudio() {
     this.audioSubscription = this.configService.searchAudio(this.val).subscribe((response: any) => {
       this.videoID = response.items[0].id.videoId;
-
       // Gets list of videos adds to videos
       this.videos = response.items;
      
@@ -105,7 +103,6 @@ export class AudioComponent implements OnInit, OnChanges {
         this.liveSocketService.emit('pauseSong');
         break;
       case window['YT'].PlayerState.ENDED:
-      
         break;
       case window['YT'].PlayerState.CUED:
         this.liveSocketService.emit('changeSong', this.videoID);

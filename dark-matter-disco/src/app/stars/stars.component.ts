@@ -22,33 +22,27 @@ export class StarsComponent implements OnInit {
   @Input() recievedStar: any;
 
   ngOnInit() {
-    this.liveSocketService.on('stars', (toUsername, fromUsername) => {
-      console.log(this.danceBuddies);
+    // determining who in the party got the star and displaying it for user to see
+    this.liveSocketService.on('stars', (toUsername) => {
       let users = Object.keys(this.danceBuddies);
       if (users.includes(toUsername)) {
         this.star(toUsername);
-        // this.danceBuddies[toUsername].gotStar = true;
       } else if (this.username === toUsername) {
-        console.log(this.username, '2nd star cond', toUsername);
         this.recievedStar();
-        // this.configService.addingStars(toUsername);
       }
-      // this.configService.addingStars(toUsername);
-      // this.danceBuddies[toUsername].gotStar = true;
-      // this.danceBuddies[toUsername].starCount++;
       this.starService.giveStar(toUsername)
     })
   }
 
+  // function for adding stars, calls star function, bound to addStar button.
   addStar(username) {
-    // let username = Object.keys(username)
-    console.log('clicked adding star to ', username);
     this.star(username);
     this.configService.addingStars(username);
     this.liveSocketService.emit('stars', username, this.username);
     this.starService.giveStar(username)
   }
 
+  // function called when addStar button is pressed, changes danceBuddies properties and increments the count
   star(username) {
     this.danceBuddies[username].gotStar = true;
     this.danceBuddies[username].starCount++;
@@ -56,14 +50,5 @@ export class StarsComponent implements OnInit {
       this.danceBuddies[username].gotStar = false;
     }, 500);
   }
-
-  // lookupStars() {
-  //   let users = Object.keys(this.danceBuddies);
-  //   users.forEach((user) => {
-  //     let stars = this.configService.getStarCount(user);
-  //     this.danceBuddies[user].starCount = stars;
-  //     console.log(this.danceBuddies);
-  //   })
-  // }
 
 }
