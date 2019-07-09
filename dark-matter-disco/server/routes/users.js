@@ -3,8 +3,6 @@ const router = express.Router();
 const { storeOrFindUser, getUserByUsername, getAllUsers } = require('../../database-postgres/helpers.js');
 
 
-
-
 //get online users on user login  
 router.get('/login', (req, res) => {
   //call helper to find user by username
