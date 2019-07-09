@@ -33,8 +33,9 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-//use user routes
+//use user routes for use endpoint
 app.use('/user', users);
+//use friend routes for friend endpoint
 app.use('/friend', friends);
 
 

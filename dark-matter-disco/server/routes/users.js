@@ -5,9 +5,8 @@ const { storeOrFindUser, getUserByUsername, getAllUsers } = require('../../datab
 
 
 
-
+//get online users on user login  
 router.get('/login', (req, res) => {
-  // const username = req.params.username;
   //call helper to find user by username
   getAllUsers().then((users) => {
       //send user as response
@@ -15,6 +14,7 @@ router.get('/login', (req, res) => {
   });
 })
 
+//get username on login username endpoint
 router.get('/:username', (req, res) => {
   const username = req.params.username;
   //call helper to find user by username
@@ -24,7 +24,7 @@ router.get('/:username', (req, res) => {
   });
 })
 
-//setup post request for user login
+//add new logged in user to database
 router.post('/login', (req, res) => {  
   //call helper to save user in db
   storeOrFindUser(req.body.username).then((user)=>{
@@ -32,19 +32,9 @@ router.post('/login', (req, res) => {
     res.status(201);
     res.send(user);
   }).catch((err) => {
-    console.log(err);
     res.sendStatus(500);
   });
 })
-
-// //setup get request for getting user
-// router.get('/user', (req, res) => {
-//     //call helper to find user by username
-//     getUserByUsername('Kalkidan').then((result) => {
-//         //send user as response
-//         res.send(result);
-//     });
-// })
 
 
 
