@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnChanges, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { ConfigService } from '../../config.service';
+import { httpService } from '../../config.service';
 import { Subscription } from 'rxjs';
 import { LiveSocketService } from '../../live-socket.service';
 import { $ } from 'protractor';
@@ -23,7 +23,7 @@ export class AudioControlsComponent implements OnInit {
   @Input() videoID: string; 
   @Input() changeVideoID: any;
   private audioSubscription: Subscription;
-  constructor(private configService: ConfigService, private sanitizer: DomSanitizer, private liveSocketService: LiveSocketService) { }
+  constructor(private configService: httpService, private sanitizer: DomSanitizer, private liveSocketService: LiveSocketService) { }
   
   // create a script tag, iframe api inserted before script
   init() {

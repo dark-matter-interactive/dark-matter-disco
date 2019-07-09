@@ -65,6 +65,12 @@ io.on('connection', (socket) => {
         // send everyone who's online on new connection
         io.emit('who online', Object.keys(socketIds))
     })
+
+    //change username
+    socket.on('change user', (oldName, newName) => {
+        delete socketIds[oldName];
+        socketIds[newName] = socket.id;
+    });
     
 
     // handle who online request
