@@ -176,46 +176,39 @@ io.on('connection', (socket) => {
 // })
 
 
-
+// endpoint to search YouTube using API, uses helper function to make call to YouTube and return results
 app.get('/search/youtube', (req, res, next) => {
-    console.log(req);
     youTubeSearch(req.query.query).then((response) => {
-        console.log(response);
         res.send(response);
     }).catch(err => console.error(err))
 })
 
+// endpoint for /user/stars, put request to update users starCount, uses helper function to query and update db.
 app.put('/user/stars', (req, res, next) => {
-    console.log('updateStars', req);
     updateStars(req.body.username).then((response) => {
-        console.log(response);
         res.sendStatus(201);
     }).catch(err => console.error(err));
 })
 
+// endpoint for /achievement, gets all the achievements from database using helper function.
 app.get('/achievement', (req, res, next) => {
-    console.log('achievement', req);
     getAchievement().then((response) => {
         res.send(response);
-        // res.sendStatus(200);
     }).catch(err => console.error(err));
 })
 
+// endpoint for /achievment, updates the userAchievements join table when user gets new achievement
 app.post('/achievement', (req, res, next) => {
-    console.log(req, 'update achievement');
     const username = req.body.username;
     const achievementID = req.body.achievementID;
     updateAchievement(username, achievementID);
 })
 
+// endpoint for /userAchievements, allows us to search the database for unlocked achievements by current user, calls helper function to query db
 app.get('/userAchievements', (req, res, next) => {
-    console.log(req, 'unlocked achievements');
     const username = req.query.username;
-    console.log(username);
     unlockedAchievements(username).then((achievement) => {
-        console.log(achievement[0].Achievements, 'please hit this');
         let result = achievement[0].Achievements.map((achieve) => achieve.badgeURL);
-        console.log(result);
         res.send(result);
     }).catch(err => console.error(err))
 })

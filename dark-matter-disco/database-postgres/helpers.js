@@ -1,6 +1,7 @@
 //require models
 const { User, Friends, Achievements, userAchievements } = require('./index.js');
 
+// Looks for username, if none are found creates a new entry to save information in database
 const storeOrFindUser = (username) => {
   return User.findOrCreate({ 
     where: { username }, 
@@ -18,15 +19,7 @@ const storeOrFindUser = (username) => {
 const getUserByUsername = (username) => {
   //return sequelize model query that returns found user
     return User.findAll({ where: { username } }).then((foundUser) => {
-    // let user = foundUser[0].dataValues.username
-    // return Friends.findAll({ where: { friendName: user }}).then((results) => {
-    //   if(results.length === 0) {
-    //     return foundUser
-    //   } else {
-    //     return results.map(result => result);
-    //   }
-    // })
-    return foundUser;
+      return foundUser;
   });
 }
 
@@ -53,20 +46,17 @@ const storeFriendRequest = (username, friendName) => {
       status: 0
     }
   }).then((user) => {
-
     return user
   });
 }
 
+// Updates friend status after friend accepts friend request
 const updateStatus = (friendName, username) => {
   Friends.update({status: 1}, { where: {  friendName, username }  })
-
 }
 
+// Adds new friend to database for current user
 const acceptFriendRequest = (username, friendName) => {
-  //update status on accepted friend request
-  // Friends.update({status: 1}, { where: { friendName, username }  })
-  // storeFriendRequest(friendName, username)
   Friends.create({ username, friendName, status: 1});
   Friends.update({status: 1}, { where: { username: friendName, friendName: username}  });
 
@@ -80,7 +70,6 @@ const getFriends = (username) => {
 // updates stars for user
 const updateStars = (username) => {
   return User.findAll({ where: { username } }).then((user) => {
-    console.log(user);
     const currentStars = user[0].starsTotal;
     return User.update({ starsTotal: currentStars + 1 }, { where: { username: user[0].username }})
   })
@@ -88,7 +77,6 @@ const updateStars = (username) => {
 
 // gets Achievement for user
 const getAchievement = () => {
-  // console.log(achievementID);
   return Achievements.findAll({}).then(achieve => achieve);
 }
 
@@ -111,18 +99,9 @@ const unlockedAchievements = (username) => {
     }],
   });
 }
-// const unlockedAchievements = (username) => {
-//   return userAchievements.findAll({ where: { UserUsername: username, status: 1 } }).then((achievements) => {
-//     console.log(achievements, 'helpers');
-//     
-// return achievements.map((achievement) => {
-//       Achievements.findAll({ where: { id: achievement.AchievementId } }).then((result) => result)
-//     })
-//   })
-// }
 
 
-
+// exporting helper functions
 module.exports.updateAchievement = updateAchievement;
 module.exports.unlockedAchievements = unlockedAchievements;
 module.exports.getAchievement = getAchievement;
