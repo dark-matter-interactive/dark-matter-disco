@@ -30,28 +30,30 @@
     ></app-dance-floor>
 
     <!-- RIGHT SIDE BAR -->
-    <div id="rightbar" class="d-flex flex-column p-3">
-      <app-login [changeUser]=changeUser ></app-login>
-  
-      <h4 class="text-light">
-        {{ username }} 
-        <img src="../assets/star.png" class="user-star" />
-        {{ userStars }}
-      </h4>
-      <ng-container *ngIf=this.achievements>
-        <div class="d-flex flex-row">
-          <div class="m-2" *ngFor="let achievement of achievements ">
-            <img src="{{achievement}}" class="user-achievements">
+    <div id="rightbar" class="d-flex flex-column p-3 justify-content-between text-right">
+      <div>
+        <app-login [changeUser]=changeUser ></app-login>
+    
+        <h4 class="text-light">
+          {{ username }} 
+          <img src="../assets/star.png" class="user-star" />
+          {{ userStars }}
+        </h4>
+        <ng-container *ngIf=this.achievements>
+          <div class="d-flex flex-row">
+            <div class="m-2" *ngFor="let achievement of achievements ">
+              <img src="{{achievement}}" class="user-achievements">
+            </div>
           </div>
-        </div>
-      </ng-container> 
-      <app-audio [videoID]=videoID></app-audio>
-      <app-stars
-      [danceBuddies]=danceBuddies
-      [username]=username
-      [gotStar]=gotStar
-      [recievedStar]=recievedStar
-      ></app-stars>
+        </ng-container> 
+      
+        <app-stars
+        [danceBuddies]=danceBuddies
+        [username]=username
+        [gotStar]=gotStar
+        [recievedStar]=recievedStar
+        ></app-stars>
+      </div>
       
       <app-audio [videoID]=videoID></app-audio>
   </div>
