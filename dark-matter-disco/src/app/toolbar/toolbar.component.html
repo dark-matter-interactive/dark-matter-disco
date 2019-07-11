@@ -7,7 +7,7 @@
 
      <div [ngSwitch]="whichToolbar" class="h-100">
         <!-- <ng-template >...</ng-template> -->
-        <app-friends [username]=username [changeInvitee]=changeInvitee *ngSwitchCase="'friends'"
+        <app-friends [hostUsername]=hostUsername [username]=username [changeInvitee]=changeInvitee *ngSwitchCase="'friends'"
         ></app-friends>
         <app-chat [username]=username [skinName]=skinName [convos]=convos *ngSwitchCase="'chat'" ></app-chat>
         <app-audio-controls *ngSwitchCase="'music'" [changeVideoID]=changeVideoID></app-audio-controls>
