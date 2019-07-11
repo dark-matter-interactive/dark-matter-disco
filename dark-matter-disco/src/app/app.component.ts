@@ -94,10 +94,8 @@ export class AppComponent implements OnInit{
 
 
   }
-
-  // Toast for achievement unlock, displays achievement name
-  showSuccess(achievementName) {
-    this.toastr.success('Achievement Unlocked!', achievementName);
+  showSuccess(achievementName, url) {
+    this.toastr.success(`Achievement Unlocked! ${achievementName}`, '<img src=url></img');
   }
 
   // function uses websockets to send information on acceptance of invite, allows user to be added to session
@@ -128,7 +126,7 @@ export class AppComponent implements OnInit{
       this.configService.recieveAchievement().subscribe((res: Array<any>) => {
         res.forEach((item) => {
           if (this.userStars === item.starsThreshold) {
-            this.showSuccess(item.name);
+            this.showSuccess(item.name, item.badgeUrl);
             this.achievements.push(item.badgeURL)
             this.configService.updateAchievements(this.username, item.id).subscribe();
           }

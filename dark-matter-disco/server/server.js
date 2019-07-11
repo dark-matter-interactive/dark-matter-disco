@@ -26,7 +26,6 @@ redirectApp.use((req, res, next) => {
 
 // Middleware
 app.use((req, res, next) => {
-    console.log(req.method, req.url);
     next();
 })
 
@@ -34,6 +33,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/user', users);
+//use friend routes for friend endpoint
 app.use('/friend', friends);
 
 
@@ -47,21 +47,22 @@ app.use(express.static(path.join(__dirname, '../dist/dark-matter-disco')))
 app.get('/search/youtube', (req, res, next) => {
     youTubeSearch(req.query.query).then((response) => {
         res.send(response);
-    }).catch(err => console.error(err))
+    })
 })
 
 // endpoint for /user/stars, put request to update users starCount, uses helper function to query and update db.
 app.put('/user/stars', (req, res, next) => {
     updateStars(req.body.username).then((response) => {
         res.sendStatus(201);
-    }).catch(err => console.error(err));
+    })
 })
 
 // endpoint for /achievement, gets all the achievements from database using helper function.
 app.get('/achievement', (req, res, next) => {
     getAchievement().then((response) => {
         res.send(response);
-    }).catch(err => console.error(err));
+        // res.sendStatus(200);
+    })
 })
 
 // endpoint for /achievment, updates the userAchievements join table when user gets new achievement
@@ -77,7 +78,7 @@ app.get('/userAchievements', (req, res, next) => {
     unlockedAchievements(username).then((achievement) => {
         let result = achievement[0].Achievements.map((achieve) => achieve.badgeURL);
         res.send(result);
-    }).catch(err => console.error(err))
+    })
 })
 
 

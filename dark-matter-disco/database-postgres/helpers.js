@@ -20,7 +20,7 @@ const getUserByUsername = (username) => {
   //return sequelize model query that returns found user
     return User.findAll({ where: { username } }).then((foundUser) => {
       return foundUser;
-  });
+    });
 }
 
 
@@ -57,6 +57,7 @@ const updateStatus = (friendName, username) => {
 
 // Adds new friend to database for current user
 const acceptFriendRequest = (username, friendName) => {
+  //update status on accepted friend request
   Friends.create({ username, friendName, status: 1});
   Friends.update({status: 1}, { where: { username: friendName, friendName: username}  });
 
