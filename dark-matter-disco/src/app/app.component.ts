@@ -1,10 +1,9 @@
-import { Component, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import randomNames from '../assets/random-usernames';
 import { LiveSocketService } from "./live-socket.service";
 import axios from 'axios';
 import { Subject, Subscription } from 'rxjs';
 import { StarService } from './star.service';
-// import { Subject, Subscription } from 'rxjs';
 import { httpService } from './config.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -29,12 +28,6 @@ export class AppComponent implements OnInit{
   stars: number;
   userStars: number;
   achievements: any = [];
-  // allUsers: any = [];
-  // allRequests: any = [];
-  // customize: any = { color: '#f06' };
-  // showRequests: boolean = false;
-  // friends: any = [];
-  // showFriends: boolean = false;
 
   private starsSubscription: Subscription;
   constructor (private toastr: ToastrService, private liveSocketService: LiveSocketService, private starService: StarService, private configService: httpService) {}
@@ -49,7 +42,6 @@ export class AppComponent implements OnInit{
     this.username = randomNames[Math.floor(Math.random() * randomNames.length)];
 
     // Send server username thru socket to link username and socket.id
-    // const socketService = this.liveSocketService;
     this.liveSocketService.emit('user', this.username);
     this.liveSocketService.on('user', () => {
       this.liveSocketService.emit('user', this.username);
@@ -58,13 +50,12 @@ export class AppComponent implements OnInit{
     // listen for invites
     this.liveSocketService.on('invite', (friendUsername: string) => {
       this.hostUsername = friendUsername;
-      console.log('invite from', friendUsername)
     });
 
+    // listen for invite accepted, add user to dance buddies object, get starCount for friend
     this.liveSocketService.on('invite accepted', (friendUsername: string, friendStars) => {
       console.log('invite accepted from', friendUsername, friendStars);
       this.starsSubscription = this.configService.getStarCount(friendUsername).subscribe((res) => {
-        console.log('res', res);
         this.stars = res[0].starsTotal;
         this.danceBuddies[friendUsername] = {watch: true, poseStream: new Subject(), gotStar: false, starCount: this.stars};
       }, (err) => console.error(err), () => {});
@@ -72,21 +63,17 @@ export class AppComponent implements OnInit{
       this.inviteeUsername = null;
     })
 
+    // refers to when more than one additional person in party, adds user to danceBuddies object, gets guests starCount
     this.liveSocketService.on('guests', (guests) => {
-      // console.log('guests', guests);
       let usernames = Object.keys(this.danceBuddies);
       guests.forEach((guest) => {
-        console.log(guest);
         if (!usernames.includes(guest) && this.username !== guest) {
           this.starsSubscription = this.configService.getStarCount(guest).subscribe((res) => {
-            console.log('res', res);
             this.stars = res[0].starsTotal;
-            
             this.danceBuddies[guest] = {watch: true, poseStream: new Subject(), gotStar: false, starCount: this.stars};
           }, (err) => console.error(err), () => {});
           }
         })
-      // console.log(this.danceBuddies);
     })
 
 
@@ -95,23 +82,14 @@ export class AppComponent implements OnInit{
       username: this.username
     })
 
-
-    // //get list of all users
-    // axios.get(`/user/login`).then((users) => {
-    //   this.allUsers = users.data;
-    // });
-
+    // get userStar count from database for signed in user
     axios.get(`/user/${this.username}`).then((response) => {
-      console.log('on init', response);
       this.userStars = response.data[0].starsTotal;
     }).catch(err => console.error(err));
-    // this.showSuccess();
     
-
+    // gets signed in user's unlocked achievements, adds badgeURLs to array that is displayed under username
     this.configService.userAchievements(this.username).subscribe((response) => {
-      console.log('get user unlocked achievements', response);
       this.achievements = response;
-      console.log(this.achievements);
     })
 
 
@@ -119,58 +97,58 @@ export class AppComponent implements OnInit{
   showSuccess(achievementName, url) {
     this.toastr.success(`Achievement Unlocked! ${achievementName}`, `<img src=${url}></img>`);
   }
+
+  // function uses websockets to send information on acceptance of invite, allows user to be added to session
   acceptInvite() {
-    console.log('you accepted invite from', this.hostUsername)
-    // this.danceBuddies[this.hostUsername] = {watch: true, poseStream: new Subject(), gotStar: false};
     this.liveSocketService.emit('accept invite', this.username, this.hostUsername, this.userStars);
     this.hasJoined = true; // this.hostUsername;
-    // this.danceBuddies[this.hostUsername] = new Subject();
     this.hostUsername = null;
   }
 
   changeInvitee = (username) => {
     this.inviteeUsername = username;
-    // console.log(this.friendUsername);
   }
 
+  // changes videoID for YouTube API player
   changeVideoID = (videoID) => {
     this.videoID = videoID;
   }
   
-
+  // Displays star signalling another user gave a star, updates userStar count, checks in any new achievements have been unlocked
+  // checks for achievements by seeing if starThreshold has been hit by userStar
+  // if achievement unlocked shows badgeURL as well as Toast with achievement name
   recievedStar = () => {
     this.gotStar = true;
     this.userStars++;
     setTimeout(() => {
       this.gotStar = false;
     }, 3000)
-    // if (this.userStars >= 50) {
       this.configService.recieveAchievement().subscribe((res: Array<any>) => {
-        console.log(res);
         res.forEach((item) => {
-          // console.log(item);
           if (this.userStars === item.starsThreshold) {
             this.showSuccess(item.name, item.badgeURL);
             this.achievements.push(item.badgeURL)
             this.configService.updateAchievements(this.username, item.id).subscribe();
-            console.log(this.achievements);
           }
-            // console.log(item);
         })
       })
-  // }
   }
   
+  // changes skin for user avatar
   changeSkinName = (skinName) => {
     this.skinName = skinName;
   }
 
+  // changes user on Google login, updates username, stars, and achievements.
   changeUser = (username, stars) => {
-    console.log('APP to change user to:', username);
     const oldName = this.username;
     this.username = username;
     this.liveSocketService.emit('change user', oldName, this.username);
     this.userStars = stars;
+    this.achievements = [];
+    this.configService.userAchievements(this.username).subscribe((response) => {
+      this.achievements = response;
+    })
   }
 
 

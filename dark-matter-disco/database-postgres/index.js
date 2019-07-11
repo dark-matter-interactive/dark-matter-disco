@@ -93,6 +93,13 @@ Achievements.findOrCreate({
     starsThreshold: 200,
   }
 });
+// Achievements.findOrCreate({
+//   where: {
+//     name: 'Space Cowboy',
+//     badgeURL: '../assets/spacecowboy.jpg',
+//     starsThreshold: 200,
+//   }
+// });
 
 
 // User.sync()

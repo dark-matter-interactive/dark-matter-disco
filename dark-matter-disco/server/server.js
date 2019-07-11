@@ -43,18 +43,21 @@ app.use(express.static(path.join(__dirname, '../dist/dark-matter-disco')))
 
 // Can we move below to routes?
 
+// endpoint to search YouTube using API, uses helper function to make call to YouTube and return results
 app.get('/search/youtube', (req, res, next) => {
     youTubeSearch(req.query.query).then((response) => {
         res.send(response);
     })
 })
 
+// endpoint for /user/stars, put request to update users starCount, uses helper function to query and update db.
 app.put('/user/stars', (req, res, next) => {
     updateStars(req.body.username).then((response) => {
         res.sendStatus(201);
     })
 })
 
+// endpoint for /achievement, gets all the achievements from database using helper function.
 app.get('/achievement', (req, res, next) => {
     getAchievement().then((response) => {
         res.send(response);
@@ -62,12 +65,14 @@ app.get('/achievement', (req, res, next) => {
     })
 })
 
+// endpoint for /achievment, updates the userAchievements join table when user gets new achievement
 app.post('/achievement', (req, res, next) => {
     const username = req.body.username;
     const achievementID = req.body.achievementID;
     updateAchievement(username, achievementID);
 })
 
+// endpoint for /userAchievements, allows us to search the database for unlocked achievements by current user, calls helper function to query db
 app.get('/userAchievements', (req, res, next) => {
     const username = req.query.username;
     unlockedAchievements(username).then((achievement) => {

@@ -1,6 +1,7 @@
 //require models
 const { User, Friends, Achievements, userAchievements } = require('./index.js');
 
+// Looks for username, if none are found creates a new entry to save information in database
 const storeOrFindUser = (username) => {
   return User.findOrCreate({ 
     where: { username }, 
@@ -45,16 +46,16 @@ const storeFriendRequest = (username, friendName) => {
       status: 0
     }
   }).then((user) => {
-
     return user
   });
 }
 
+// Updates friend status after friend accepts friend request
 const updateStatus = (friendName, username) => {
   Friends.update({status: 1}, { where: {  friendName, username }  })
-
 }
 
+// Adds new friend to database for current user
 const acceptFriendRequest = (username, friendName) => {
   //update status on accepted friend request
   Friends.create({ username, friendName, status: 1});
@@ -77,7 +78,6 @@ const updateStars = (username) => {
 
 // gets Achievement for user
 const getAchievement = () => {
-  // console.log(achievementID);
   return Achievements.findAll({}).then(achieve => achieve);
 }
 
@@ -86,7 +86,7 @@ const updateAchievement = (username, achievementID) => {
   return userAchievements.findOrCreate({ where: { UserUsername: username, AchievementId: achievementID, status: 1 } });
 }
 
-// get unlocked achievements
+// get unlocked achievements using join table userAchievements
 const unlockedAchievements = (username) => {
   return User.findAll({
     where: {
@@ -100,18 +100,9 @@ const unlockedAchievements = (username) => {
     }],
   });
 }
-// const unlockedAchievements = (username) => {
-//   return userAchievements.findAll({ where: { UserUsername: username, status: 1 } }).then((achievements) => {
-//     console.log(achievements, 'helpers');
-//     
-// return achievements.map((achievement) => {
-//       Achievements.findAll({ where: { id: achievement.AchievementId } }).then((result) => result)
-//     })
-//   })
-// }
 
 
-
+// exporting helper functions
 module.exports.updateAchievement = updateAchievement;
 module.exports.unlockedAchievements = unlockedAchievements;
 module.exports.getAchievement = getAchievement;
