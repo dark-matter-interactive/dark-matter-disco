@@ -98,7 +98,6 @@ export class AudioComponent implements OnInit, OnChanges {
         break;
       case window['YT'].PlayerState.PAUSED:
         if (this.player.getDuration() - this.player.getCurrentTime() !== 0) {
-          // console.log('paused' + ' @ ' + this.cleanTime());
         };
         this.liveSocketService.emit('pauseSong');
         break;
@@ -114,6 +113,7 @@ export class AudioComponent implements OnInit, OnChanges {
     return Math.round(this.player.getCurrentTime())
   };
 
+  // In case of player error
   onPlayerError(event) {
     switch (event.data) {
       case 2:
