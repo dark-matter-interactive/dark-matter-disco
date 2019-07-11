@@ -20,7 +20,6 @@ export class FriendsComponent implements OnInit {
 
   @Input() changeInvitee: any;
   @Input() username: string;
-  @Input() hostUsername: string;
 
   allUsers: any = [];
   allRequests: any = [];
