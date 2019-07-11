@@ -22,7 +22,6 @@ export class DanceFloorComponent implements AfterViewInit, OnInit {
   // username and friend username
   @Input() username: string;
   @Input() hasJoined: boolean;
-  // @Input() customize: any;
   @Input() danceBuddies: any;
   @Input() skinName: string;
 
