@@ -37,6 +37,7 @@ export class ToolbarComponent implements OnInit {
   @Input() username: string;
   @Input() changeSkinName: any;
   @Input() skinName: string;
+  @Input() userStars: number;
 
   isOpen: boolean = false;
   whichToolbar: string = '';

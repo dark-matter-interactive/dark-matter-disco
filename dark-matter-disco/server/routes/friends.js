@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { storeFriendRequest, updateStatus, getPendingRequests, getFriends, acceptFriendRequest } = require('../../database-postgres/helpers.js');
 
-//setup get request for friend invitations
+//setup requests for friend invitations
 router
-  //setup post request for friend invitations
+  //route to add new friend invitations to database
   .post('/request', (req, res) => {
     const username =  req.body.username;
     const friendName = req.body.friendName;
@@ -14,35 +14,27 @@ router
     //send 201 status code
     res.send(201);
   })
+  //route to get a user's list of pending invitations
   .get('/request/:username', (req, res) => {  
-    //get user by username
     const username = req.params.username;
-    //call helper to find user by username
-    // getUserByUsername(username)
-      // .then((user) => {
-        //call helper to find a user's pending friend requests
-        getPendingRequests(username).then((results) => {
-          //send list of pending friend requests to client
-            res.send(results);
-        });
-    // })
+    //call helper to find a user's pending friend requests
+    getPendingRequests(username).then((results) => {
+      //send list of pending friend requests to client
+      res.send(results);
+    });
   })
 
-  //setup post for accepted friends
+  //route for updating status of accepted friend invitations
   .put('/request', (req, res) => {
     // storeFriendRequest(2, 1).then(() => {
     const username =  req.body.username;
     const friendName = req.body.friendName;
+    //call helper to update request status in database
     acceptFriendRequest(username, friendName);
-    // storeFriendRequest(friendName, username);
-    // acceptFriendRequest(friendName, username);
-    // updateStatus(friendName, username);
-    // });
-    // acceptFriendRequest(1, 3);
     res.send(202);
   })
 
-  //route for finding friends
+  //route for finding a user's friends list
   router.get('/:username', (req, res) => {
     const username = req.params.username;
     //call helper to find friends
