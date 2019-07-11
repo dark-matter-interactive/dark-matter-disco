@@ -18,16 +18,8 @@ const storeOrFindUser = (username) => {
 const getUserByUsername = (username) => {
   //return sequelize model query that returns found user
     return User.findAll({ where: { username } }).then((foundUser) => {
-    // let user = foundUser[0].dataValues.username
-    // return Friends.findAll({ where: { friendName: user }}).then((results) => {
-    //   if(results.length === 0) {
-    //     return foundUser
-    //   } else {
-    //     return results.map(result => result);
-    //   }
-    // })
-    return foundUser;
-  });
+      return foundUser;
+    });
 }
 
 
@@ -65,8 +57,6 @@ const updateStatus = (friendName, username) => {
 
 const acceptFriendRequest = (username, friendName) => {
   //update status on accepted friend request
-  // Friends.update({status: 1}, { where: { friendName, username }  })
-  // storeFriendRequest(friendName, username)
   Friends.create({ username, friendName, status: 1});
   Friends.update({status: 1}, { where: { username: friendName, friendName: username}  });
 
@@ -80,7 +70,6 @@ const getFriends = (username) => {
 // updates stars for user
 const updateStars = (username) => {
   return User.findAll({ where: { username } }).then((user) => {
-    console.log(user);
     const currentStars = user[0].starsTotal;
     return User.update({ starsTotal: currentStars + 1 }, { where: { username: user[0].username }})
   })
