@@ -2,7 +2,9 @@
 
 <div *ngFor="let chat of convos" [style.color]="chat.color">{{chat.username}}: {{chat.message}} </div>
 
-<div class="d-flex">
-  <textarea [(ngModel)]="message"></textarea>
-  <button (click)="sendMsg(message)" class="btn btn-success">send</button>
+<div >
+  <textarea class="w-100" [(ngModel)]="message"></textarea >
 </div>
+<div class="text-right">
+  <button  (click)="sendMsg(message)" class="btn btn-success">send</button>
+</div>  

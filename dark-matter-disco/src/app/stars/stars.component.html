@@ -1,11 +1,14 @@
-<div *ngFor="let username of danceBuddies | keyvalue" name="username.key" class="d-flex flex-row">
-  <div>
-    <button type="button" (click)="addStar(username.key)" class="btn btn-success btn-sm m-1">
+<div class="text-right">
+  <div *ngFor="let username of danceBuddies | keyvalue" name="username.key" 
+  class="d-flex flex-row justify-content-end align-items-center">
+    <div *ngIf="username.value.gotStar">
+        <img src="../assets/star.png" class="user-star" />
+    </div>
+    <button type="button" (click)="addStar(username.key)" class="btn btn-success btn-sm m-2">
       star
     </button> 
     {{ username.key }} {{ username.value.starCount }}
-  </div>
-  <div *ngIf="username.value.gotStar">
-      <img src="../assets/star.png" class="user-star" />
+  
+    
   </div>
 </div>
