@@ -14,6 +14,9 @@ const password = process.env.DB_PASSWORD || 'root';
 const sequelize = new Sequelize(name,  username, password, {
   host: process.env.DB_HOSTNAME || 'localhost',
   dialect: 'postgres',
+  define: {
+    timestamps: false
+  }
 });
 
 // sequelize.sync({

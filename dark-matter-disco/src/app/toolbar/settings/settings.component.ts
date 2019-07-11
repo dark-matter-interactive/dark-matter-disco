@@ -9,6 +9,7 @@ export class SettingsComponent implements OnInit, OnChanges {
   constructor(private renderer: Renderer2) {}
 
   @Input() changeSkinName: any;
+  @Input() userStars: number;
 
 
   color: any;
