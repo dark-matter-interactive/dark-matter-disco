@@ -21,23 +21,12 @@ export class StarService {
   addUserStream(username, userStream) {
     this.username = username;
     this.userStream = userStream;
-
-    // const subscription = this.userStream.subscribe((poses) => {
-    //   let noseX = poses[0].keypoints[0].position.x
-    //   let noseY = poses[0].keypoints[0].position.y
-    //   // console.log(nose);
-    //   const star = this.draw.image('../assets/star6.png').cx(noseX).cy(noseY).opacity(0);
-    //   star.animate(500).opacity(1).after(() => {
-    //     star.animate(1000).opacity(0);
-    //   })
-    // });
-    // subscription.unsubscribe();
   }
   
   giveStar(username){
     this.draw = this.drawService.getDraw();
-    // console.log("SERVICE:star for....", username)
-    const star = this.draw.image('../assets/star.png').cx(-300).cy(-300).opacity(0).size(50, 50);
+
+    const star = this.draw.image('../assets/star2.png').cx(-300).cy(-300).opacity(0).size(50, 50);
    
     if (username === this.username) {
       const subscription = this.userStream.subscribe((poses) => {

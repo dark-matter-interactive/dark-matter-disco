@@ -2,7 +2,7 @@
   <div *ngFor="let username of danceBuddies | keyvalue" name="username.key" 
   class="d-flex flex-row justify-content-end align-items-center">
     <div *ngIf="username.value.gotStar">
-        <img src="../assets/star.png" class="user-star" />
+        <img src="../assets/star2.png" class="user-star" />
     </div>
     <button type="button" (click)="addStar(username.key)" class="btn btn-success btn-sm m-2">
       star
