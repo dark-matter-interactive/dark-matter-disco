@@ -1,5 +1,5 @@
 export default [
-  'Perposterous Panda',
+  'Preposterous Panda',
   'Reluctant Rhino',
   'Churlish Chicken',
   'Patient Penguin',
@@ -17,7 +17,7 @@ export default [
   'Laughable Lark',
   'Nefarious Nightingale',
   'Outrageous Owl',
-  'Wondering Whale',
+  'Wandering Whale',
   'Zealous Zebra',
   'Aprehensive Anaconda',
 ];

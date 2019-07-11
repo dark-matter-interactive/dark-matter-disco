@@ -25,13 +25,17 @@ export class StarService {
   
   giveStar(username){
     this.draw = this.drawService.getDraw();
-
-    const star = this.draw.image('../assets/star2.png').cx(-300).cy(-300).opacity(0).size(50, 50);
+    const rando = Math.floor(Math.random() * 6);
+    const randoSize = Math.floor(Math.random() * 100 + 40)
+    const randoShiftX = Math.floor((Math.random() - 0.5) * 140);
+    const randoShiftY = Math.floor((Math.random() - 0.5) * 140);
+    const star = this.draw.image(`../assets/star${rando}.png`)
+    star.cx(-300).cy(-300).opacity(0).size(randoSize, randoSize);
    
     if (username === this.username) {
       const subscription = this.userStream.subscribe((poses) => {
-        let noseX = poses[0].keypoints[0].position.x
-        let noseY = poses[0].keypoints[0].position.y
+        let noseX = poses[0].keypoints[0].position.x + randoShiftX;
+        let noseY = poses[0].keypoints[0].position.y + randoShiftY;
 
         star.cx(noseX).cy(noseY); 
         star.animate(300).opacity(1).after(() => {
@@ -41,8 +45,8 @@ export class StarService {
       }, () => {});
     } else {
       const subscription = this.danceBuddies[username].poseStream.subscribe((poses) => {
-        let noseX = poses[0].keypoints[0].position.x
-        let noseY = poses[0].keypoints[0].position.y
+        let noseX = poses[0].keypoints[0].position.x + randoShiftX;
+        let noseY = poses[0].keypoints[0].position.y + randoShiftY;
 
         star.cx(noseX).cy(noseY); 
         star.animate(300).opacity(1).after(() => {
