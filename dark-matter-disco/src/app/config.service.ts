@@ -9,8 +9,8 @@ export class httpService {
 
   constructor(private http: HttpClient) { }
 
+  // searches YouTube for video/music based on user input
   searchAudio(val: string) {
-    console.log(val, 'Service');
     return this.http.get('/search/youtube', {
       params: { query: val }
     })
@@ -18,15 +18,12 @@ export class httpService {
 
   // adds to users star count
   addingStars(username: string) {
-    console.log('adding stars', username)
     return this.http.put('/user/stars', { username }).subscribe((response) => {
-      console.log('response', response);
     }, (err) => {console.error(err)})
   }
 
   // gets users star count
   getStarCount(username: string) {
-    console.log('get stars', username);
     return this.http.get(`/user/${username}`)
   }
 
@@ -35,7 +32,7 @@ export class httpService {
     return this.http.get('/achievement');
   }
 
-  // updates userAchievements join table
+  // updates userAchievements join table, using User's username and the Achievement id
   updateAchievements(username, achievementID) {
     return this.http.post('/achievement', { username, achievementID});
   }
@@ -47,6 +44,7 @@ export class httpService {
       });
   }
   
+  // adds new user to database if does not exist, else gets the Users information
   loginUser(username) {
     return this.http.post('/user/login', { username });
   }
