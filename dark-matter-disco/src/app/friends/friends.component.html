@@ -8,7 +8,7 @@
         <div *ngIf="allUsers?.length > 0">
             <div *ngFor="let user of allUsers" class="p-2">
                 {{ user.username }} 
-                <button (click)=sendFriendRequest(username,user.username) class="btn btn-success btn-sm mt-2"> friend </button> 
+                <button *ngIf="username !== user.username" (click)=sendFriendRequest(username,user.username) class="btn btn-success btn-sm mt-2"> friend </button> 
             </div>
         </div>
     </div>
