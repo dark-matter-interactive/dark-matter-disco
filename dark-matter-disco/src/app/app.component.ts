@@ -95,7 +95,7 @@ export class AppComponent implements OnInit{
 
   }
   showSuccess(achievementName, url) {
-    this.toastr.success(`Achievement Unlocked! ${achievementName}`, `<img src=${url}></img>`);
+    this.toastr.success(`Achievement Unlocked!`, `${achievementName}`);
   }
 
   // function uses websockets to send information on acceptance of invite, allows user to be added to session

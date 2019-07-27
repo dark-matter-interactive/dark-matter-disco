@@ -31,6 +31,9 @@ export class SettingsComponent implements OnInit, OnChanges {
     if(e === "Pineapple") {
       this.renderer.setStyle(document.body, 'background-image', "url('./assets/Pineapple.jpg')");
     }
+    if (e === "Beach") {
+      this.renderer.setStyle(document.body, 'background-image', "url('./assets/Beach.jpeg')");
+    }
   }
 
 }

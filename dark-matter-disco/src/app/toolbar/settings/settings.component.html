@@ -23,8 +23,15 @@
     <h2>Background</h2>
     <div class="d-flex flex-column ">
       <button (click)=changeBackground($event.target.outerText) class="btn btn-success space m-2 background-thumb">Space</button>
-      <button (click)=changeBackground($event.target.outerText) class="btn btn-success ranch m-2 background-thumb" [disabled]="userStars < 50">Ranch</button>
-      <button (click)=changeBackground($event.target.outerText) class="btn btn-success pineapple m-2 background-thumb" [disabled]="userStars < 150">Pineapple</button>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success ranch m-2 background-thumb">Ranch</button>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success pineapple m-2 background-thumb" [disabled]="userStars < 50">
+        <img src="../../../assets/lock.png" class="skin-button" [hidden]="userStars >= 50"/>
+        <div [hidden]="userStars < 50">Pineapple</div>
+      </button>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success beach m-2 background-thumb" [disabled]="userStars < 100">
+        <img src="../../../assets/lock.png" class="skin-button" [hidden]="userStars >= 100"/>
+        <div [hidden]="userStars < 100">Beach</div>
+      </button>
     </div>
   </div>
 
