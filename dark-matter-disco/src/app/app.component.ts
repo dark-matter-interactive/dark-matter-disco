@@ -80,13 +80,13 @@ export class AppComponent implements OnInit{
     //store logged in user to database
     axios.post('/user/login', {
       username: this.username
+    }).then(() => {
+      // get userStar count from database for signed in user
+      axios.get(`/user/${this.username}`).then((response) => {
+        this.userStars = response.data[0].starsTotal;
+      }).catch(err => console.error(err));
     })
 
-    // get userStar count from database for signed in user
-    axios.get(`/user/${this.username}`).then((response) => {
-      this.userStars = response.data[0].starsTotal;
-    }).catch(err => console.error(err));
-    
     // gets signed in user's unlocked achievements, adds badgeURLs to array that is displayed under username
     this.configService.userAchievements(this.username).subscribe((response) => {
       this.achievements = response;
