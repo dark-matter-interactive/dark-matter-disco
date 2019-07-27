@@ -25,7 +25,10 @@
       <button (click)=changeBackground($event.target.outerText) class="btn btn-success space m-2 background-thumb">Space</button>
       <button (click)=changeBackground($event.target.outerText) class="btn btn-success ranch m-2 background-thumb">Ranch</button>
       <button (click)=changeBackground($event.target.outerText) class="btn btn-success pineapple m-2 background-thumb" [disabled]="userStars < 50">Pineapple</button>
-      <button (click)=changeBackground($event.target.outerText) class="btn btn-success beach m-2 background-thumb" [disabled]="userStars < 100">Beach</button>
+      <button (click)=changeBackground($event.target.outerText) class="btn btn-success beach m-2 background-thumb" [disabled]="userStars < 100">
+        <img src="../../../assets/lock-icon.jpg" class="skin-button" />
+        Beach
+      </button>
     </div>
   </div>
 

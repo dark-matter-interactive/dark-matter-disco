@@ -23,4 +23,5 @@
 
 .beach {
   background-image: url('../../../assets/Beach.jpeg');
+  position: relative;
 }
