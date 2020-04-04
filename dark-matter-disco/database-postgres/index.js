@@ -7,13 +7,17 @@ const Sequelize = require('sequelize');
 // });
 
 
-const name = process.env.DB_NAME || 'postgres';
-const username = process.env.DB_USERNAME || 'root';
-const password = process.env.DB_PASSWORD || 'root';
+// const name = process.env.DB_NAME || 'postgres';
+// const username = process.env.DB_USERNAME || 'root';
+// const password = process.env.DB_PASSWORD || 'root';
 
-const sequelize = new Sequelize(name,  username, password, {
-  host: process.env.DB_HOSTNAME || 'localhost',
-  dialect: 'postgres',
+const name = 'postgres';
+const username = 'root';
+const password = '';
+// const sequelize = new Sequelize("postgres://root:root@localhost:5432/postgres")
+const sequelize = new Sequelize(name, username, password, {
+  host: 'localhost',
+  dialect: 'mysql',
 });
 
 // sequelize.sync({
@@ -29,6 +33,7 @@ sequelize
     console.log('Connection has been established successfully.');
   })
   .catch(err => {
+    console.log(name, 'db name');
     console.error('Unable to connect to the database:', err);
   });
 
